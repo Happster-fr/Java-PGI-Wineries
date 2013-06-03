@@ -30,12 +30,12 @@ public class gestIntervManagedBean {
     private InitialContext _ic;
     private DataModel _listIntervention;
     private Map<String, Integer> _mapClient;
+    private Map<String, Integer> _mapPiece;//les remplir a chaque ajout/modif qui en ont besoin pour les avoir à jour
     @EJB
-    private gestionInterventionSessionBeanRemote _gestIntervBean;
+    private gestionInterventionSessionBeanRemote _gestIntervBean; //faire une classe regroupant les beans remotes qui nous fait un singleton pour chacun ?
     private Intervention _detailInterv;
     private List<ListePiece> _listPieceInterv;
-    private Intervention _newIntervention;    
-    private Map<String, Integer> _mapPiece;
+    private Intervention _newIntervention;
 
     /**
      * Creates a new instance of gestIntervManagedBean
@@ -49,6 +49,11 @@ public class gestIntervManagedBean {
         }
     }
 
+    /**
+     * Get the list of all intervention in database
+     *
+     * @return DataModel containing all interventions
+     */
     public DataModel getListAllIntervention() {
         if (_listIntervention == null) {
             _listIntervention = new ListDataModel();
@@ -57,18 +62,36 @@ public class gestIntervManagedBean {
 
         return _listIntervention;
     }
-    
+
+    /**
+     * instanciate new intervention and redirect to creation page
+     *
+     * @return String corresponding to the name of the page we go
+     */
     public String addIntervention() {
         _newIntervention = new Intervention();
         return "addIntervention";
     }
-    
+
+    /**
+     * Creation and record in DB of intervention after click on the create
+     * button and redirect to intervention list
+     *
+     * @return String corresponding of the name of the page we redirect after
+     * action
+     */
     public String createIntervention() {
         _gestIntervBean.createIntervention(_newIntervention);
         _listIntervention.setWrappedData(_gestIntervBean.getAllIntervention());
         return "listIntervention";
     }
-    
+
+    /**
+     * called after clic on detail button in the list intervention table to get
+     * all intervention's details
+     *
+     * @return String corresponding of the name of the page we go
+     */
     public String detailsIntervention() {
         _detailInterv = (Intervention) _listIntervention.getRowData();
         _listPieceInterv = _gestIntervBean.getListPieceIntervention(_detailInterv);
@@ -122,6 +145,4 @@ public class gestIntervManagedBean {
     public void setNewIntervention(Intervention _newIntervention) {
         this._newIntervention = _newIntervention;
     }
-    
-    
 }
