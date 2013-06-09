@@ -5,15 +5,56 @@
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Accueil gestion de caves</title>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
+        <h:outputStylesheet name="css/style.css"/>
     </h:head>
     <h:body>
-        Bienvenue sur le site de la cave
+        <div id="logo" class="container">
+            <h1><a href="#">Site de la cave</a></h1>
+        </div>
 
-        <h:panelGrid columns="2" cellpadding="10">
-            <h:link value="Voir les pièces" outcome="Piece/listPiece" />
-            <h:link value="Interventions" outcome="Intervention/listIntervention" />
-        </h:panelGrid>
+        <div id="menu-wrapper">
+            <div id="menu" class="container">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:link value="Voir les pièces" outcome="Piece/listPiece" />
+                    <h:link value="Interventions" outcome="Intervention/listIntervention" />
+                </h:panelGrid>
+            </div>
+        </div>
+        <div id="page" class="container">
+            <!--<div id="box1">
+                <h2 class="title"><a href="#">Welcome to Doubtless</a></h2>
+                <div style="clear: both;">&nbsp;</div>
+                <div class="entry">
+                    <p>This is <strong>Doubtless </strong>, a free, fully standards-compliant CSS template designed by <a href="http://www.freecsstemplates.org/" rel="nofollow">FreeCSSTemplates.org</a>.         This free template is released under a <a href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attributions 3.0</a> license, so you are pretty much free to do whatever you want with it (even use it commercially) provided you keep the links in the footer intact. Aside from that, have fun with it :) </p>
+                    <p>Sed lacus. Donec lectus. Nullam pretium nibh ut turpis. Nam bibendum. In nulla tortor, elementum ipsum. Proin imperdiet est. Phasellus dapibus semper urna. Pellentesque ornare, orci in felis. Donec ut ante. In id eros. Suspendisse lacus, cursus egestas at sem.</p>
+                </div>
+            </div>
+            <div id="box2">
+                <h2>Pellentesque ornare</h2>
+                <ul class="style1">
+                    <li class="first"><a href="#">Aliquam libero</a></li>
+                    <li><a href="#">Consectetuer adipiscing elit</a></li>
+                    <li><a href="#">Metus aliquam pellentesque</a></li>
+                    <li><a href="#">Suspendisse iaculis mauris</a></li>
+                    <li><a href="#">Urnanet non molestie semper</a></li>
+                    <li><a href="#">Proin gravida orci porttitor</a></li>
+                </ul>
+            </div>
+            <div id="box3">
+                <h2>Phasellus dapibus</h2>
+                <ul class="style1">
+                    <li class="first"><a href="#">Aliquam libero</a></li>
+                    <li><a href="#">Consectetuer adipiscing elit</a></li>
+                    <li><a href="#">Metus aliquam pellentesque</a></li>
+                    <li><a href="#">Suspendisse iaculis mauris</a></li>
+                    <li><a href="#">Urnanet non molestie semper</a></li>
+                    <li><a href="#">Proin gravida orci porttitor</a></li>
+                </ul>
+            </div>-->
+        </div>
+        <div id="footer" class="container">
+            <p>Copyright (c) 2013 Cave.com. All rights reserved. </p>
+        </div>
     </h:body>
 
 </html>

@@ -5,44 +5,55 @@
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Liste des pièces</title>
-        <h:outputStylesheet name="css/jsfcrud.css"/>
+        <h:outputStylesheet name="css/style.css"/>
     </h:head>
     <h:body>
-        <h:panelGrid columns="2" cellpadding="10">
-            <h:link value="Accueil" outcome="/index" />
-            <h:link value="Interventions" outcome="/Intervention/listIntervention" />
-        </h:panelGrid>
-        <f:view>
-            <h:form>
-                <h:dataTable border="0" rules="all" value="#{gestPieceManagedBean.listPiece}"
-                             var="p">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Nom pièce" />
-                        </f:facet>
-                        <h:outputText value="#{p.nom}" />
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Prix" />
-                        </f:facet>
-                        <h:outputText value="#{p.prix}" />
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Quantité en stock" />
-                        </f:facet>
-                        <h:outputText value="#{p.qteStock}" />
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Action" />
-                        </f:facet>
-                        <h:commandButton value="Modifier" action="#{gestPieceManagedBean.editPiece}" />
-                    </h:column>
-                </h:dataTable>
-            </h:form>
-        </f:view>
+        <div id="logo" class="container">
+            <h1><a href="#">Site de la cave</a></h1>
+        </div>
+        <div id="menu-wrapper">
+            <div id="menu" class="container">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:link value="Accueil" outcome="/index" />
+                    <h:link value="Interventions" outcome="/Intervention/listIntervention" />
+                </h:panelGrid>
+            </div>
+        </div>
+        <div id="page" class="container">
+            <f:view>
+
+                <h:form>
+                    <h:dataTable border="0" rules="all" value="#{gestPieceManagedBean.listPiece}"
+                                 var="p">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nom pièce" />
+                            </f:facet>
+                            <h:outputText value="#{p.nom}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Prix" />
+                            </f:facet>
+                            <h:outputText value="#{p.prix}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Quantité en stock" />
+                            </f:facet>
+                            <h:outputText value="#{p.qteStock}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Action" />
+                            </f:facet>
+                            <h:commandButton value="Modifier" action="#{gestPieceManagedBean.editPiece}" />
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+
+            </f:view>
+        </div>
     </h:body>
 </html>
 

@@ -4,46 +4,56 @@
       xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
         <title>Détails interventions</title>
+        <h:outputStylesheet name="css/style.css"/>
     </h:head>
     <h:body>
-        <h:panelGrid columns="2" cellpadding="10">
-            <h:link value="Accueil" outcome="/index" />
-            <h:link value="Liste pièces" outcome="/Piece/listPiece" />
-            <h:link value="Liste Intervention" outcome="listIntervention" />            
-        </h:panelGrid>
+        <div id="logo" class="container">
+            <h1><a href="#">Site de la cave</a></h1>
+        </div>
+        <div id="menu-wrapper">
+            <div id="menu" class="container">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:link value="Accueil" outcome="/index" />
+                    <h:link value="Liste pièces" outcome="/Piece/listPiece" />
+                    <h:link value="Liste Intervention" outcome="listIntervention" />            
+                </h:panelGrid>
+            </div>
+        </div>
 
-        <h:panelGrid border="0" columns="3" cellpadding="5">
-            <h:outputText value="N° intervention" />
-            <h:outputText id="interventionId"
-                         value="#{gestIntervManagedBean.detailInterv.interventionId}" />
-            
-            <h:outputText value="Etat" />
-            <h:outputText id="interventionId"
-                         value="#{gestIntervManagedBean.detailInterv.etat}" />
-            
-            <h:outputText value="Nature" />
-            <h:outputText id="interventionId"
-                         value="#{gestIntervManagedBean.detailInterv.nature}" />
-            
-            <h:outputText value="Date" />
-            <h:outputText id="interventionId"
-                         value="#{gestIntervManagedBean.detailInterv.date}" />
-            
-            <h:outputText value="Type" />
-            <h:outputText id="interventionId"
-                         value="#{gestIntervManagedBean.detailInterv.type}" />
-            
-            <h:outputText value="Client" />
-            <h:outputText id="interventionId"
-                         value="#{gestIntervManagedBean.detailInterv.fkClientId}" />
-            
-            <h:outputText value="Technicien" />
-            <h:outputText id="interventionId"
-                         value="#{gestIntervManagedBean.detailInterv.fkTechnicienId}" />
-        </h:panelGrid>
-        
-        <!-- rajouter liste des pièces utilisées pour l'intervention + un bouton d'ajout qui renvoie vers une page
-        ou apparition d'un champ de saisie -->
+        <div id="page" class="container">
+            <h:panelGrid border="0" columns="3" cellpadding="5">
+                <h:outputText value="N° intervention" />
+                <h:outputText id="interventionId"
+                              value="#{gestIntervManagedBean.detailInterv.interventionId}" />
+
+                <h:outputText value="Etat" />
+                <h:outputText id="interventionId"
+                              value="#{gestIntervManagedBean.detailInterv.etat}" />
+
+                <h:outputText value="Nature" />
+                <h:outputText id="interventionId"
+                              value="#{gestIntervManagedBean.detailInterv.nature}" />
+
+                <h:outputText value="Date" />
+                <h:outputText id="interventionId"
+                              value="#{gestIntervManagedBean.detailInterv.date}" />
+
+                <h:outputText value="Type" />
+                <h:outputText id="interventionId"
+                              value="#{gestIntervManagedBean.detailInterv.type}" />
+
+                <h:outputText value="Client" />
+                <h:outputText id="interventionId"
+                              value="#{gestIntervManagedBean.detailInterv.fkClientId}" />
+
+                <h:outputText value="Technicien" />
+                <h:outputText id="interventionId"
+                              value="#{gestIntervManagedBean.detailInterv.fkTechnicienId}" />
+            </h:panelGrid>
+
+            <!-- rajouter liste des pièces utilisées pour l'intervention + un bouton d'ajout qui renvoie vers une page
+            ou apparition d'un champ de saisie -->
+        </div>
     </h:body>
 </html>
 

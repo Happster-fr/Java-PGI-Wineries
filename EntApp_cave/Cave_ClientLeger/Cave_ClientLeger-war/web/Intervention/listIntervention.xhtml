@@ -5,60 +5,72 @@
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Interventions</title>
+        <h:outputStylesheet name="css/style.css"/>
     </h:head>
     <h:body>
-        <h:panelGrid columns="2" cellpadding="10">
-            <h:link value="Accueil" outcome="/index" />
-            <h:link value="Pièces" outcome="/Piece/listPiece" />
-        </h:panelGrid>
-        <h:panelGrid columns="2" cellpadding="10">
-            <h:form>
-                <h:commandButton value="Ajouter" action="#{gestIntervManagedBean.addIntervention}" />
-            </h:form>
-        </h:panelGrid>
-        <f:view>
-            <h:form>
-                <h:dataTable border="0" rules="all" value="#{gestIntervManagedBean.listAllIntervention}"
-                             var="i">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="N° intervention" />
-                        </f:facet>
-                        <h:outputText value="#{i.interventionId}" />
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Client" />
-                        </f:facet>
-                        <h:outputText value="#{i.fkClientId}" />
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Type intervention" />
-                        </f:facet>
-                        <h:outputText value="#{i.type}" />
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Date" />
-                        </f:facet>
-                        <h:outputText value="#{i.date}" />
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Etat" />
-                        </f:facet>
-                        <h:outputText value="#{i.etat}" />
-                    </h:column>                    
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Action" />
-                        </f:facet>
-                        <h:commandButton value="Details" action="#{gestPIntervManagedBean.detailsIntervention}" />
-                    </h:column>
-                </h:dataTable>
-            </h:form>
-        </f:view>
+        <div id="logo" class="container">
+            <h1><a href="#">Site de la cave</a></h1>
+        </div>
+        <div id="menu-wrapper">
+            <div id="menu" class="container">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:link value="Accueil" outcome="/index" />
+                    <h:link value="Pièces" outcome="/Piece/listPiece" />
+                </h:panelGrid>
+            </div>
+        </div>
+        <div id="page" class="container">
+            <h:panelGrid columns="2" cellpadding="10">
+                <h:form>
+                    <h:commandButton value="Ajouter" action="#{gestIntervManagedBean.addIntervention}" />
+                </h:form>
+            </h:panelGrid>
+            <f:view>
+
+                <h:form>
+                    <h:dataTable border="0" rules="all" value="#{gestIntervManagedBean.listAllIntervention}"
+                                 var="i">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="N° intervention" />
+                            </f:facet>
+                            <h:outputText value="#{i.interventionId}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Client" />
+                            </f:facet>
+                            <h:outputText value="#{i.fkClientId}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Type intervention" />
+                            </f:facet>
+                            <h:outputText value="#{i.type}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date" />
+                            </f:facet>
+                            <h:outputText value="#{i.date}" />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Etat" />
+                            </f:facet>
+                            <h:outputText value="#{i.etat}" />
+                        </h:column>                    
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Action" />
+                            </f:facet>
+                            <h:commandButton value="Details" action="#{gestPIntervManagedBean.detailsIntervention}" />
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+
+            </f:view>
+        </div>
     </h:body>
 </html>
 

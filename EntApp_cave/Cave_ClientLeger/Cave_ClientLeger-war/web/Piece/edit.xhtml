@@ -4,34 +4,44 @@
       xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
         <title>Edition de pièce</title>
+        <h:outputStylesheet name="css/style.css"/>
     </h:head>
     <h:body>
-        <h:panelGrid columns="2" cellpadding="10">            
-            <h:link value="Voir les pièces" outcome="listPiece" />
-        </h:panelGrid>
-        <h:form>
-            <h:panelGrid border="0" columns="3" cellpadding="5">
-                <h:outputText value="Pièce" />
-                <h:inputText id="nom"
-                             value="#{gestPieceManagedBean.editPiece.nom}" required="true"
-                             requiredMessage="Nom obligatoire" />
-                <h:message for="nom" />
+        <div id="logo" class="container">
+            <h1><a href="#">Site de la cave</a></h1>
+        </div>
+        <div id="menu-wrapper">
+            <div id="menu" class="container">
+                <h:panelGrid columns="2" cellpadding="10">            
+                    <h:link value="Voir les pièces" outcome="listPiece" />
+                </h:panelGrid>
+            </div>
+        </div>
+        <div id="page" class="container">
+            <h:form>
+                <h:panelGrid border="0" columns="3" cellpadding="5">
+                    <h:outputText value="Pièce" />
+                    <h:inputText id="nom"
+                                 value="#{gestPieceManagedBean.editPiece.nom}" required="true"
+                                 requiredMessage="Nom obligatoire" />
+                    <h:message for="nom" />
 
-                <h:outputText value="Prix unitaire" />
-                <h:inputText id="prix" value="#{gestPieceManagedBean.editPiece.prix}"
-                             required="true" requiredMessage="Prix obligatoire" />
-                <h:message for="prix" />
-                
-                <h:outputText value="Quantité en stock" />
-                <h:inputText id="qteStock" value="#{gestPieceManagedBean.editPiece.qteStock}"
-                             required="true" requiredMessage="Quantité obligatoire" />
-                <h:message for="qteStock" />
-                
-                <h:outputText />
-                <h:commandButton value="Mettre à jour"
-                                 action="#{gestPieceManagedBean.updatePiece}" />
-            </h:panelGrid>
-        </h:form>
+                    <h:outputText value="Prix unitaire" />
+                    <h:inputText id="prix" value="#{gestPieceManagedBean.editPiece.prix}"
+                                 required="true" requiredMessage="Prix obligatoire" />
+                    <h:message for="prix" />
+
+                    <h:outputText value="Quantité en stock" />
+                    <h:inputText id="qteStock" value="#{gestPieceManagedBean.editPiece.qteStock}"
+                                 required="true" requiredMessage="Quantité obligatoire" />
+                    <h:message for="qteStock" />
+
+                    <h:outputText />
+                    <h:commandButton value="Mettre à jour"
+                                     action="#{gestPieceManagedBean.updatePiece}" />
+                </h:panelGrid>
+            </h:form>
+        </div>
     </h:body>
 </html>
 
