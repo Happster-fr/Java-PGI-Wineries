@@ -8,34 +8,47 @@
         <h:outputStylesheet name="css/style.css"/>
     </h:head>
     <h:body>
-        <f:view>
-            <h:form>
-                <h:panelGrid border="0" columns="3" cellpadding="5">
-                    <h:outputText value="Etat" />
-                    <h:inputText id="etat" value="#{gestIntervManagedBean.newIntervention.etat}"
-                                 required="true" requiredMessage="Etat obligatoire" />
-                    <h:message for="etat" />
-
-                    <h:outputText value="Nature" />
-                    <h:inputText id="nature" value="#{gestIntervManagedBean.newIntervention.nature}"
-                                 required="true" requiredMessage="Nature obligatoire" />
-                    <h:message for="nature" />
-                    
-                    <h:outputText value="Type" />
-                    <h:inputText id="type" value="#{gestIntervManagedBean.newIntervention.type}"
-                                 required="true" requiredMessage="Type obligatoire" />
-                    <h:message for="type" />
-                    
-                    <h:outputText value="Client" />
-                    <h:inputText id="fkClientId" value="#{gestIntervManagedBean.newIntervention.fkClientId}"
-                                 required="true" requiredMessage="Client obligatoire" />
-                    <h:message for="fkClientId" />
-                    
-                    <h:outputText />
-                    <h:commandButton value="Créer" action="#{gestIntervManagedBean.createIntervention}" />
+        <div id="logo" class="container">
+            <h1><a href="#">Site de la cave</a></h1>
+        </div>
+        <div id="menu-wrapper">
+            <div id="menu" class="container">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:link value="Accueil" outcome="/General/accueil" />
+                    <h:link value="Pièces" outcome="/Piece/listPiece" />
                 </h:panelGrid>
-            </h:form>
-        </f:view>
+            </div>
+        </div>
+        <div id="page" class="container">
+            <f:view>
+                <h:form>
+                    <h:panelGrid border="0" columns="3" cellpadding="5">
+                        <h:outputText value="Etat" />
+                        <h:inputText id="etat" value="#{gestIntervManagedBean.newIntervention.etat}"
+                                     required="true" requiredMessage="Etat obligatoire" />
+                        <h:message for="etat" />
+
+                        <h:outputText value="Nature" />
+                        <h:inputText id="nature" value="#{gestIntervManagedBean.newIntervention.nature}"
+                                     required="true" requiredMessage="Nature obligatoire" />
+                        <h:message for="nature" />
+
+                        <h:outputText value="Type" />
+                        <h:inputText id="type" value="#{gestIntervManagedBean.newIntervention.type}"
+                                     required="true" requiredMessage="Type obligatoire" />
+                        <h:message for="type" />
+
+                        <h:outputText value="Client" />
+                        <h:inputText id="fkClientId" value="#{gestIntervManagedBean.newIntervention.fkClientId}"
+                                     required="true" requiredMessage="Client obligatoire" />
+                        <h:message for="fkClientId" />
+
+                        <h:outputText />
+                        <h:commandButton value="Créer" action="#{gestIntervManagedBean.createIntervention}" />
+                    </h:panelGrid>
+                </h:form>
+            </f:view>
+        </div>
     </h:body>
 </html>
 

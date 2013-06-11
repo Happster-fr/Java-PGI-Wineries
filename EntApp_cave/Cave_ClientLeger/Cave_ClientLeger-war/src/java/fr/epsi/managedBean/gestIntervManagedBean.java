@@ -7,6 +7,7 @@ package fr.epsi.managedBean;
 import fr.epsi.cave.ejbentity.Intervention;
 import fr.epsi.cave.ejbentity.ListePiece;
 import fr.epsi.sessionBean.gestionInterventionSessionBeanRemote;
+import fr.epsi.utils.ConstantsPages;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -81,7 +82,7 @@ public class gestIntervManagedBean {
      */
     public String addIntervention() {
         _newIntervention = new Intervention();
-        return "addIntervention";
+        return ConstantsPages.INTERVENTION_ADD_PAGE;
     }
 
     /**
@@ -94,7 +95,7 @@ public class gestIntervManagedBean {
     public String createIntervention() {
         _gestIntervBean.createIntervention(_newIntervention);
         _listIntervention.setWrappedData(_gestIntervBean.getAllIntervention());
-        return "listIntervention";
+        return ConstantsPages.INTERVENTION_LIST_PAGE;
     }
 
     /**
@@ -106,7 +107,7 @@ public class gestIntervManagedBean {
     public String detailsIntervention() {
         _detailInterv = (Intervention) _listIntervention.getRowData();
         _listPieceInterv = _gestIntervBean.getListPieceIntervention(_detailInterv);
-        return "detail";
+        return ConstantsPages.INTERVENTION_DETAIL_PAGE;
     }
 
     public InitialContext getIc() {

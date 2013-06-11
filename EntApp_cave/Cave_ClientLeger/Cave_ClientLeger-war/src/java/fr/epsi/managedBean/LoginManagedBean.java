@@ -7,6 +7,7 @@ package fr.epsi.managedBean;
 import fr.epsi.cave.ejbentity.Client;
 import fr.epsi.cave.ejbentity.Technicien;
 import fr.epsi.sessionBean.gestionConnexionSessionBeanRemote;
+import fr.epsi.utils.ConstantsPages;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -22,16 +23,13 @@ import javax.naming.NamingException;
 @ManagedBean(name = "loginManagedBean")
 @SessionScoped
 public class LoginManagedBean {
-
     private InitialContext _ic;
     @EJB
     private gestionConnexionSessionBeanRemote _gestionConnexionSessionBeanRemote;
     private Technicien _technicien;
     private Client _client;
-    
     private String _login = "";
     private String _password = "";
-    
     private boolean _showError = false;
 
     /**
@@ -50,7 +48,7 @@ public class LoginManagedBean {
         String result = "";
         _client = _gestionConnexionSessionBeanRemote.getClientIfCanConnect(_login, _password);
         if (_client != null) {
-            result = "accueil";
+            result = ConstantsPages.ACCUEIL_PAGE;
         } else {
             _showError = true;
         }
@@ -61,7 +59,7 @@ public class LoginManagedBean {
         String result = "";
         _technicien = _gestionConnexionSessionBeanRemote.getTechnicienIfCanConnect(_login, _password);
         if (_technicien != null) {
-            result = "accueil";
+            result = ConstantsPages.ACCUEIL_PAGE;
         } else {
             _showError = true;
         }
@@ -69,7 +67,6 @@ public class LoginManagedBean {
     }
     
     /* GET/SET */
-    
     public String getLogin() {
         return _login;
     }

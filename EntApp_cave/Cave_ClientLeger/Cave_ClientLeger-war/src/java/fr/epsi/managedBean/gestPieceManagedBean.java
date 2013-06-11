@@ -6,6 +6,7 @@ package fr.epsi.managedBean;
 
 import fr.epsi.cave.ejbentity.Piece;
 import fr.epsi.sessionBean.gestionPieceSessionBeanRemote;
+import fr.epsi.utils.ConstantsPages;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -59,14 +60,14 @@ public class gestPieceManagedBean {
 
     public String editPiece() {
         _editPiece = (Piece) _listPiece.getRowData();
-        return "edit";
+        return ConstantsPages.PIECE_EDIT_PAGE;
     }
     
     public String updatePiece() {
         _gestPiece.modifyPiece(_editPiece);
         _listPiece.setWrappedData(_gestPiece.getAllPiece());
         
-        return "listPiece";
+        return ConstantsPages.PIECE_LIST_PAGE;
     }
 
     public InitialContext getIc() {
