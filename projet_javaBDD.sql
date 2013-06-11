@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Lun 03 Juin 2013 à 15:17
+-- Généré le: Mar 11 Juin 2013 à 23:24
 -- Version du serveur: 5.5.24-log
--- Version de PHP: 5.4.3
+-- Version de PHP: 5.3.13
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -31,13 +31,42 @@ CREATE TABLE IF NOT EXISTS `client` (
   `NOM` varchar(255) NOT NULL,
   `STATUT` varchar(255) NOT NULL,
   `ADRESSE` varchar(255) NOT NULL,
-  `CONTRAT` varchar(255) NOT NULL,
+  `CONTRAT` varchar(255) DEFAULT NULL,
   `DATE_DEB_CONTRAT` date DEFAULT NULL,
   `DATE_FIN_CONTRAT` date DEFAULT NULL,
   `LOGIN` varchar(255) NOT NULL,
   `PASSWORD` varchar(255) NOT NULL,
   PRIMARY KEY (`CLIENT_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `client`
+--
+
+INSERT INTO `client` (`CLIENT_ID`, `NOM`, `STATUT`, `ADRESSE`, `CONTRAT`, `DATE_DEB_CONTRAT`, `DATE_FIN_CONTRAT`, `LOGIN`, `PASSWORD`) VALUES
+(1, 'la villageoise', 'SARL', 'rue de la rue', NULL, NULL, NULL, 'villageoise', 'villageoise');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `contrat`
+--
+
+CREATE TABLE IF NOT EXISTS `contrat` (
+  `CONTRAT_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `DATE_DEBUT` date DEFAULT NULL,
+  `DATE_FIN` date DEFAULT NULL,
+  `TYPE` enum('annuel','mensuel','hebdomadaire','') DEFAULT NULL,
+  `FK_CLIENT_ID` int(11) NOT NULL,
+  PRIMARY KEY (`CONTRAT_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Contenu de la table `contrat`
+--
+
+INSERT INTO `contrat` (`CONTRAT_ID`, `DATE_DEBUT`, `DATE_FIN`, `TYPE`, `FK_CLIENT_ID`) VALUES
+(1, '2013-06-04', '2014-06-04', 'mensuel', 1);
 
 -- --------------------------------------------------------
 
@@ -115,10 +144,10 @@ CREATE TABLE IF NOT EXISTS `technicien` (
 -- Contenu de la table `technicien`
 --
 
-INSERT INTO `technicien` (`TECHNICIEN_ID`, `NOM`, `PRENOM`, `ADRESSE`, `SPECIALITE`) VALUES
-(1, 'Jean', 'Jacques', 'L''adresse de Jean Paul', 'Informatique'),
-(2, 'Henri', 'Jacobe', 'Rue de la rue d''henri', 'Electromécanique'),
-(3, 'Paul', 'Joy', 'Avenue team joy', 'Magnétique');
+INSERT INTO `technicien` (`TECHNICIEN_ID`, `NOM`, `PRENOM`, `ADRESSE`, `SPECIALITE`, `LOGIN`, `PASSWORD`) VALUES
+(1, 'Jean', 'Jacques', 'L''adresse de Jean Paul', 'Informatique', '', ''),
+(2, 'Henri', 'Jacobe', 'Rue de la rue d''henri', 'Electromécanique', '', ''),
+(3, 'Paul', 'Joy', 'Avenue team joy', 'Magnétique', '', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

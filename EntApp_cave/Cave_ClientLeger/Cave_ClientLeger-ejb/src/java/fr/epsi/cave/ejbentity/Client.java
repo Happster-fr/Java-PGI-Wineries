@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Quentin ecale
+ * @author Antho
  */
 @Entity
 @Table(name = "client")
@@ -37,18 +37,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Client.findByContrat", query = "SELECT c FROM Client c WHERE c.contrat = :contrat"),
     @NamedQuery(name = "Client.findByDateDebContrat", query = "SELECT c FROM Client c WHERE c.dateDebContrat = :dateDebContrat"),
     @NamedQuery(name = "Client.findByDateFinContrat", query = "SELECT c FROM Client c WHERE c.dateFinContrat = :dateFinContrat"),
-    @NamedQuery(name = "Client.findByLoginPassword", query = "SELECT c FROM Client c WHERE c.login = :login AND c.password = :password")})
+    @NamedQuery(name = "Client.findByLoginPassword", query = "SELECT c FROM Client c WHERE c.login = :login AND c.password = :password"),
+    @NamedQuery(name = "Client.findByLogin", query = "SELECT c FROM Client c WHERE c.login = :login"),
+    @NamedQuery(name = "Client.findByPassword", query = "SELECT c FROM Client c WHERE c.password = :password")})
 public class Client implements Serializable {
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "LOGIN")
-    private String login;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "PASSWORD")
-    private String password;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,9 +63,7 @@ public class Client implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "ADRESSE")
     private String adresse;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 255)
+    @Size(max = 255)
     @Column(name = "CONTRAT")
     private String contrat;
     @Column(name = "DATE_DEB_CONTRAT")
@@ -81,6 +72,16 @@ public class Client implements Serializable {
     @Column(name = "DATE_FIN_CONTRAT")
     @Temporal(TemporalType.DATE)
     private Date dateFinContrat;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "LOGIN")
+    private String login;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "PASSWORD")
+    private String password;
 
     public Client() {
     }
@@ -89,12 +90,13 @@ public class Client implements Serializable {
         this.clientId = clientId;
     }
 
-    public Client(Integer clientId, String nom, String statut, String adresse, String contrat) {
+    public Client(Integer clientId, String nom, String statut, String adresse, String login, String password) {
         this.clientId = clientId;
         this.nom = nom;
         this.statut = statut;
         this.adresse = adresse;
-        this.contrat = contrat;
+        this.login = login;
+        this.password = password;
     }
 
     public Integer getClientId() {
@@ -153,6 +155,22 @@ public class Client implements Serializable {
         this.dateFinContrat = dateFinContrat;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -177,21 +195,4 @@ public class Client implements Serializable {
     public String toString() {
         return "fr.epsi.cave.ejbentity.Client[ clientId=" + clientId + " ]";
     }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    
 }

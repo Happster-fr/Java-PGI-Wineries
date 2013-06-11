@@ -6,9 +6,56 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
         <title>Facelet Title</title>
+        <h:outputStylesheet name="css/style.css"/>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <div id="logo" class="container">
+            <h1><a href="#">Site de la cave</a></h1>
+        </div>
+        <div id="menu-wrapper">
+            <div id="menu" class="container">
+
+                <h:panelGrid columns="3" cellpadding="10">            
+                    <!--<h:link value="Accueil" outcome="login" />
+                    <h:link value="Identification Client" outcome="loginClient" />
+                    <h:link value="Identification Technicien" outcome="loginTechnicien" />-->
+                </h:panelGrid>
+            </div>
+        </div>
+        <div id="page" class="container">
+            <h2> Modification de contrat </h2>
+            <h:form>
+                <h:panelGrid border="0" columns="3" cellpadding="5">
+                    <h:outputText value="N° de contrat : " />
+                    <h:inputText id="contractNum" value="#{clientManagedBean.currentClientContractId}" required="true"
+                                 requiredMessage="Identifiant obligatoire" />
+                    <h:message for="login" />
+
+                    <h:outputText value="Type : " />
+                    <h:selectOneMenu name="typeContrats" id="typeContrats" value="#{clientManagedBean.currentClientContractTypeStr}">
+                        <f:selectItems value="#{clientManagedBean.listTypeContratStr}"/>
+                        <f:ajax listener="#{clientManagedBean.changeDates}" render="beginDate" />
+                    </h:selectOneMenu>
+
+                    <h:outputText value="Date début : " />
+                    <h:inputText id="beginDate" value="#{clientManagedBean.currentClientContractDateDeb}" required="true" requiredMessage="obligatoire">
+                        <f:convertDateTime pattern="dd-MM-yyyy" />
+                    </h:inputText>
+                    <h:message for="beginDate" />
+
+                    <h:outputText value="Date fin : " />
+                    <h:inputText id="endDate" value="#{clientManagedBean.currentClientContractDateFin}" required="true" requiredMessage="obligatoire" >
+                        <f:convertDateTime pattern="dd-MM-yyyy" />
+                    </h:inputText>
+                    <h:message for="endDate" />
+
+                    <h:commandButton value="Valider" action="#{loginManagedBean.isClientCanConnect}" />
+                    <h:panelGroup id="output" rendered="#{loginManagedBean.showError}">
+                        <div style="color:red;">Erreur d'authentification!!</div>
+                    </h:panelGroup>
+                </h:panelGrid>
+            </h:form>
+        </div>
     </h:body>
 </html>
 
