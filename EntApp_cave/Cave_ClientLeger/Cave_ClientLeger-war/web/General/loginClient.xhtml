@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>Indentification Client</title>
+        <h:outputStylesheet name="css/style.css"/>
+    </h:head>
+    <h:body>
+        <div id="logo" class="container">
+            <h1><a href="#">Site de la cave</a></h1>
+        </div>
+        <div id="menu-wrapper">
+            <div id="menu" class="container">
+                <h:panelGrid columns="3" cellpadding="10">            
+                    <h:link value="Accueil" outcome="login" />
+                    <h:link value="Identification Client" outcome="loginClient" />
+                    <h:link value="Identification Technicien" outcome="loginTechnicien" />
+                </h:panelGrid>
+            </div>
+        </div>
+        <div id="page" class="container">
+            <h:form>
+                <h:panelGrid border="0" columns="3" cellpadding="5">
+                    <h:outputText value="Identifiant:" />
+                    <h:inputText id="login" value="#{loginManagedBean.login}" required="true"
+                                 requiredMessage="Identifiant obligatoire" />
+                    <h:message for="login" />
+
+                    <h:outputText value="Mot de passe:" />
+                    <h:inputText id="password" value="#{loginManagedBean.password}" required="true"
+                                 requiredMessage="Mot de passe obligatoire" />
+                    <h:message for="password" />
+
+                    <h:outputText />
+                    <h:commandButton value="Valider" action="#{loginManagedBean.isClientCanConnect}" />
+                    <h:panelGroup id="output" rendered="#{loginManagedBean.showError}">
+                        <div style="color:red;">Erreur d'authentification!!</div>
+                    </h:panelGroup>
+                </h:panelGrid>
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

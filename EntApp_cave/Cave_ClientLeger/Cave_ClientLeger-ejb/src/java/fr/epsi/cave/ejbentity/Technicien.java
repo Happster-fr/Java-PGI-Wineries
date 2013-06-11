@@ -31,8 +31,19 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Technicien.findByNom", query = "SELECT t FROM Technicien t WHERE t.nom = :nom"),
     @NamedQuery(name = "Technicien.findByPrenom", query = "SELECT t FROM Technicien t WHERE t.prenom = :prenom"),
     @NamedQuery(name = "Technicien.findByAdresse", query = "SELECT t FROM Technicien t WHERE t.adresse = :adresse"),
-    @NamedQuery(name = "Technicien.findBySpecialite", query = "SELECT t FROM Technicien t WHERE t.specialite = :specialite")})
+    @NamedQuery(name = "Technicien.findBySpecialite", query = "SELECT t FROM Technicien t WHERE t.specialite = :specialite"),
+    @NamedQuery(name = "Technicien.findByLoginPassword", query = "SELECT t FROM Technicien t WHERE t.login = :login AND t.password = :password")})
 public class Technicien implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "LOGIN")
+    private String login;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "PASSWORD")
+    private String password;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -138,6 +149,22 @@ public class Technicien implements Serializable {
     @Override
     public String toString() {
         return "fr.epsi.cave.ejbentity.Technicien[ technicienId=" + technicienId + " ]";
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
     
 }
