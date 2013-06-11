@@ -28,7 +28,7 @@
             <f:view>
 
                 <h:form>
-                    <h:dataTable border="0" rules="all" value="#{gestIntervManagedBean.listAllIntervention}"
+                    <h:dataTable border="0" rules="all" value="#{gestIntervManagedBean.interventionCurrentTech}"
                                  var="i">
                         <h:column>
                             <f:facet name="header">
@@ -64,7 +64,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Action" />
                             </f:facet>
-                            <h:commandButton value="Details" action="#{gestPIntervManagedBean.detailsIntervention}" />
+                            <h:commandButton value="Details" action="#{gestIntervManagedBean.detailsIntervention}" />
                         </h:column>
                     </h:dataTable>
                 </h:form>

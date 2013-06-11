@@ -29,6 +29,7 @@ public class gestIntervManagedBean {
 
     private InitialContext _ic;
     private DataModel _listIntervention;
+    private DataModel _listInterventionTech;
     private Map<String, Integer> _mapClient;
     private Map<String, Integer> _mapPiece;//les remplir a chaque ajout/modif qui en ont besoin pour les avoir à jour
     @EJB
@@ -61,6 +62,16 @@ public class gestIntervManagedBean {
         }
 
         return _listIntervention;
+    }
+
+    public DataModel getInterventionCurrentTech(){
+        int idTech = 1;//ManagedBeanDeLogin.personne.getIdTEch
+        if (_listInterventionTech == null) {
+            _listInterventionTech = new ListDataModel();
+            _listInterventionTech.setWrappedData(_gestIntervBean.getListInterventionTechnicien(idTech));
+        }        
+        
+        return _listInterventionTech;
     }
 
     /**

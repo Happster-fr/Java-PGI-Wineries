@@ -76,4 +76,12 @@ public class gestionInterventionSessionBean implements gestionInterventionSessio
         _em.merge(listPiece);
     }
 
+    @Override
+    public List<Intervention> getListInterventionTechnicien(int idTechnicien) {
+        Query q = _em.createNamedQuery("Intervention.findByFkTechnicienId");
+        q.setParameter("fkTechnicienId",idTechnicien);
+        
+        return q.getResultList();
+    }
+
 }
