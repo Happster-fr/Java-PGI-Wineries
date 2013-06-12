@@ -48,7 +48,7 @@ public class LoginManagedBean {
         String result = "";
         _client = _gestionConnexionSessionBeanRemote.getClientIfCanConnect(_login, _password);
         if (_client != null) {
-            result = ConstantsPages.ACCUEIL_PAGE;
+            result = ConstantsPages.CLIENT_ACCUEIL_PAGE;
         } else {
             _showError = true;
         }
