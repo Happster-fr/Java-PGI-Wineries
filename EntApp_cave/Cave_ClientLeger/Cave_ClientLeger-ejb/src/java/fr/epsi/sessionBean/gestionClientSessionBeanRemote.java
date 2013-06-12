@@ -29,4 +29,6 @@ public interface gestionClientSessionBeanRemote {
     Client getClientById(Integer idClient);
 
     Contrat getLastContrat(Integer idClient);
+    
+    void modifyContrat(Contrat contrat);
 }

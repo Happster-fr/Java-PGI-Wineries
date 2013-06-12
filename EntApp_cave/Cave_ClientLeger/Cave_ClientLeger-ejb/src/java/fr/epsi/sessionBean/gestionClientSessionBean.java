@@ -62,4 +62,9 @@ public class gestionClientSessionBean implements gestionClientSessionBeanRemote 
         q.setParameter("fkClientId", idClient);
         return (Contrat) q.getSingleResult();
     }
+
+    @Override
+    public void modifyContrat(Contrat contrat) {
+        _em.merge(contrat);
+    }
 }

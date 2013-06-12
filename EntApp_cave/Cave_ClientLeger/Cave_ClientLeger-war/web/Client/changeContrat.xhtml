@@ -27,29 +27,29 @@
             <h:form>
                 <h:panelGrid border="0" columns="3" cellpadding="5">
                     <h:outputText value="N° de contrat : " />
-                    <h:inputText id="contractNum" value="#{clientManagedBean.currentClientContractId}" required="true"
+                    <h:inputText id="contractNum" value="#{clientManagedBean.contrat.contratId}" required="true"
                                  requiredMessage="Identifiant obligatoire" />
                     <h:message for="login" />
 
                     <h:outputText value="Type : " />
-                    <h:selectOneMenu name="typeContrats" id="typeContrats" value="#{clientManagedBean.currentClientContractTypeStr}">
+                    <h:selectOneMenu name="typeContrats" id="typeContrats" value="#{clientManagedBean.contrat.type}" valueChangeListener="#{clientManagedBean.changeCardFunc(e)}">
                         <f:selectItems value="#{clientManagedBean.listTypeContratStr}"/>
-                        <f:ajax listener="#{clientManagedBean.changeDates}" render="beginDate" />
+                        <f:ajax render="@form" execute="typeContrats" event="change" />
                     </h:selectOneMenu>
-
+                
                     <h:outputText value="Date début : " />
-                    <h:inputText id="beginDate" value="#{clientManagedBean.currentClientContractDateDeb}" required="true" requiredMessage="obligatoire">
+                    <h:inputText id="beginDate" value="#{clientManagedBean.contrat.dateDebut}" required="true" requiredMessage="obligatoire">
                         <f:convertDateTime pattern="dd-MM-yyyy" />
                     </h:inputText>
                     <h:message for="beginDate" />
 
                     <h:outputText value="Date fin : " />
-                    <h:inputText id="endDate" value="#{clientManagedBean.currentClientContractDateFin}" required="true" requiredMessage="obligatoire" >
+                    <h:inputText id="endDate" value="#{clientManagedBean.contrat.dateFin}" required="true" requiredMessage="obligatoire" >
                         <f:convertDateTime pattern="dd-MM-yyyy" />
                     </h:inputText>
                     <h:message for="endDate" />
 
-                    <h:commandButton value="Valider" action="#{loginManagedBean.isClientCanConnect}" />
+                    <h:commandButton value="Valider" action="#{clientManagedBean.submitForm()}" />
                     <h:panelGroup id="output" rendered="#{loginManagedBean.showError}">
                         <div style="color:red;">Erreur d'authentification!!</div>
                     </h:panelGroup>

@@ -10,14 +10,14 @@ import fr.epsi.enums.TypeContrat;
 import fr.epsi.sessionBean.gestionClientSessionBeanRemote;
 import fr.epsi.utilities.ClientUtilities;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -34,16 +34,44 @@ public class gestClientManagedBean {
     gestionClientSessionBeanRemote _gestClientBean;
     private Client _client;
     private Contrat _contrat;
+    private String test = "";
+
+    public String getTest() {
+        return test;
+    }
+
+    public void setTest(String test) {
+        this.test = test;
+    }
+
 
     public gestClientManagedBean() {
         try {
             _ic = new InitialContext();
             _gestClientBean = (gestionClientSessionBeanRemote) _ic.lookup("java:global/Cave_ClientLeger/Cave_ClientLeger-ejb/gestionInterventionSessionBean!fr.epsi.sessionBean.gestionClientSessionBeanRemote");
-            /*getCurrentClient();
-            getCurrentContract();*/
+            getCurrentClient();
+            getCurrentContract();
         } catch (NamingException ex) {
             Logger.getLogger(gestPieceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public Client getClient() {
+        getCurrentClient();
+        return _client;
+    }
+
+    public void setClient(Client _client) {
+        this._client = _client;
+    }
+
+    public Contrat getContrat() {
+        getCurrentContract();
+        return _contrat;
+    }
+
+    public void setContrat(Contrat _contrat) {
+        this._contrat = _contrat;
     }
 
     private void getCurrentClient() {
@@ -60,30 +88,6 @@ public class gestClientManagedBean {
         }
     }
 
-    public Integer getCurrentClientContractId() {
-        getCurrentContract();
-        return _contrat.getContratId();
-    }
-
-    public TypeContrat getCurrentClientContractType() {
-        getCurrentContract();
-        return ClientUtilities.getTypeContractByString(_contrat.getType());
-    }
-
-    public String getCurrentClientContractTypeStr() {
-        return getCurrentClientContractType().getTypeContratInsert();
-    }
-
-    public Date getCurrentClientContractDateDeb() {
-        getCurrentContract();
-        return _contrat.getDateDebut();
-    }
-
-    public Date getCurrentClientContractDateFin() {
-        getCurrentContract();
-        return _contrat.getDateFin();
-    }
-
     public List<String> getListTypeContratStr() {
         List<String> types = new ArrayList<String>();
         types.add(TypeContrat.ANNUEL.getTypeContratInsert());
@@ -91,14 +95,17 @@ public class gestClientManagedBean {
         types.add(TypeContrat.HEBDOMADAIRE.getTypeContratInsert());
         return types;
     }
-    
-    public void changeDates(AjaxBehaviorEvent event){
-        _contrat.setDateFin(null);
-        _contrat.setDateDebut(null);
+
+    public void changeCardFunc(ValueChangeEvent e) {
+        Calendar cal = Calendar.getInstance();
+        _contrat.setDateDebut(cal.getTime());
+        _contrat.setDateFin(ClientUtilities.changeDate(_contrat.getDateDebut(), _contrat.getType()));
+        test = _contrat.getType();
     }
     
-    /*public String saveContractModifications(){
-        String destination = "";
-        if()
-    }*/
+    
+
+    public void submitForm() {
+        _gestClientBean.modifyContrat(_contrat);
+    }
 }

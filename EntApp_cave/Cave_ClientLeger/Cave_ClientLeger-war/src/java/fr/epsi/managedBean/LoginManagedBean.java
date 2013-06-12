@@ -32,6 +32,22 @@ public class LoginManagedBean {
     private String _password = "";
     private boolean _showError = false;
 
+    public Technicien getTechnicien() {
+        return _technicien;
+    }
+
+    public void setTechnicien(Technicien _technicien) {
+        this._technicien = _technicien;
+    }
+
+    public Client getClient() {
+        return _client;
+    }
+
+    public void setClient(Client _client) {
+        this._client = _client;
+    }
+
     /**
      * Creates a new instance of gestionConnexionSessionBeanRemote
      */
