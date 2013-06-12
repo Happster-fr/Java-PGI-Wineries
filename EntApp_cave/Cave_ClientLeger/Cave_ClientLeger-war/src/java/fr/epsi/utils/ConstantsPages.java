@@ -1,7 +1,8 @@
 package fr.epsi.utils;
 
-public class ConstantsPages {    
+public class ConstantsPages {
     /* GENERAL */
+
     public static final String LOGIN_PAGE = "/General/login";
     public static final String LOGIN_CLIENT_PAGE = "/General/loginClient";
     public static final String LOGIN_TECHNICIEN_PAGE = "/General/loginTechnicien";
@@ -18,4 +19,8 @@ public class ConstantsPages {
     public static final String TECHNICIEN_AJOUT_PIECE_INTERV_PAGE = "/Technicien/ajoutPieceInterv";
     public static final String TECHNICIEN_AVANCEMENT_PAGE = "/Technicien/avancementIntervention";
     public static final String TECHNICIEN_A_REAL_PAGE = "/Technicien/interventionAReal";
+    /* CLIENT */
+    public static final String CLIENT_ACCUEIL_PAGE = "/Client/accueilClient";
+    public static final String CLIENT_INTERVENTION_PREVENTIVE_PAGE = "/Client/intervPreventive";
+    public static final String CLIENT_INTERVENTION_CURATIVE_PAGE = "/Client/intervCurative";
 }

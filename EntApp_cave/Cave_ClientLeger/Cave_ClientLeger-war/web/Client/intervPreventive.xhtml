@@ -1,14 +1,73 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:h="http://java.sun.com/jsf/html">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Intervention planifiée</title>
+        <h:outputStylesheet name="css/style.css"/>
+        <!-- JQUERY DATEPICKER -->
+        <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+        <script>
+            $(function() {
+                $( ".datepicker" ).datepicker();
+            });
+        </script>
     </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
+    <body>
+        <div id="logo" class="container">
+            <h1>
+                <img width="50px" src="/Cave_ClientLeger-war/faces/javax.faces.resource/images/icone.png" alt="Logo Dewine" title="Logo Dewine"/>
+                <a href="#">DeWine</a>
+            </h1>
+        </div>
+        <div id="menu-wrapper">
+            <div id="menu" class="container">
+                <ul>
+                    <li><h:link value="Accueil" outcome="/Client/accueilClient" /></li>
+                    <li><h:link value="Gestion des contrats" outcome="/Client/changeContrat" /></li>
+                    <li class="current_page_item"><h:link value="Intervention planifiée" outcome="/Client/intervPreventive" /></li>
+                    <li><h:link value="Intervention curative" outcome="/Client/intervCurative" /></li>
+                    <li><h:link value="Deconnexion" outcome="/General/login" /></li>
+                </ul>
+            </div>
+        </div>
+        <div id="page" class="container">
+            <div id="box">
+                <h2 class="title"><a href="#">Intervention planifiée</a></h2>
+                <div style="clear: both;">&nbsp;</div>
+                <div class="entry">
+                    <h:form>
+                        <h:panelGrid border="0" columns="3" cellpadding="5">
+                            <h:outputText value="Date:" />
+                            <h:inputText id="date" value="" required="true" styleClass="datepicker"
+                                         requiredMessage="Date obligatoire" />
+                            <h:message for="date" />
+
+                            <h:outputText />
+                            <h:commandButton value="Ajouter" action="#{loginManagedBean.isClientCanConnect}" />
+                            <h:panelGroup id="output" rendered="#{loginManagedBean.showError}">
+                                <div style="color:red;">Erreur d'authentification!!</div>
+                            </h:panelGroup>
+                        </h:panelGrid>
+                    </h:form>
+                </div>
+            </div>
+            <div id="box3">
+                <h2>Navigation</h2>
+                <ul class="style1">
+                    <li class="first"><h:link value="Accueil" outcome="/Client/accueilClient" /></li>
+                    <li><h:link value="Gestion des contrats" outcome="/Client/changeContrat" /></li>
+                    <li><h:link value="Intervention planifiée" outcome="/Client/intervPreventive" /></li>
+                    <li><h:link value="Intervention curative" outcome="/Client/intervCurative" /></li>
+                    <li><h:link value="Deconnexion" outcome="/General/login" /></li>
+                </ul>
+            </div>
+        </div>
+        <div id="footer" class="container">
+            <p>Copyright (c) 2013 Cave.com. All rights reserved.</p>
+        </div>
+    </body>
 </html>
 

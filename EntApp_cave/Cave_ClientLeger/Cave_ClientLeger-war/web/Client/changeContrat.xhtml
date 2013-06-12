@@ -10,7 +10,7 @@
     </h:head>
     <h:body>
         <div id="logo" class="container">
-            <h1><a href="#">Site de la cave</a></h1>
+            <h1><a href="#" rendered="#{loginManagedBean.clientConnected}">Site de la cave</a></h1>
         </div>
         <div id="menu-wrapper">
             <div id="menu" class="container">
@@ -22,37 +22,34 @@
                 </h:panelGrid>
             </div>
         </div>
-        <div id="page" class="container">
+        <div id="page" class="container" >
             <h2> Modification de contrat </h2>
-            <h:form>
+            <h:form>      
                 <h:panelGrid border="0" columns="3" cellpadding="5">
                     <h:outputText value="N° de contrat : " />
-                    <h:inputText id="contractNum" value="#{clientManagedBean.currentClientContractId}" required="true"
+                    <h:inputText id="contractNum" value="#{clientManagedBean.contrat.contratId}" required="true"
                                  requiredMessage="Identifiant obligatoire" />
-                    <h:message for="login" />
+                    <h:message for="contractNum" />
 
                     <h:outputText value="Type : " />
-                    <h:selectOneMenu name="typeContrats" id="typeContrats" value="#{clientManagedBean.currentClientContractTypeStr}">
+                    <h:selectOneMenu name="typeContrats" id="typeContrats" value="#{clientManagedBean.contrat.type}" valueChangeListener="#{clientManagedBean.changeDates}">
                         <f:selectItems value="#{clientManagedBean.listTypeContratStr}"/>
-                        <f:ajax listener="#{clientManagedBean.changeDates}" render="beginDate" />
+                        <f:ajax render="@form" execute="typeContrats" event="change" />
                     </h:selectOneMenu>
 
                     <h:outputText value="Date début : " />
-                    <h:inputText id="beginDate" value="#{clientManagedBean.currentClientContractDateDeb}" required="true" requiredMessage="obligatoire">
+                    <h:inputText id="beginDate" value="#{clientManagedBean.contrat.dateDebut}" required="true" requiredMessage="obligatoire">
                         <f:convertDateTime pattern="dd-MM-yyyy" />
                     </h:inputText>
                     <h:message for="beginDate" />
 
                     <h:outputText value="Date fin : " />
-                    <h:inputText id="endDate" value="#{clientManagedBean.currentClientContractDateFin}" required="true" requiredMessage="obligatoire" >
+                    <h:inputText id="endDate" value="#{clientManagedBean.contrat.dateFin}" required="true" requiredMessage="obligatoire" >
                         <f:convertDateTime pattern="dd-MM-yyyy" />
                     </h:inputText>
                     <h:message for="endDate" />
 
-                    <h:commandButton value="Valider" action="#{loginManagedBean.isClientCanConnect}" />
-                    <h:panelGroup id="output" rendered="#{loginManagedBean.showError}">
-                        <div style="color:red;">Erreur d'authentification!!</div>
-                    </h:panelGroup>
+                    <h:commandButton value="Valider" action="#{clientManagedBean.submitForm()}" />
                 </h:panelGrid>
             </h:form>
         </div>

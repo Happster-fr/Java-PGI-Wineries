@@ -6,40 +6,60 @@
         <title>Indentification Client</title>
         <h:outputStylesheet name="css/style.css"/>
     </h:head>
-    <h:body>
+    <body>
         <div id="logo" class="container">
-            <h1><a href="#">Site de la cave</a></h1>
+            <h1>
+                <img width="50px" src="/Cave_ClientLeger-war/faces/javax.faces.resource/images/icone.png" alt="Logo Dewine" title="Logo Dewine"/>
+                <a href="#">DeWine</a>
+            </h1>
         </div>
         <div id="menu-wrapper">
             <div id="menu" class="container">
-                <h:panelGrid columns="3" cellpadding="10">            
-                    <h:link value="Accueil" outcome="login" />
-                    <h:link value="Identification Client" outcome="loginClient" />
-                    <h:link value="Identification Technicien" outcome="loginTechnicien" />
-                </h:panelGrid>
+                <ul>
+                    <li><h:link value="Accueil" outcome="/General/login" /></li>
+                    <li class="current_page_item"><h:link value="Identification Client" outcome="/General/loginClient" /></li>
+                    <li><h:link value="Identification Technicien" outcome="/General/loginTechnicien" /></li>
+                </ul>
             </div>
         </div>
         <div id="page" class="container">
-            <h:form>
-                <h:panelGrid border="0" columns="3" cellpadding="5">
-                    <h:outputText value="Identifiant:" />
-                    <h:inputText id="login" value="#{loginManagedBean.login}" required="true"
-                                 requiredMessage="Identifiant obligatoire" />
-                    <h:message for="login" />
+            <div id="box">
+                <h2 class="title"><a href="#">Identification Client:</a></h2>
+                <div style="clear: both;">&nbsp;</div>
+                <div class="entry">
+                    <h:form>
+                        <h:panelGrid border="0" columns="3" cellpadding="5">
+                            <h:outputText value="Identifiant:" />
+                            <h:inputText id="login" value="#{loginManagedBean.login}" required="true"
+                                         requiredMessage="Identifiant obligatoire" />
+                            <h:message for="login" />
 
-                    <h:outputText value="Mot de passe:" />
-                    <h:inputText id="password" value="#{loginManagedBean.password}" required="true"
-                                 requiredMessage="Mot de passe obligatoire" />
-                    <h:message for="password" />
+                            <h:outputText value="Mot de passe:" />
+                            <h:inputText id="password" value="#{loginManagedBean.password}" required="true"
+                                         requiredMessage="Mot de passe obligatoire" />
+                            <h:message for="password" />
 
-                    <h:outputText />
-                    <h:commandButton value="Valider" action="#{loginManagedBean.isClientCanConnect}" />
-                    <h:panelGroup id="output" rendered="#{loginManagedBean.showError}">
-                        <div style="color:red;">Erreur d'authentification!!</div>
-                    </h:panelGroup>
-                </h:panelGrid>
-            </h:form>
+                            <h:outputText />
+                            <h:commandButton value="Valider" action="#{loginManagedBean.isClientCanConnect}" />
+                            <h:panelGroup id="output" rendered="#{loginManagedBean.showError}">
+                                <div style="color:red;">Erreur d'authentification!!</div>
+                            </h:panelGroup>
+                        </h:panelGrid>
+                    </h:form>
+                </div>
+            </div>
+            <div id="box3">
+                <h2>Navigation</h2>
+                <ul class="style1">
+                    <li class="first"><h:link value="Accueil" outcome="/General/login" /></li>
+                    <li><h:link value="Identification Client" outcome="/General/loginClient" /></li>
+                    <li><h:link value="Identification Technicien" outcome="/General/loginTechnicien" /></li>
+                </ul>
+            </div>
         </div>
-    </h:body>
+        <div id="footer" class="container">
+            <p>Copyright (c) 2013 Cave.com. All rights reserved.</p>
+        </div>
+    </body>
 </html>
 
