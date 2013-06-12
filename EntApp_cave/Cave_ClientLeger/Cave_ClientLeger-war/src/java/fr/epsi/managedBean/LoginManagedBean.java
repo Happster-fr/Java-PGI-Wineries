@@ -86,4 +86,8 @@ public class LoginManagedBean {
     public boolean getShowError() {
         return _showError;
     }
+    
+    public Technicien getTechnicien() {
+        return _technicien;
+    }
 }

@@ -8,21 +8,17 @@ package fr.epsi.utils;
  *
  * @author Quentin ecale
  */
-public enum EnumEtatIntervention {
-
-    VALIDEE("Validée"),
-    PLANIFIE("Planifiée"),
-    DEBUTEE("Débutée"),
-    TERMINEE("Terminée");
+public enum EnumNatureIntervention {
+    CURATIVE("curative"),
+    PREVENTIVE("préventive");
 
     private final String valToInsert;
 
-    EnumEtatIntervention(String val) {
+    EnumNatureIntervention(String val) {
         this.valToInsert = val;
     }
 
-    public String getEnumEtatIntervention() {
+    public String getNatureIntervention() {
         return this.valToInsert;
     }
 }
-

@@ -8,6 +8,9 @@ import fr.epsi.cave.ejbentity.Intervention;
 import fr.epsi.cave.ejbentity.ListePiece;
 import fr.epsi.sessionBean.gestionInterventionSessionBeanRemote;
 import fr.epsi.utils.ConstantsPages;
+import fr.epsi.utils.EnumEtatIntervention;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -15,6 +18,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.naming.InitialContext;
@@ -31,7 +35,6 @@ public class gestIntervManagedBean {
     private InitialContext _ic;
     private DataModel _listIntervention;
     private DataModel _listInterventionTech;
-    private Map<String, Integer> _mapClient;
     private Map<String, Integer> _mapPiece;//les remplir a chaque ajout/modif qui en ont besoin pour les avoir à jour
     @EJB
     private gestionInterventionSessionBeanRemote _gestIntervBean; //faire une classe regroupant les beans remotes qui nous fait un singleton pour chacun ?
@@ -43,6 +46,7 @@ public class gestIntervManagedBean {
      * Creates a new instance of gestIntervManagedBean
      */
     public gestIntervManagedBean() {
+        
         try {
             _ic = new InitialContext();
             _gestIntervBean = (gestionInterventionSessionBeanRemote) _ic.lookup("java:global/Cave_ClientLeger/Cave_ClientLeger-ejb/gestionInterventionSessionBean!fr.epsi.sessionBean.gestionInterventionSessionBeanRemote");
@@ -65,12 +69,19 @@ public class gestIntervManagedBean {
         return _listIntervention;
     }
 
+    /**
+     * get intervention of current technicien by the session
+     * @return DataModel containing the list of intervention from the actual connected technicien
+     */
     public DataModel getInterventionCurrentTech(){
-        int idTech = 1;//ManagedBeanDeLogin.personne.getIdTEch
+        FacesContext context = FacesContext.getCurrentInstance();
+        LoginManagedBean bean = (LoginManagedBean) context.getApplication().evaluateExpressionGet(context, "#{loginManagedBean}", LoginManagedBean.class);        
+        
+        int idTech = bean.getTechnicien().getTechnicienId();//1;//ManagedBeanDeLogin.personne.getIdTEch
         if (_listInterventionTech == null) {
             _listInterventionTech = new ListDataModel();
             _listInterventionTech.setWrappedData(_gestIntervBean.getListInterventionTechnicien(idTech));
-        }        
+        }
         
         return _listInterventionTech;
     }
@@ -99,16 +110,26 @@ public class gestIntervManagedBean {
     }
 
     /**
-     * called after clic on detail button in the list intervention table to get
+     * called after clic on voir button in the list intervention table to get
      * all intervention's details
      *
      * @return String corresponding of the name of the page we go
      */
-    public String detailsIntervention() {
-        _detailInterv = (Intervention) _listIntervention.getRowData();
+    public String voirIntervention() {
+        _detailInterv = (Intervention) _listInterventionTech.getRowData();
         _listPieceInterv = _gestIntervBean.getListPieceIntervention(_detailInterv);
-        return ConstantsPages.INTERVENTION_DETAIL_PAGE;
+        return ConstantsPages.TECHNICIEN_AVANCEMENT_PAGE;
     }
+    
+    public String enregistrerAvancement() {
+        _gestIntervBean.modifyIntervention(_detailInterv);
+        return ConstantsPages.TECHNICIEN_A_REAL_PAGE;
+    }
+    
+    public List<EnumEtatIntervention> getAllEtatInterv() {
+        return Arrays.asList(EnumEtatIntervention.values());
+    }
+    
 
     public InitialContext getIc() {
         return _ic;

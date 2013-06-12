@@ -22,6 +22,43 @@
         </div>
         <div id="page" class="container">
             <f:view>
+                <h:form>
+                    <h:panelGrid border="0" columns="2" cellpadding="5">
+                        <h:outputText value="N° intervention" />
+                        <h:outputText id="interventionId"
+                                      value="#{gestIntervManagedBean.detailInterv.interventionId}" />
+
+                        <h:outputText value="Etat" />
+                        <h:selectOneMenu id="interventionEtat" value="#{gestIntervManagedBean.detailInterv.etat}">
+                            <f:selectItems value="#{gestIntervManagedBean.allEtatInterv}" />
+                        </h:selectOneMenu>
+
+                        <h:outputText value="Nature" />
+                        <h:outputText id="interventionNature"
+                                      value="#{gestIntervManagedBean.detailInterv.nature}" />
+
+                        <h:outputText value="Date" />
+                        <h:outputText id="interventionDate"
+                                      value="#{gestIntervManagedBean.detailInterv.date}" />
+
+                        <h:outputText value="Type" />
+                        <h:outputText id="interventionType"
+                                      value="#{gestIntervManagedBean.detailInterv.type}" />
+
+                        <h:outputText value="Client" />
+                        <h:outputText id="interventionfkClientId"
+                                      value="#{gestIntervManagedBean.detailInterv.fkClientId}" />
+
+                        <h:outputText value="Technicien" />
+                        <h:outputText id="interventionfkTechnicienId"
+                                      value="#{gestIntervManagedBean.detailInterv.fkTechnicienId}" />
+                    </h:panelGrid>
+
+                    <!-- rajouter liste des pièces utilisées pour l'intervention + un bouton d'ajout qui renvoie vers une page
+                    ou apparition d'un champ de saisie -->
+                    
+                    <h:commandButton value="Valider" action="#{gestIntervManagedBean.enregistrerAvancement}" />
+                </h:form>
             </f:view>
         </div>
     </h:body>
