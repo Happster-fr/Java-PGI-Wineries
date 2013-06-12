@@ -35,7 +35,6 @@ public class gestClientManagedBean {
     gestionClientSessionBeanRemote _gestClientBean;
     private Client _client;
     private Contrat _contrat;
-    private String test = "";
 
     public gestClientManagedBean() {
         try {
@@ -93,7 +92,6 @@ public class gestClientManagedBean {
         Calendar cal = Calendar.getInstance();
         _contrat.setDateDebut(cal.getTime());
         _contrat.setDateFin(ClientUtilities.changeDate(_contrat.getDateDebut(), _contrat.getType()));
-        test = _contrat.getType();
     }
 
     public void submitForm() {
