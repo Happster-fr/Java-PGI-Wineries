@@ -5,10 +5,25 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Détails intervention</title>
+        <h:outputStylesheet name="css/style.css"/>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <div id="logo" class="container">
+            <h1><a href="#">Site de la cave</a></h1>
+        </div>
+        <div id="menu-wrapper">
+            <div id="menu" class="container">
+                <h:panelGrid columns="2" cellpadding="10">
+                    <h:link value="Accueil" outcome="/Technicien/accueilTech" />
+                    <h:link value="Interventions" outcome="/Technicien/interventionAReal" />
+                </h:panelGrid>
+            </div>
+        </div>
+        <div id="page" class="container">
+            <f:view>
+            </f:view>
+        </div>
     </h:body>
 </html>
 

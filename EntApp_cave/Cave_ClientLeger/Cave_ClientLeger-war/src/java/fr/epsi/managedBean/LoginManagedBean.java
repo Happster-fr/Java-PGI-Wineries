@@ -59,7 +59,7 @@ public class LoginManagedBean {
         String result = "";
         _technicien = _gestionConnexionSessionBeanRemote.getTechnicienIfCanConnect(_login, _password);
         if (_technicien != null) {
-            result = ConstantsPages.ACCUEIL_PAGE;
+            result = ConstantsPages.TECHNICIEN_ACCUEIL_PAGE;
         } else {
             _showError = true;
         }
