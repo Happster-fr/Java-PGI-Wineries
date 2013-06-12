@@ -40,14 +40,17 @@
                     <h:form>
                         <h:panelGrid border="0" columns="3" cellpadding="5">
                             <h:outputText value="Date:" />
-                            <h:inputText id="date" value="" required="true" styleClass="datepicker"
+                            <h:inputText id="date" value="#{clientInterventionManagesBean.dateInterventionPlanifiee}" required="true" styleClass="datepicker"
                                          requiredMessage="Date obligatoire" />
                             <h:message for="date" />
 
                             <h:outputText />
-                            <h:commandButton value="Ajouter" action="#{loginManagedBean.isClientCanConnect}" />
-                            <h:panelGroup id="output" rendered="#{loginManagedBean.showError}">
-                                <div style="color:red;">Erreur d'authentification!!</div>
+                            <h:commandButton value="Ajouter" action="#{clientInterventionManagesBean.addInterventionPlanifiee}" />
+                            <h:panelGroup id="output" rendered="#{clientInterventionManagesBean.showErrorAddInterventionPlanifiee}">
+                                <div style="color:red;">Cette date n'est pas disponnible!!</div>
+                            </h:panelGroup>
+                            <h:panelGroup id="output" rendered="#{clientInterventionManagesBean.showMessageAddInterventionPlanifiee}">
+                                <div style="color:green;">Intervention planifiée ajoutée!!</div>
                             </h:panelGroup>
                         </h:panelGrid>
                     </h:form>

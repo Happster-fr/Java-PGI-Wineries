@@ -4,7 +4,7 @@
  */
 package fr.epsi.managedBean;
 
-import fr.epsi.sessionBean.gestionClientSessionBeanRemote;
+import fr.epsi.cave.ejbentity.Intervention;
 import fr.epsi.sessionBean.gestionInterventionSessionBeanRemote;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,6 +25,9 @@ public class gestClientInterventionManagesBean {
     private InitialContext _ic;
     @EJB
     gestionInterventionSessionBeanRemote _gestionInterventionBean;
+    private String dateInterventionPlanifiee;
+    private boolean showErrorAddInterventionPlanifiee = false;
+    private boolean showMessageAddInterventionPlanifiee = false;
     
     public gestClientInterventionManagesBean() {
         try {
@@ -35,6 +38,30 @@ public class gestClientInterventionManagesBean {
         }
     }
     
+    public void addInterventionPlanifiee() {
+        Intervention intervention = new Intervention();
+        intervention.setDate(null);
+        intervention.setEtat("");
+        intervention.setNature(""); //préventive
+        _gestionInterventionBean.createIntervention(null);
+    }
     
+    /* GET/SET */
+    
+    public String getDateInterventionPlanifiee() {
+        return dateInterventionPlanifiee;
+    }
+    
+    public void setdateInterventionPlanifiee(String dateInterventionPlanifiee) {
+        this.dateInterventionPlanifiee = dateInterventionPlanifiee;
+    }
+    
+    public boolean getShowErrorAddInterventionPlanifiee() {
+        return showErrorAddInterventionPlanifiee;
+    }
+    
+    public boolean getShowMessageAddInterventionPlanifiee() {
+        return showMessageAddInterventionPlanifiee;
+    }
     
 }
