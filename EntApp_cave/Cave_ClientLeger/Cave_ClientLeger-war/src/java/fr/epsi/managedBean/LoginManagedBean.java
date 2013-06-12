@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -23,6 +24,7 @@ import javax.naming.NamingException;
 @ManagedBean(name = "loginManagedBean")
 @SessionScoped
 public class LoginManagedBean {
+
     private InitialContext _ic;
     @EJB
     private gestionConnexionSessionBeanRemote _gestionConnexionSessionBeanRemote;
@@ -59,7 +61,7 @@ public class LoginManagedBean {
             Logger.getLogger(gestPieceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public String isClientCanConnect() {
         String result = "";
         _client = _gestionConnexionSessionBeanRemote.getClientIfCanConnect(_login, _password);
@@ -81,25 +83,33 @@ public class LoginManagedBean {
         }
         return result;
     }
-    
+
     /* GET/SET */
     public String getLogin() {
         return _login;
     }
-    
+
     public void setLogin(String login) {
         _login = login;
     }
-    
+
     public String getPassword() {
         return _password;
     }
-    
+
     public void setPassword(String password) {
         _password = password;
     }
-    
+
     public boolean getShowError() {
         return _showError;
+    }
+
+    public boolean isClientConnected() {
+        return _client != null;
+    }
+
+    public boolean isTechnicienConnected() {
+        return _technicien != null;
     }
 }

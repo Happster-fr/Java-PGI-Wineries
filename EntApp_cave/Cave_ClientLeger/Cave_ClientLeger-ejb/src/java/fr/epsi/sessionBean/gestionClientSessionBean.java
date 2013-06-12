@@ -6,9 +6,9 @@ package fr.epsi.sessionBean;
 
 import fr.epsi.cave.ejbentity.Client;
 import fr.epsi.cave.ejbentity.Contrat;
+import java.util.Calendar;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.ejb.LocalBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -58,9 +58,11 @@ public class gestionClientSessionBean implements gestionClientSessionBeanRemote 
 
     @Override
     public Contrat getLastContrat(Integer idClient) {
-        Query q = _em.createNamedQuery("Contrat.findByFkClientId");
+        Calendar cal = Calendar.getInstance();
+        Query q = _em.createNamedQuery("Contrat.findLastByFkClientId");
         q.setParameter("fkClientId", idClient);
-        return (Contrat) q.getSingleResult();
+        q.setParameter("datenow", cal.getTime());
+        return (Contrat) q.setMaxResults(1).getSingleResult();
     }
 
     @Override

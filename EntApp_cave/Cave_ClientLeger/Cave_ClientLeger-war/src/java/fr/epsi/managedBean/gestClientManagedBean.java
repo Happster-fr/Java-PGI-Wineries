@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -35,15 +36,6 @@ public class gestClientManagedBean {
     private Client _client;
     private Contrat _contrat;
     private String test = "";
-
-    public String getTest() {
-        return test;
-    }
-
-    public void setTest(String test) {
-        this.test = test;
-    }
-
 
     public gestClientManagedBean() {
         try {
@@ -76,8 +68,9 @@ public class gestClientManagedBean {
 
     private void getCurrentClient() {
         if (_client == null) {
-            //loginManagedBean.
-            _client = _gestClientBean.getClientById(1);
+            FacesContext context = FacesContext.getCurrentInstance();
+            LoginManagedBean bean = (LoginManagedBean) context.getApplication().evaluateExpressionGet(context, "#{loginManagedBean}", LoginManagedBean.class);
+            _client = bean.getClient();
         }
     }
 
@@ -96,14 +89,12 @@ public class gestClientManagedBean {
         return types;
     }
 
-    public void changeCardFunc(ValueChangeEvent e) {
+    public void changeDates(ValueChangeEvent e) {
         Calendar cal = Calendar.getInstance();
         _contrat.setDateDebut(cal.getTime());
         _contrat.setDateFin(ClientUtilities.changeDate(_contrat.getDateDebut(), _contrat.getType()));
         test = _contrat.getType();
     }
-    
-    
 
     public void submitForm() {
         _gestClientBean.modifyContrat(_contrat);
