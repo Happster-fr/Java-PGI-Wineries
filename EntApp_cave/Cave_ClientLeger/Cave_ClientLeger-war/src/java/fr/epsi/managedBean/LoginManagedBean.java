@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -33,22 +32,6 @@ public class LoginManagedBean {
     private String _login = "";
     private String _password = "";
     private boolean _showError = false;
-
-    public Technicien getTechnicien() {
-        return _technicien;
-    }
-
-    public void setTechnicien(Technicien _technicien) {
-        this._technicien = _technicien;
-    }
-
-    public Client getClient() {
-        return _client;
-    }
-
-    public void setClient(Client _client) {
-        this._client = _client;
-    }
 
     /**
      * Creates a new instance of gestionConnexionSessionBeanRemote
@@ -70,7 +53,8 @@ public class LoginManagedBean {
         } else {
             _showError = true;
         }
-        return result;
+        //return result;
+        return "";
     }
 
     public String isTechnicienCanConnect() {
@@ -82,6 +66,12 @@ public class LoginManagedBean {
             _showError = true;
         }
         return result;
+    }
+
+    public String logouter() {
+        String path = "/General/login";
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return path;
     }
 
     /* GET/SET */
@@ -113,14 +103,19 @@ public class LoginManagedBean {
         return _technicien != null;
     }
 
-    /*public String testAction() {
-        String path = "/Client/accueilClient";
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        if (_client != null && _technicien == null) {
-            path = "/Client/accueilClient";
-        } else {
-            path = "Technicien/accueilTech";  
-        }
-        return path;
-    }*/
+    public Technicien getTechnicien() {
+        return _technicien;
+    }
+
+    public void setTechnicien(Technicien _technicien) {
+        this._technicien = _technicien;
+    }
+
+    public Client getClient() {
+        return _client;
+    }
+
+    public void setClient(Client _client) {
+        this._client = _client;
+    }
 }

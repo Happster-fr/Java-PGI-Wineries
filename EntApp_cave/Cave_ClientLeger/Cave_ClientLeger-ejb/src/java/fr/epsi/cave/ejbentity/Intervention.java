@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Intervention.findByDate", query = "SELECT i FROM Intervention i WHERE i.date = :date"),
     @NamedQuery(name = "Intervention.findByType", query = "SELECT i FROM Intervention i WHERE i.type = :type"),
     @NamedQuery(name = "Intervention.findByFkClientId", query = "SELECT i FROM Intervention i WHERE i.fkClientId = :fkClientId"),
-    @NamedQuery(name = "Intervention.findByFkTechnicienId", query = "SELECT i FROM Intervention i WHERE i.fkTechnicienId = :fkTechnicienId")})
+    @NamedQuery(name = "Intervention.findByFkTechnicienId", query = "SELECT i FROM Intervention i WHERE i.fkTechnicienId = :fkTechnicienId"),
+    @NamedQuery(name = "Intervention.findByNoDateForTechnicien", query = "SELECT i FROM Intervention i WHERE i.date = :date AND i.fkTechnicienId <> :fkTechnicienId")})
 public class Intervention implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
