@@ -52,42 +52,21 @@ public class gestClientInterventionManagesBean {
     }
 
     public void addInterventionPlanifiee() {
-<<<<<<< HEAD
-        FacesContext context = FacesContext.getCurrentInstance();
-        LoginManagedBean bean = (LoginManagedBean) context.getApplication().evaluateExpressionGet(context, "#{loginManagedBean}", LoginManagedBean.class);
-        Client client = bean.getClient();
-
-=======
         /*FacesContext context = FacesContext.getCurrentInstance();
         LoginManagedBean bean = (LoginManagedBean) context.getApplication().evaluateExpressionGet(context, "#{loginManagedBean}", LoginManagedBean.class);        
         Client client = bean.getClient();*/
         
->>>>>>> 476f947b81adcde1751a04a34aaed77e90ea6cdd
         Date dateIntervPlanifiee = DateUtils.stringToDate(dateInterventionPlanifiee, DateUtils.FORMAT_DDMMYYYY);
         List<Technicien> listTechnicien = _gestionTechnicienSessionBean.getTechncienDispo(dateIntervPlanifiee);
 
         if (listTechnicien.size() > 0) {
             Technicien technicien = listTechnicien.get(0);
-<<<<<<< HEAD
-
-            Intervention intervention = new Intervention();
-            intervention.setDate(dateIntervPlanifiee);
-            intervention.setEtat(EnumEtatIntervention.PLANIFIE.name());
-            intervention.setNature(EnumNatureIntervention.PREVENTIVE.name());
-            intervention.setType("");
-            intervention.setFkClientId(client.getClientId());
-            intervention.setFkTechnicienId(technicien.getTechnicienId());
-
-            _gestionInterventionBean.createIntervention(intervention);
-
-=======
             
             Intervention intervention = new Intervention(EnumEtatIntervention.PLANIFIE.getEnumEtatIntervention(), EnumNatureIntervention.PREVENTIVE.getNatureIntervention(), EnumNatureIntervention.PREVENTIVE.getNatureIntervention(), dateIntervPlanifiee);
             intervention.setFkClientId(1);
             intervention.setFkTechnicienId(technicien.getTechnicienId());
 
             _gestionInterventionBean.createIntervention(intervention);
->>>>>>> 476f947b81adcde1751a04a34aaed77e90ea6cdd
             showMessageAddInterventionPlanifiee = true;
             showErrorAddInterventionPlanifiee = false;
         } else {

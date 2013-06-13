@@ -82,6 +82,7 @@ public class Intervention implements Serializable {
         this.nature = nature;
         this.type = type;
     }
+    
     public Intervention(String etat, String nature, String type, Date dateInterv) {
         this.etat = etat;
         this.nature = nature;
