@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Acceuil Client</title>
         <h:outputStylesheet name="css/style.css"/>
@@ -29,8 +30,7 @@
                 <h2 class="title"><a href="#">Mes interventions en attente</a></h2>
                 <div style="clear: both;">&nbsp;</div>
                 <div class="entry">
-                    <h:dataTable border="0" rules="all" value="#{gestIntervManagedBean.interventionCurrentTech}"
-                                 var="i">
+                    <h:dataTable border="0" rules="all" value="#{gestIntervClientManagedBean.interventionCurrentClientAttente}" var="i">
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="N° intervention" />
@@ -45,7 +45,7 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="Type intervention" />
+                                <h:outputText value="Type" />
                             </f:facet>
                             <h:outputText value="#{i.type}" />
                         </h:column>
@@ -53,7 +53,9 @@
                             <f:facet name="header">
                                 <h:outputText value="Date" />
                             </f:facet>
-                            <h:outputText value="#{i.date}" />
+                            <h:outputText value="#{i.date}">
+                                <f:convertDateTime pattern="dd-MM-yyyy" />
+                            </h:outputText>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
@@ -61,12 +63,6 @@
                             </f:facet>
                             <h:outputText value="#{i.etat}" />
                         </h:column>                    
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Action" />
-                            </f:facet>
-                            <h:commandButton value="Details" action="#{gestIntervManagedBean.detailsIntervention}" />
-                        </h:column>
                     </h:dataTable>
                 </div>
             </div>

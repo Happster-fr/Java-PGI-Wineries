@@ -15,13 +15,14 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface gestionInterventionSessionBeanRemote {
+
     void createIntervention(Intervention intervention);
 
     void modifyIntervention(Intervention intervention);
 
     void deleteIntervention(Intervention intervention);
 
-    List<Intervention> getAllIntervention();    
+    List<Intervention> getAllIntervention();
 
     Intervention getIntervention(Intervention intervention);
 
@@ -30,15 +31,16 @@ public interface gestionInterventionSessionBeanRemote {
     List<Intervention> getLstInterventionClient(Integer clientId);
 
     List<ListePiece> getListPieceIntervention(Intervention interv);
-    
+
     List<Intervention> getListInterventionTechnicien(int idTechnicien);
 
+    List<Intervention> getListInterventionClientNotEnded(int idClient);
+
     void addPieceIntervention(ListePiece listPiece);
-    
+
     void addPieceToIntervention(int idPiece, int idIntervention, int qteToAdd);
-    
+
     List<ListePiece> existListePiece(int idPiece, int idIntervention);
-    
+
     void addPieceToInterventionAlreadyExist(int idPiece, int idIntervention, int qteToAdd);
-    
 }

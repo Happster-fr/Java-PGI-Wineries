@@ -6,6 +6,7 @@ package fr.epsi.sessionBean;
 
 import fr.epsi.cave.ejbentity.Intervention;
 import fr.epsi.cave.ejbentity.ListePiece;
+import fr.epsi.enums.EtatIntervention;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -14,7 +15,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author Quentin ecale
+ * @author Quentin ecale and Anthony Sanchez
  */
 @Stateless
 public class gestionInterventionSessionBean implements gestionInterventionSessionBeanRemote {
@@ -83,7 +84,8 @@ public class gestionInterventionSessionBean implements gestionInterventionSessio
 
         return q.getResultList();
     }
- @Override
+
+    @Override
     public void addPieceToIntervention(int idPiece, int idIntervention, int qteToAdd) {
         ListePiece listePiece = new ListePiece(idIntervention, idPiece, qteToAdd);
         _em.merge(listePiece);
@@ -94,7 +96,7 @@ public class gestionInterventionSessionBean implements gestionInterventionSessio
         Query q = _em.createNamedQuery("ListePiece.findByInterventionIdAndPieceId");
         q.setParameter("interventionId", idIntervention);
         q.setParameter("pieceId", idPiece);
-        
+
         return q.getResultList();
     }
 
@@ -103,10 +105,19 @@ public class gestionInterventionSessionBean implements gestionInterventionSessio
         Query q = _em.createNamedQuery("ListePiece.findByInterventionIdAndPieceId");
         q.setParameter("interventionId", idIntervention);
         q.setParameter("pieceId", idPiece);
-       
-        ListePiece listPiece = (ListePiece) q.getResultList().get(0);        
-        listPiece.setNombre(listPiece.getNombre()+qteToAdd);
-        
+
+        ListePiece listPiece = (ListePiece) q.getResultList().get(0);
+        listPiece.setNombre(listPiece.getNombre() + qteToAdd);
+
         _em.merge(listPiece);
+    }
+
+    @Override
+    public List<Intervention> getListInterventionClientNotEnded(int idClient) {
+        Query q = _em.createNamedQuery("Intervention.findIntervNotEndedByFkClientId");
+        q.setParameter("fkClientId", idClient);
+        q.setParameter("etat", EtatIntervention.TERMINEE.getEnumEtatIntervention());
+        
+        return q.getResultList();
     }
 }
