@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.epsi.utilities;
 
 import fr.epsi.enums.TypeContrat;
@@ -10,10 +6,16 @@ import java.util.Date;
 
 /**
  *
- * @author Antho
+ * @author Anthony
  */
 public class ClientUtilities {
 
+    /**
+     * Get the TypeContrat equivalent for typeContrat given
+     *
+     * @param typeContrat
+     * @return TypeContrat
+     */
     public static TypeContrat getTypeContractByString(String typeContrat) {
         if (typeContrat.equalsIgnoreCase(TypeContrat.ANNUEL.getTypeContratInsert())) {
             return TypeContrat.ANNUEL;
@@ -25,6 +27,13 @@ public class ClientUtilities {
         return null;
     }
 
+    /**
+     * Change the given date increasing by one year/month/week according type
+     *
+     * @param toChange
+     * @param type
+     * @return Date
+     */
     static public Date changeDate(Date toChange, String type) {
         Calendar today_plus_year = Calendar.getInstance();
         today_plus_year.setTime(toChange);

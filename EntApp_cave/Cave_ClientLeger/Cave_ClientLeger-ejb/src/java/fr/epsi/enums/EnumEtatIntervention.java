@@ -1,8 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package fr.epsi.utils;
+package fr.epsi.enums;
 
 /**
  *
@@ -14,7 +10,6 @@ public enum EnumEtatIntervention {
     PLANIFIE("Planifiée"),
     DEBUTEE("Débutée"),
     TERMINEE("Terminée");
-
     private final String valToInsert;
 
     EnumEtatIntervention(String val) {
@@ -25,4 +20,3 @@ public enum EnumEtatIntervention {
         return this.valToInsert;
     }
 }
-

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.epsi.sessionBean;
 
 import fr.epsi.cave.ejbentity.Client;
@@ -29,8 +25,6 @@ public interface gestionClientSessionBeanRemote {
     Client getClientById(Integer idClient);
 
     Contrat getLastContrat(Integer idClient);
-    
-    void modifyContrat(Contrat contrat);
-    
+
     void updateContrat(Contrat contrat);
 }

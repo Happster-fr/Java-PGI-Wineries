@@ -18,7 +18,7 @@ import javax.naming.NamingException;
 
 /**
  *
- * @author Antho
+ * @author Anthony
  */
 @ManagedBean(name = "gestIntervClientManagedBean")
 @RequestScoped
@@ -29,7 +29,6 @@ public class GestIntervClientManagedBean {
     @EJB
     private gestionInterventionSessionBeanRemote _gestIntervBean;
     private DataModel _dmInterventionsNotEnded;
-   
 
     public GestIntervClientManagedBean() {
         try {
@@ -40,11 +39,18 @@ public class GestIntervClientManagedBean {
         }
     }
 
+    /* Business stuff */
+    
+    /**
+     * Get interventions for current client with state "En attente"
+     *
+     * @return DataModel
+     */
     public DataModel getInterventionCurrentClientAttente() {
         FacesContext context = FacesContext.getCurrentInstance();
         _loginManagedBean = (LoginManagedBean) context.getApplication().evaluateExpressionGet(context, "#{loginManagedBean}", LoginManagedBean.class);
         int clientId = _loginManagedBean.getClient().getClientId();
-        
+
         if (_dmInterventionsNotEnded == null) {
             _dmInterventionsNotEnded = new ListDataModel();
             _dmInterventionsNotEnded.setWrappedData(_gestIntervBean.getListInterventionClientNotEnded(clientId));
