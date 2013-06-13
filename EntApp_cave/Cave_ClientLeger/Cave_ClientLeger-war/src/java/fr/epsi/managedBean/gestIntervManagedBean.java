@@ -6,6 +6,7 @@ package fr.epsi.managedBean;
 
 import fr.epsi.cave.ejbentity.Intervention;
 import fr.epsi.cave.ejbentity.ListePiece;
+import fr.epsi.cave.ejbentity.Piece;
 import fr.epsi.sessionBean.gestionInterventionSessionBeanRemote;
 import fr.epsi.sessionBean.gestionPieceSessionBeanRemote;
 import fr.epsi.utils.ConstantsPages;
@@ -13,6 +14,7 @@ import fr.epsi.utils.EnumEtatIntervention;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -35,7 +37,9 @@ public class gestIntervManagedBean {
     private InitialContext _ic;
     private DataModel _listIntervention;
     private DataModel _listInterventionTech;
-    private Map<String, Integer> _mapPiece;//les remplir a chaque ajout/modif qui en ont besoin pour les avoir à jour
+    private Map<String, Integer> _mapAllPiece;
+    private String _idPieceToAdd;
+    private int _qteToAdd;
     @EJB
     private gestionInterventionSessionBeanRemote _gestIntervBean;
     @EJB
@@ -109,14 +113,40 @@ public class gestIntervManagedBean {
         _gestIntervBean.modifyIntervention(_detailInterv);
         return ConstantsPages.TECHNICIEN_A_REAL_PAGE;
     }
-    
+
+    public String voirAjoutPiece() {
+        List<Piece> listAllPiece = _gestPieceBean.getAllPiece();
+        _mapAllPiece = new TreeMap<String, Integer>();
+
+
+        for (Piece p : listAllPiece) {
+            _mapAllPiece.put(p.getNom(), p.getPieceId());
+        }
+
+        return ConstantsPages.TECHNICIEN_AJOUT_PIECE_INTERV_PAGE;
+    }
+
     public String ajoutePieceIntervention() {
+
+        String result = ConstantsPages.TECHNICIEN_AJOUT_PIECE_INTERV_PAGE;
         //verifier stock
-        
-        //decrementer stock
-        //approvisionner intervention
-        
-        return ConstantsPages.TECHNICIEN_AVANCEMENT_PAGE;
+        Piece p = _gestPieceBean.getPieceById(Integer.parseInt(_idPieceToAdd));
+        if (p.getQteStock() >= _qteToAdd) {
+            //decrementer stock
+            _gestPieceBean.decrementeStock(Integer.parseInt(_idPieceToAdd), _qteToAdd);
+            //approvisionner intervention
+            //si piece existe deja dans intervention => ajouter la quantité à ce qu'il y a déjà sinon ajout simple
+            List<ListePiece> existPiece = _gestIntervBean.existListePiece(Integer.parseInt(_idPieceToAdd), _detailInterv.getInterventionId());
+            if (existPiece.isEmpty()) {
+                _gestIntervBean.addPieceToIntervention(Integer.parseInt(_idPieceToAdd), _detailInterv.getInterventionId(), _qteToAdd);
+            } else {
+                _gestIntervBean.addPieceToInterventionAlreadyExist(Integer.parseInt(_idPieceToAdd), _detailInterv.getInterventionId(), _qteToAdd);
+            }
+
+            result = ConstantsPages.TECHNICIEN_AVANCEMENT_PAGE;
+        }
+
+        return result;
     }
     
     public List<EnumEtatIntervention> getAllEtatInterv() {
@@ -149,8 +179,20 @@ public class gestIntervManagedBean {
         return _listPieceInterv;
     }
 
+    public Map<String, Integer> getMapAllPiece() {
+        return _mapAllPiece;
+    }
+
     public Intervention getNewIntervention() {
         return _newIntervention;
+    }
+
+    public String getIdPieceToAdd() {
+        return _idPieceToAdd;
+    }
+
+    public int getQteToAdd() {
+        return _qteToAdd;
     }
 
     public void setIc(InitialContext _ic) {
@@ -175,5 +217,17 @@ public class gestIntervManagedBean {
 
     public void setNewIntervention(Intervention _newIntervention) {
         this._newIntervention = _newIntervention;
+    }
+
+    public void setMapAllPiece(Map<String, Integer> _mapAllPiece) {
+        this._mapAllPiece = _mapAllPiece;
+    }
+
+    public void setIdPieceToAdd(String _idPieceToAdd) {
+        this._idPieceToAdd = _idPieceToAdd;
+    }
+
+    public void setQteToAdd(int _qteToAdd) {
+        this._qteToAdd = _qteToAdd;
     }
 }
