@@ -54,6 +54,8 @@
                                       value="#{gestIntervManagedBean.detailInterv.fkTechnicienId}" />
                     </h:panelGrid>
 
+                    <h:commandButton value="Ajouter pièce" action="#{gestIntervManagedBean.voirAjoutPiece()}" />
+                    
                     <h:panelGrid border="0" columns="2" cellpadding="5">
                         <h:dataTable border="0" rules="all" value="#{gestIntervManagedBean.listPieceInterv}"
                                      var="l">

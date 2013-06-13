@@ -22,6 +22,21 @@
         </div>
         <div id="page" class="container">
             <f:view>
+                <h:form>
+                    <h:panelGrid border="0" columns="2" cellpadding="5">
+                        <h:outputText value="Pièce" />
+                        <h:selectOneMenu id="Piece" value="#{gestIntervManagedBean.idPieceToAdd}">
+                            <f:selectItems value="#{gestIntervManagedBean.mapAllPiece}" />
+                        </h:selectOneMenu>
+                        
+                        <h:outputText value="Quantité" />
+                        <h:inputText id="qtePiece" value="#{gestIntervManagedBean.qteToAdd}">
+                            
+                        </h:inputText>
+                    </h:panelGrid>
+
+                    <h:commandButton value="Valider" action="#{gestIntervManagedBean.ajoutePieceIntervention()}" />
+                </h:form>
             </f:view>
         </div>
     </h:body>
