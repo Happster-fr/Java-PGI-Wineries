@@ -43,7 +43,7 @@ public class gestClientInterventionManagesBean {
     private String typeInterventionCurative;
     private boolean showError = false;
     private boolean showMessage = false;
-    
+
     public gestClientInterventionManagesBean() {
         try {
             _ic = new InitialContext();
@@ -53,7 +53,7 @@ public class gestClientInterventionManagesBean {
             Logger.getLogger(gestPieceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void addInterventionPlanifiee() {
         /*FacesContext context = FacesContext.getCurrentInstance();
         LoginManagedBean bean = (LoginManagedBean) context.getApplication().evaluateExpressionGet(context, "#{loginManagedBean}", LoginManagedBean.class);        
@@ -61,8 +61,8 @@ public class gestClientInterventionManagesBean {
         
         Date dateIntervPlanifiee = DateUtils.stringToDate(dateIntervention, DateUtils.FORMAT_DDMMYYYY);
         List<Technicien> listTechnicien = _gestionTechnicienSessionBean.getTechncienDispo(dateIntervPlanifiee);
-        
-        if(listTechnicien.size()>0) {
+
+        if (listTechnicien.size() > 0) {
             Technicien technicien = listTechnicien.get(0);
             
             Intervention intervention = new Intervention(EnumEtatIntervention.PLANIFIE.getEnumEtatIntervention(), EnumNatureIntervention.PREVENTIVE.getNatureIntervention(), EnumNatureIntervention.PREVENTIVE.getNatureIntervention(), dateIntervPlanifiee);
@@ -101,7 +101,7 @@ public class gestClientInterventionManagesBean {
             showError = true;
         }
     }
-    
+
     /* GET/SET */
     
     public String getDateIntervention() {
@@ -135,5 +135,4 @@ public class gestClientInterventionManagesBean {
         typesIntervention.add(EnumSpecialiteTechnicien.ELECTROMECANIQUE.getTypeIntervention());
         return typesIntervention;
     }
-    
 }

@@ -21,7 +21,7 @@ public class gestionInterventionSessionBean implements gestionInterventionSessio
 
     @PersistenceContext
     private EntityManager _em;
-    
+
     @Override
     public void createIntervention(Intervention intervention) {
         _em.merge(intervention);
@@ -67,7 +67,7 @@ public class gestionInterventionSessionBean implements gestionInterventionSessio
     public List<ListePiece> getListPieceIntervention(Intervention interv) {
         Query q = _em.createNamedQuery("ListePiece.findByInterventionId");
         q.setParameter("interventionId", interv.getInterventionId());
-        
+
         return q.getResultList();
     }
 
@@ -79,9 +79,8 @@ public class gestionInterventionSessionBean implements gestionInterventionSessio
     @Override
     public List<Intervention> getListInterventionTechnicien(int idTechnicien) {
         Query q = _em.createNamedQuery("Intervention.findByFkTechnicienId");
-        q.setParameter("fkTechnicienId",idTechnicien);
-        
+        q.setParameter("fkTechnicienId", idTechnicien);
+
         return q.getResultList();
     }
-
 }

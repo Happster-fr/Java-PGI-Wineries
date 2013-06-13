@@ -72,7 +72,6 @@ public class gestionClientSessionBean implements gestionClientSessionBeanRemote 
 
     @Override
     public void createContrat(Contrat contrat) {
-        Calendar cal = Calendar.getInstance();
         _em.merge(new Contrat(contrat));
     }
 }
