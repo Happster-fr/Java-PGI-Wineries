@@ -25,49 +25,55 @@
         </div>
         <div id="page" class="container">
             <f:view>
-                <h:form>
-                    <h:dataTable border="0" rules="all" value="#{gestTechListIntervManagedBean.nonFinishedInterventionCurrentTech}"
-                                 var="i">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="N° intervention" />
-                            </f:facet>
-                            <h:outputText value="#{i.interventionId}" />
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Client" />
-                            </f:facet>
-                            <h:outputText value="#{i.fkClientId}" />
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Type intervention" />
-                            </f:facet>
-                            <h:outputText value="#{i.type}" />
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Date" />
-                            </f:facet>
-                            <h:outputText value="#{i.date}" />
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Etat" />
-                            </f:facet>
-                            <h:outputText value="#{i.etat}" />
-                        </h:column>                    
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Action" />
-                            </f:facet>
-                            <h:commandButton value="Voir" action="#{gestIntervManagedBean.voirAvancementIntervention}" >
-                                <f:param name="intervToSee" value="#{i.interventionId}" />
-                            </h:commandButton>
-                        </h:column>
-                    </h:dataTable>
-                </h:form>
+                <div id="box">
+                    <h2 class="title"><a href="#">Interventions à réaliser</a></h2>
+                    <div style="clear: both;">&nbsp;</div>
+                    <div class="entry">
+                        <h:form>
+                            <h:dataTable border="0" rules="all" value="#{gestTechListIntervManagedBean.nonFinishedInterventionCurrentTech}"
+                                         var="i">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="N° intervention" />
+                                    </f:facet>
+                                    <h:outputText value="#{i.interventionId}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Client" />
+                                    </f:facet>
+                                    <h:outputText value="#{i.fkClientId}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Type intervention" />
+                                    </f:facet>
+                                    <h:outputText value="#{i.type}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Date" />
+                                    </f:facet>
+                                    <h:outputText value="#{i.date}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Etat" />
+                                    </f:facet>
+                                    <h:outputText value="#{i.etat}" />
+                                </h:column>                    
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Action" />
+                                    </f:facet>
+                                    <h:commandButton value="Voir" action="#{gestIntervManagedBean.voirAvancementIntervention}" >
+                                        <f:param name="intervToSee" value="#{i.interventionId}" />
+                                    </h:commandButton>
+                                </h:column>
+                            </h:dataTable>
+                        </h:form>
+                    </div>
+                </div>
             </f:view>
         </div>
     </h:body>

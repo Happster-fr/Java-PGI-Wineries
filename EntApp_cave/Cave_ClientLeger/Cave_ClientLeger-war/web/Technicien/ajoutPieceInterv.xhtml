@@ -25,23 +25,29 @@
         </div>
         <div id="page" class="container">
             <f:view>
-                <h:form>
-                    <h:panelGrid border="0" columns="2" cellpadding="5">
-                        <h:outputText value="Pièce" />
-                        <h:selectOneMenu id="Piece" value="#{gestIntervManagedBean.idPieceToAdd}">
-                            <f:selectItems value="#{gestIntervManagedBean.mapAllPiece}" />
-                        </h:selectOneMenu>
-                        
-                        <h:outputText value="Quantité" />
-                        <h:inputText id="qtePiece" value="#{gestIntervManagedBean.qteToAdd}">
-                            
-                        </h:inputText>
-                    </h:panelGrid>
+                <div id="box">
+                    <h2 class="title"><a href="#">Approvisionnement intervention</a></h2>
+                    <div style="clear: both;">&nbsp;</div>
+                    <div class="entry">
+                        <h:form>
+                            <h:panelGrid border="0" columns="2" cellpadding="5">
+                                <h:outputText value="Pièce" />
+                                <h:selectOneMenu id="Piece" value="#{addPieceIntervManagedBean.idPieceToAdd}">
+                                    <f:selectItems value="#{addPieceIntervManagedBean.mapAllPiece}" />
+                                </h:selectOneMenu>
 
-                    <h:commandButton value="Valider" action="#{gestIntervManagedBean.ajoutePieceIntervention()}" >
-                        <f:param name="intervToSee" value="#{gestIntervManagedBean.detailInterv.interventionId}" />
-                    </h:commandButton>
-                </h:form>
+                                <h:outputText value="Quantité" />
+                                <h:inputText id="qtePiece" value="#{addPieceIntervManagedBean.qteToAdd}">
+
+                                </h:inputText>
+                            </h:panelGrid>
+
+                            <h:commandButton value="Valider" action="#{addPieceIntervManagedBean.ajoutePieceIntervention()}" >
+                                <f:param name="intervId" value="#{addPieceIntervManagedBean.intervId}" />
+                            </h:commandButton>
+                        </h:form>
+                    </div>
+                </div>
             </f:view>
         </div>
     </h:body>
