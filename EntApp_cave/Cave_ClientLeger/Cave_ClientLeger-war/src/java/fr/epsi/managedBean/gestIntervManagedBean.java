@@ -19,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
@@ -33,9 +34,6 @@ import javax.naming.NamingException;
 public class gestIntervManagedBean {
 
     private InitialContext _ic;
-    private Map<String, Integer> _mapAllPiece;
-    private String _idPieceToAdd;
-    private int _qteToAdd;
     @EJB
     private gestionInterventionSessionBeanRemote _gestIntervBean;
     @EJB
@@ -67,7 +65,9 @@ public class gestIntervManagedBean {
     public String voirAvancementIntervention() {
         FacesContext fc = FacesContext.getCurrentInstance();
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
-        _detailInterv = _gestIntervBean.getInterventionById(Integer.parseInt(params.get("intervToSee")));
+        if (!params.get("intervToSee").isEmpty()) {
+            _detailInterv = _gestIntervBean.getInterventionById(Integer.parseInt(params.get("intervToSee")));
+        }
         _listPieceInterv = _gestIntervBean.getListPieceIntervention(_detailInterv);
         return ConstantsPages.TECHNICIEN_AVANCEMENT_PAGE;
     }
@@ -81,55 +81,6 @@ public class gestIntervManagedBean {
     public String enregistrerAvancement() {
         _gestIntervBean.modifyIntervention(_detailInterv);
         return ConstantsPages.TECHNICIEN_A_REAL_PAGE;
-    }
-
-    /**
-     * fill the list with all the Piece in DB and their name to be displayed in
-     * selectItems
-     *
-     * @return the page to add a piece to intervention
-     */
-    public String voirAjoutPiece() {
-        List<Piece> listAllPiece = _gestPieceBean.getAllPiece();
-        _mapAllPiece = new TreeMap<String, Integer>();
-
-
-        for (Piece p : listAllPiece) {
-            _mapAllPiece.put(p.getNom(), p.getPieceId());
-        }
-
-        return ConstantsPages.TECHNICIEN_AJOUT_PIECE_INTERV_PAGE;
-    }
-
-    /**
-     * Add piece to intervention if enough in stock and remove the quantity of
-     * the stock
-     *
-     * @return path of the page to be displayed
-     */
-    public String ajoutePieceIntervention() {
-
-        String result = ConstantsPages.TECHNICIEN_AJOUT_PIECE_INTERV_PAGE;
-        //verifier stock
-        Piece p = _gestPieceBean.getPieceById(Integer.parseInt(_idPieceToAdd));
-        if (_qteToAdd > 0) {
-            if (p.getQteStock() >= _qteToAdd) {
-                //decrementer stock
-                _gestPieceBean.decrementeStock(Integer.parseInt(_idPieceToAdd), _qteToAdd);
-                //approvisionner intervention
-                //si piece n'existe pas dans intervention alors l'ajouter simplement, sinon ajouter aux quantités déjà existantes
-                List<ListePiece> existPiece = _gestIntervBean.existListePiece(Integer.parseInt(_idPieceToAdd), _detailInterv.getInterventionId());
-                if (existPiece.isEmpty()) {
-                    _gestIntervBean.addPieceToIntervention(Integer.parseInt(_idPieceToAdd), _detailInterv.getInterventionId(), _qteToAdd);
-                } else {
-                    _gestIntervBean.addPieceToInterventionAlreadyExist(Integer.parseInt(_idPieceToAdd), _detailInterv.getInterventionId(), _qteToAdd);
-                }
-
-                result = voirAvancementIntervention();//ConstantsPages.TECHNICIEN_AVANCEMENT_PAGE;
-            }
-        }
-
-        return result;
     }
 
     public List<EnumEtatIntervention> getAllEtatInterv() {
@@ -156,20 +107,8 @@ public class gestIntervManagedBean {
         return _listPieceInterv;
     }
 
-    public Map<String, Integer> getMapAllPiece() {
-        return _mapAllPiece;
-    }
-
     public Intervention getNewIntervention() {
         return _newIntervention;
-    }
-
-    public String getIdPieceToAdd() {
-        return _idPieceToAdd;
-    }
-
-    public int getQteToAdd() {
-        return _qteToAdd;
     }
 
     public void setIc(InitialContext _ic) {
@@ -192,15 +131,4 @@ public class gestIntervManagedBean {
         this._newIntervention = _newIntervention;
     }
 
-    public void setMapAllPiece(Map<String, Integer> _mapAllPiece) {
-        this._mapAllPiece = _mapAllPiece;
-    }
-
-    public void setIdPieceToAdd(String _idPieceToAdd) {
-        this._idPieceToAdd = _idPieceToAdd;
-    }
-
-    public void setQteToAdd(int _qteToAdd) {
-        this._qteToAdd = _qteToAdd;
-    }
 }
