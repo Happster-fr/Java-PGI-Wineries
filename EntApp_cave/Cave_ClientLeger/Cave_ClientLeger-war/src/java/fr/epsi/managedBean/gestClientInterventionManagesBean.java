@@ -12,6 +12,7 @@ import fr.epsi.sessionBean.gestionTechnicienSessionBeanRemote;
 import fr.epsi.utils.EnumNatureIntervention;
 import fr.epsi.utils.DateUtils;
 import fr.epsi.utils.EnumEtatIntervention;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -39,7 +40,7 @@ public class gestClientInterventionManagesBean {
     private String dateInterventionPlanifiee;
     private boolean showErrorAddInterventionPlanifiee = false;
     private boolean showMessageAddInterventionPlanifiee = false;
-    
+
     public gestClientInterventionManagesBean() {
         try {
             _ic = new InitialContext();
@@ -49,18 +50,18 @@ public class gestClientInterventionManagesBean {
             Logger.getLogger(gestPieceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void addInterventionPlanifiee() {
         FacesContext context = FacesContext.getCurrentInstance();
-        LoginManagedBean bean = (LoginManagedBean) context.getApplication().evaluateExpressionGet(context, "#{loginManagedBean}", LoginManagedBean.class);        
+        LoginManagedBean bean = (LoginManagedBean) context.getApplication().evaluateExpressionGet(context, "#{loginManagedBean}", LoginManagedBean.class);
         Client client = bean.getClient();
-        
+
         Date dateIntervPlanifiee = DateUtils.stringToDate(dateInterventionPlanifiee, DateUtils.FORMAT_DDMMYYYY);
         List<Technicien> listTechnicien = _gestionTechnicienSessionBean.getTechncienDispo(dateIntervPlanifiee);
-        
-        if(listTechnicien.size()>0) {
+
+        if (listTechnicien.size() > 0) {
             Technicien technicien = listTechnicien.get(0);
-            
+
             Intervention intervention = new Intervention();
             intervention.setDate(dateIntervPlanifiee);
             intervention.setEtat(EnumEtatIntervention.PLANIFIE.name());
@@ -68,31 +69,29 @@ public class gestClientInterventionManagesBean {
             intervention.setType("");
             intervention.setFkClientId(client.getClientId());
             intervention.setFkTechnicienId(technicien.getTechnicienId());
-            
-            //_gestionInterventionBean.createIntervention(intervention);
-            
+
+            _gestionInterventionBean.createIntervention(intervention);
+
             showMessageAddInterventionPlanifiee = true;
         } else {
             showErrorAddInterventionPlanifiee = true;
         }
     }
-    
+
     /* GET/SET */
-    
     public String getDateInterventionPlanifiee() {
         return dateInterventionPlanifiee;
     }
-    
+
     public void setdateInterventionPlanifiee(String dateInterventionPlanifiee) {
         this.dateInterventionPlanifiee = dateInterventionPlanifiee;
     }
-    
+
     public boolean getShowErrorAddInterventionPlanifiee() {
         return showErrorAddInterventionPlanifiee;
     }
-    
+
     public boolean getShowMessageAddInterventionPlanifiee() {
         return showMessageAddInterventionPlanifiee;
     }
-    
 }

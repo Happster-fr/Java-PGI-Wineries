@@ -97,5 +97,6 @@ public class gestClientManagedBean {
     public void submitForm() {
         //_gestClientBean.modifyContrat(_contrat);
         _gestClientBean.createContrat(_contrat);
+        
     }
 }
