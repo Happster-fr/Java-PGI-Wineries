@@ -10,7 +10,10 @@
     </h:head>
     <h:body>
         <div id="logo" class="container">
-            <h1><a href="#">Site de la cave</a></h1>
+            <h1>
+                <img width="50px" src="/Cave_ClientLeger-war/faces/javax.faces.resource/images/icone.png" alt="Logo Dewine" title="Logo Dewine"/>
+                <a href="#">DeWine</a>
+            </h1>
         </div>
         <div id="menu-wrapper">
             <div id="menu" class="container">
@@ -23,7 +26,7 @@
         <div id="page" class="container">
             <f:view>
                 <h:form>
-                    <h:dataTable border="0" rules="all" value="#{gestIntervManagedBean.interventionCurrentTech}"
+                    <h:dataTable border="0" rules="all" value="#{gestTechListIntervManagedBean.nonFinishedInterventionCurrentTech}"
                                  var="i">
                         <h:column>
                             <f:facet name="header">
@@ -59,7 +62,9 @@
                             <f:facet name="header">
                                 <h:outputText value="Action" />
                             </f:facet>
-                            <h:commandButton value="Voir" action="#{gestIntervManagedBean.voirIntervention}" />
+                            <h:commandButton value="Voir" action="#{gestIntervManagedBean.voirAvancementIntervention}" >
+                                <f:param name="intervToSee" value="#{i.interventionId}" />
+                            </h:commandButton>
                         </h:column>
                     </h:dataTable>
                 </h:form>

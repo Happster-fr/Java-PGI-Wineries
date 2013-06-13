@@ -6,6 +6,7 @@ package fr.epsi.sessionBean;
 
 import fr.epsi.cave.ejbentity.Intervention;
 import fr.epsi.cave.ejbentity.ListePiece;
+import fr.epsi.utils.EnumEtatIntervention;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -85,7 +86,7 @@ public class gestionInterventionSessionBean implements gestionInterventionSessio
     }
  @Override
     public void addPieceToIntervention(int idPiece, int idIntervention, int qteToAdd) {
-        ListePiece listePiece = new ListePiece(idIntervention, idPiece, qteToAdd);
+        ListePiece listePiece = new ListePiece(idPiece, idIntervention, qteToAdd);
         _em.merge(listePiece);
     }
 
@@ -108,5 +109,14 @@ public class gestionInterventionSessionBean implements gestionInterventionSessio
         listPiece.setNombre(listPiece.getNombre()+qteToAdd);
         
         _em.merge(listPiece);
+    }
+
+    @Override
+    public List<Intervention> getListInterventionNonFinishedByTech(int idTechnicien) {
+        Query q = _em.createNamedQuery("Intervention.findIntervNotEndedByFkTechId");
+        q.setParameter("fkTechnicienId", idTechnicien);
+        q.setParameter("etat", EnumEtatIntervention.TERMINEE.toString());
+        
+        return q.getResultList();
     }
 }

@@ -10,7 +10,10 @@
     </h:head>
     <h:body>
         <div id="logo" class="container">
-            <h1><a href="#">Site de la cave</a></h1>
+            <h1>
+                <img width="50px" src="/Cave_ClientLeger-war/faces/javax.faces.resource/images/icone.png" alt="Logo Dewine" title="Logo Dewine"/>
+                <a href="#">DeWine</a>
+            </h1>
         </div>
         <div id="menu-wrapper">
             <div id="menu" class="container">
@@ -35,7 +38,9 @@
                         </h:inputText>
                     </h:panelGrid>
 
-                    <h:commandButton value="Valider" action="#{gestIntervManagedBean.ajoutePieceIntervention()}" />
+                    <h:commandButton value="Valider" action="#{gestIntervManagedBean.ajoutePieceIntervention()}" >
+                        <f:param name="intervToSee" value="#{gestIntervManagedBean.detailInterv.interventionId}" />
+                    </h:commandButton>
                 </h:form>
             </f:view>
         </div>
