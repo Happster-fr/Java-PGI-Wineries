@@ -32,5 +32,5 @@ public interface gestionClientSessionBeanRemote {
     
     void modifyContrat(Contrat contrat);
     
-    void createContrat(Contrat contrat);
+    void updateContrat(Contrat contrat);
 }

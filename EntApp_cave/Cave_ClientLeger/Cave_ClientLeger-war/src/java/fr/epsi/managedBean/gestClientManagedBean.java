@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.application.Application;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ValueChangeEvent;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -36,6 +36,9 @@ public class gestClientManagedBean {
     gestionClientSessionBeanRemote _gestClientBean;
     private Client _client;
     private Contrat _contrat;
+    private LoginManagedBean _loginManagedBean;
+    private boolean updateOk = false;
+    private boolean updateNok = false;
 
     public gestClientManagedBean() {
         try {
@@ -66,11 +69,28 @@ public class gestClientManagedBean {
         this._contrat = _contrat;
     }
 
+    public boolean isInsertOk() {
+        return updateOk;
+    }
+
+    public void setInsertOk(boolean insertOk) {
+        this.updateOk = insertOk;
+    }
+
+    public boolean isInsertNok() {
+        return updateNok;
+    }
+
+    public void setInsertNok(boolean insertNok) {
+        this.updateNok = insertNok;
+    }
+
     private void getCurrentClient() {
         if (_client == null) {
             FacesContext context = FacesContext.getCurrentInstance();
-            LoginManagedBean bean = (LoginManagedBean) context.getApplication().evaluateExpressionGet(context, "#{loginManagedBean}", LoginManagedBean.class);
-            _client = bean.getClient();
+            Application app = context.getApplication();
+            _loginManagedBean = (LoginManagedBean) app.evaluateExpressionGet(context, "#{loginManagedBean}", LoginManagedBean.class);
+            _client = _loginManagedBean.getClient();
         }
     }
 
@@ -96,7 +116,7 @@ public class gestClientManagedBean {
     }
 
     public void submitForm() {;
-        _gestClientBean.createContrat(_contrat);
-
+        _gestClientBean.updateContrat(_contrat);
+        updateOk = true;
     }
 }
