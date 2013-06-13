@@ -48,7 +48,7 @@
                             <h:outputText />
                             <h:commandButton value="Ajouter" action="#{clientInterventionManagesBean.addInterventionPlanifiee}" />
                             <h:panelGroup rendered="#{clientInterventionManagesBean.showErrorAddInterventionPlanifiee}">
-                                <div style="color:red;">Cette date n'est pas disponnible!!</div>
+                                <div style="color:red;"><h:outputText value="#{clientInterventionManagesBean.messageErreur}" /></div>
                             </h:panelGroup>
                             <h:panelGroup rendered="#{clientInterventionManagesBean.showMessageAddInterventionPlanifiee}">
                                 <div style="color:green;">Intervention planifiée ajoutée!!</div>

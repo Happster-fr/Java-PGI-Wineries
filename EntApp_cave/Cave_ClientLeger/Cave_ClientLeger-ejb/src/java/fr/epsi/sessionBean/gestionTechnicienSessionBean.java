@@ -4,14 +4,12 @@
  */
 package fr.epsi.sessionBean;
 
-import fr.epsi.cave.ejbentity.Client;
 import fr.epsi.cave.ejbentity.Intervention;
 import fr.epsi.cave.ejbentity.Technicien;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 

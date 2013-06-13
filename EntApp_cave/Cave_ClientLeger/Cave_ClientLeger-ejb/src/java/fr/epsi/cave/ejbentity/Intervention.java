@@ -82,11 +82,18 @@ public class Intervention implements Serializable {
         this.type = type;
     }
     
-        public Intervention(String etat, String nature, String type, Date dateInterv) {
+    public Intervention(String etat, String nature, String type, Date dateInterv) {
         this.etat = etat;
         this.nature = nature;
         this.type = type;
         this.date = dateInterv;
+    }
+    
+     public Intervention(Intervention intervention){
+        this.etat = intervention.getEtat();
+        this.nature = intervention.getNature();
+        this.type = intervention.getType();
+        this.date = intervention.getDate();
     }
 
     public Integer getInterventionId() {

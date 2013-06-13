@@ -51,9 +51,9 @@ public class gestClientInterventionManagesBean {
     }
     
     public void addInterventionPlanifiee() {
-        FacesContext context = FacesContext.getCurrentInstance();
+        /*FacesContext context = FacesContext.getCurrentInstance();
         LoginManagedBean bean = (LoginManagedBean) context.getApplication().evaluateExpressionGet(context, "#{loginManagedBean}", LoginManagedBean.class);        
-        Client client = bean.getClient();
+        Client client = bean.getClient();*/
         
         Date dateIntervPlanifiee = DateUtils.stringToDate(dateInterventionPlanifiee, DateUtils.FORMAT_DDMMYYYY);
         List<Technicien> listTechnicien = _gestionTechnicienSessionBean.getTechncienDispo(dateIntervPlanifiee);
@@ -61,18 +61,15 @@ public class gestClientInterventionManagesBean {
         if(listTechnicien.size()>0) {
             Technicien technicien = listTechnicien.get(0);
             
-            Intervention intervention = new Intervention();
-            intervention.setDate(dateIntervPlanifiee);
-            intervention.setEtat(EnumEtatIntervention.PLANIFIE.name());
-            intervention.setNature(EnumNatureIntervention.PREVENTIVE.name());
-            intervention.setType("");
-            intervention.setFkClientId(client.getClientId());
+            Intervention intervention = new Intervention(EnumEtatIntervention.PLANIFIE.getEnumEtatIntervention(), EnumNatureIntervention.PREVENTIVE.getNatureIntervention(), EnumNatureIntervention.PREVENTIVE.getNatureIntervention(), dateIntervPlanifiee);
+            intervention.setFkClientId(1);
             intervention.setFkTechnicienId(technicien.getTechnicienId());
-            
-            //_gestionInterventionBean.createIntervention(intervention);
-            
+
+            _gestionInterventionBean.createIntervention(intervention);
             showMessageAddInterventionPlanifiee = true;
+            showErrorAddInterventionPlanifiee = false;
         } else {
+            showMessageAddInterventionPlanifiee = false;
             showErrorAddInterventionPlanifiee = true;
         }
     }
