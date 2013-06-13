@@ -43,4 +43,6 @@ public interface gestionInterventionSessionBeanRemote {
     List<ListePiece> existListePiece(int idPiece, int idIntervention);
 
     void addPieceToInterventionAlreadyExist(int idPiece, int idIntervention, int qteToAdd);
+
+    List<Intervention> getListInterventionNonFinishedByTech(int idTechnicien);
 }

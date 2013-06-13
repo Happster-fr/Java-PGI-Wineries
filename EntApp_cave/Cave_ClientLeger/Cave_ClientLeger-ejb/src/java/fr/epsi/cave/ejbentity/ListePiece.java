@@ -29,7 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "ListePiece.findByListePieceId", query = "SELECT l FROM ListePiece l WHERE l.listePieceId = :listePieceId"),
     @NamedQuery(name = "ListePiece.findByInterventionId", query = "SELECT l FROM ListePiece l WHERE l.interventionId = :interventionId"),
     @NamedQuery(name = "ListePiece.findByPieceId", query = "SELECT l FROM ListePiece l WHERE l.pieceId = :pieceId"),
-    @NamedQuery(name = "ListePiece.findByNombre", query = "SELECT l FROM ListePiece l WHERE l.nombre = :nombre")})
+    @NamedQuery(name = "ListePiece.findByNombre", query = "SELECT l FROM ListePiece l WHERE l.nombre = :nombre"),
+    @NamedQuery(name = "ListePiece.findByInterventionIdAndPieceId", query = "SELECT l FROM ListePiece l WHERE l.interventionId = :interventionId AND l.pieceId = :pieceId")})
 public class ListePiece implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

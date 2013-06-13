@@ -87,7 +87,7 @@ public class gestionInterventionSessionBean implements gestionInterventionSessio
 
     @Override
     public void addPieceToIntervention(int idPiece, int idIntervention, int qteToAdd) {
-        ListePiece listePiece = new ListePiece(idIntervention, idPiece, qteToAdd);
+        ListePiece listePiece = new ListePiece(idPiece, idIntervention, qteToAdd);
         _em.merge(listePiece);
     }
 
@@ -117,7 +117,14 @@ public class gestionInterventionSessionBean implements gestionInterventionSessio
         Query q = _em.createNamedQuery("Intervention.findIntervNotEndedByFkClientId");
         q.setParameter("fkClientId", idClient);
         q.setParameter("etat", EtatIntervention.TERMINEE.getEnumEtatIntervention());
-        
+        return q.getResultList();
+    }
+
+    @Override
+    public List<Intervention> getListInterventionNonFinishedByTech(int idTechnicien) {
+        Query q = _em.createNamedQuery("Intervention.findIntervNotEndedByFkTechId");
+        q.setParameter("fkTechnicienId", idTechnicien);
+        q.setParameter("etat", EtatIntervention.TERMINEE.toString()); 
         return q.getResultList();
     }
 }

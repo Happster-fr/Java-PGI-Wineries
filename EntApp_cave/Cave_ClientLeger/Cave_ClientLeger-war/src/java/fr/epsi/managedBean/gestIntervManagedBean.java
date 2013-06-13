@@ -21,8 +21,6 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -35,8 +33,6 @@ import javax.naming.NamingException;
 public class gestIntervManagedBean {
 
     private InitialContext _ic;
-    private DataModel _listIntervention;
-    private DataModel _listInterventionTech;
     private Map<String, Integer> _mapAllPiece;
     private String _idPieceToAdd;
     private int _qteToAdd;
@@ -46,13 +42,13 @@ public class gestIntervManagedBean {
     private gestionPieceSessionBeanRemote _gestPieceBean;
     private Intervention _detailInterv;
     private List<ListePiece> _listPieceInterv;
-    private Intervention _newIntervention;    
+    private Intervention _newIntervention;
 
     /**
      * Creates a new instance of gestIntervManagedBean
      */
     public gestIntervManagedBean() {
-        
+
         try {
             _ic = new InitialContext();
             _gestIntervBean = (gestionInterventionSessionBeanRemote) _ic.lookup("java:global/Cave_ClientLeger/Cave_ClientLeger-ejb/gestionInterventionSessionBean!fr.epsi.sessionBean.gestionInterventionSessionBeanRemote");
@@ -63,57 +59,36 @@ public class gestIntervManagedBean {
     }
 
     /**
-     * Get the list of all intervention in database
+     * get intervention ID passed by parameters and get all the object and Piece
+     * to display it in the avancement page
      *
-     * @return DataModel containing all interventions
+     * @return String corresponding to the avancement page
      */
-    public DataModel getListAllIntervention() {
-        if (_listIntervention == null) {
-            _listIntervention = new ListDataModel();
-            _listIntervention.setWrappedData(_gestIntervBean.getAllIntervention());
-        }
-
-        return _listIntervention;
-    }
-
-    /**
-     * get intervention of current technicien by the session
-     * @return DataModel containing the list of intervention from the actual connected technicien
-     */
-    public DataModel getInterventionCurrentTech(){
-        FacesContext context = FacesContext.getCurrentInstance();
-        LoginManagedBean bean = (LoginManagedBean) context.getApplication().evaluateExpressionGet(context, "#{loginManagedBean}", LoginManagedBean.class);        
-        
-        int idTech = bean.getTechnicien().getTechnicienId();//1;//ManagedBeanDeLogin.personne.getIdTEch
-        if (_listInterventionTech == null) {
-            _listInterventionTech = new ListDataModel();
-            _listInterventionTech.setWrappedData(_gestIntervBean.getListInterventionTechnicien(idTech));
-        }
-        
-        return _listInterventionTech;
-    }
-
-    /**
-     * called after clic on voir button in the list intervention table to get
-     * all intervention's details
-     *
-     * @return String corresponding of the name of the page we go
-     */
-    public String voirIntervention() {
-        _detailInterv = (Intervention) _listInterventionTech.getRowData();
+    public String voirAvancementIntervention() {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        _detailInterv = _gestIntervBean.getInterventionById(Integer.parseInt(params.get("intervToSee")));
         _listPieceInterv = _gestIntervBean.getListPieceIntervention(_detailInterv);
         return ConstantsPages.TECHNICIEN_AVANCEMENT_PAGE;
     }
-    
+
     /**
      * record changes done on the intervention
-     * @return String corresponding to the list of all intervention of the technicien
+     *
+     * @return String corresponding to the list of all intervention of the
+     * technicien
      */
     public String enregistrerAvancement() {
         _gestIntervBean.modifyIntervention(_detailInterv);
         return ConstantsPages.TECHNICIEN_A_REAL_PAGE;
     }
 
+    /**
+     * fill the list with all the Piece in DB and their name to be displayed in
+     * selectItems
+     *
+     * @return the page to add a piece to intervention
+     */
     public String voirAjoutPiece() {
         List<Piece> listAllPiece = _gestPieceBean.getAllPiece();
         _mapAllPiece = new TreeMap<String, Integer>();
@@ -126,45 +101,47 @@ public class gestIntervManagedBean {
         return ConstantsPages.TECHNICIEN_AJOUT_PIECE_INTERV_PAGE;
     }
 
+    /**
+     * Add piece to intervention if enough in stock and remove the quantity of
+     * the stock
+     *
+     * @return path of the page to be displayed
+     */
     public String ajoutePieceIntervention() {
 
         String result = ConstantsPages.TECHNICIEN_AJOUT_PIECE_INTERV_PAGE;
         //verifier stock
         Piece p = _gestPieceBean.getPieceById(Integer.parseInt(_idPieceToAdd));
-        if (p.getQteStock() >= _qteToAdd) {
-            //decrementer stock
-            _gestPieceBean.decrementeStock(Integer.parseInt(_idPieceToAdd), _qteToAdd);
-            //approvisionner intervention
-            //si piece existe deja dans intervention => ajouter la quantité à ce qu'il y a déjà sinon ajout simple
-            List<ListePiece> existPiece = _gestIntervBean.existListePiece(Integer.parseInt(_idPieceToAdd), _detailInterv.getInterventionId());
-            if (existPiece.isEmpty()) {
-                _gestIntervBean.addPieceToIntervention(Integer.parseInt(_idPieceToAdd), _detailInterv.getInterventionId(), _qteToAdd);
-            } else {
-                _gestIntervBean.addPieceToInterventionAlreadyExist(Integer.parseInt(_idPieceToAdd), _detailInterv.getInterventionId(), _qteToAdd);
-            }
+        if (_qteToAdd > 0) {
+            if (p.getQteStock() >= _qteToAdd) {
+                //decrementer stock
+                _gestPieceBean.decrementeStock(Integer.parseInt(_idPieceToAdd), _qteToAdd);
+                //approvisionner intervention
+                //si piece n'existe pas dans intervention alors l'ajouter simplement, sinon ajouter aux quantités déjà existantes
+                List<ListePiece> existPiece = _gestIntervBean.existListePiece(Integer.parseInt(_idPieceToAdd), _detailInterv.getInterventionId());
+                if (existPiece.isEmpty()) {
+                    _gestIntervBean.addPieceToIntervention(Integer.parseInt(_idPieceToAdd), _detailInterv.getInterventionId(), _qteToAdd);
+                } else {
+                    _gestIntervBean.addPieceToInterventionAlreadyExist(Integer.parseInt(_idPieceToAdd), _detailInterv.getInterventionId(), _qteToAdd);
+                }
 
-            result = ConstantsPages.TECHNICIEN_AVANCEMENT_PAGE;
+                result = voirAvancementIntervention();//ConstantsPages.TECHNICIEN_AVANCEMENT_PAGE;
+            }
         }
 
         return result;
     }
-    
+
     public List<EnumEtatIntervention> getAllEtatInterv() {
         return Arrays.asList(EnumEtatIntervention.values());
     }
-    
-    
-    public String getNomPieceByID(int idPiece)
-    {        
+
+    public String getNomPieceByID(int idPiece) {
         return _gestPieceBean.getPieceById(idPiece).getNom();
     }
 
     public InitialContext getIc() {
         return _ic;
-    }
-
-    public DataModel getListIntervention() {
-        return _listIntervention;
     }
 
     public gestionInterventionSessionBeanRemote getGestIntervBean() {
@@ -197,10 +174,6 @@ public class gestIntervManagedBean {
 
     public void setIc(InitialContext _ic) {
         this._ic = _ic;
-    }
-
-    public void setListIntervention(DataModel _listIntervention) {
-        this._listIntervention = _listIntervention;
     }
 
     public void setGestIntervBean(gestionInterventionSessionBeanRemote _gestIntervBean) {
