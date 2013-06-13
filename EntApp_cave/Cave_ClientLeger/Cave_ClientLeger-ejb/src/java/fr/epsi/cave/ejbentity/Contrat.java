@@ -60,6 +60,13 @@ public class Contrat implements Serializable {
 
     public Contrat() {
     }
+    
+    public Contrat(Contrat newContrat){
+        this.dateDebut = newContrat.getDateDebut();
+        this.dateFin = newContrat.getDateFin();
+        this.fkClientId = newContrat.getFkClientId();
+        this.type = newContrat.getType(); 
+    }
 
     public Contrat(Integer contratId) {
         this.contratId = contratId;

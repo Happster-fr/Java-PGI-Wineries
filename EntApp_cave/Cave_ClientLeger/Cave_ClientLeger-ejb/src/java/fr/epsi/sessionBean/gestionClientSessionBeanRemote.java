@@ -31,4 +31,6 @@ public interface gestionClientSessionBeanRemote {
     Contrat getLastContrat(Integer idClient);
     
     void modifyContrat(Contrat contrat);
+    
+    void createContrat(Contrat contrat);
 }
