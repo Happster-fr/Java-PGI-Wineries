@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.epsi.sessionBean;
 
 import fr.epsi.cave.ejbentity.Intervention;
@@ -15,7 +11,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author Quentin ecale and Anthony Sanchez
+ * @author Quentin ecale and Anthony
  */
 @Stateless
 public class gestionInterventionSessionBean implements gestionInterventionSessionBeanRemote {
@@ -112,6 +108,12 @@ public class gestionInterventionSessionBean implements gestionInterventionSessio
         _em.merge(listPiece);
     }
 
+    /**
+     * Get the list of interventions not ended for given Client
+     *
+     * @param idClient
+     * @return List<Intervention>
+     */
     @Override
     public List<Intervention> getListInterventionClientNotEnded(int idClient) {
         Query q = _em.createNamedQuery("Intervention.findIntervNotEndedByFkClientId");
@@ -124,7 +126,7 @@ public class gestionInterventionSessionBean implements gestionInterventionSessio
     public List<Intervention> getListInterventionNonFinishedByTech(int idTechnicien) {
         Query q = _em.createNamedQuery("Intervention.findIntervNotEndedByFkTechId");
         q.setParameter("fkTechnicienId", idTechnicien);
-        q.setParameter("etat", EtatIntervention.TERMINEE.toString()); 
+        q.setParameter("etat", EtatIntervention.TERMINEE.toString());
         return q.getResultList();
     }
 }

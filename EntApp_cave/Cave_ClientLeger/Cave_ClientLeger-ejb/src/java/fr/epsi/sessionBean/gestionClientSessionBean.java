@@ -65,15 +65,13 @@ public class gestionClientSessionBean implements gestionClientSessionBeanRemote 
         return (Contrat) q.setMaxResults(1).getSingleResult();
     }
 
-    @Override
-    public void modifyContrat(Contrat contrat) {
-        _em.merge(contrat);
-    }
-
+    /**
+     * Update the contract need to be extended by Client
+     *
+     * @param contrat
+     */
     @Override
     public void updateContrat(Contrat contrat) {
-        //Contrat newContrat = new Contrat(contrat);
         _em.merge(contrat);
-        //return newContrat;
     }
 }

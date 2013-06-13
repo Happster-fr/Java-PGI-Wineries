@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.epsi.managedBean;
 
 import fr.epsi.cave.ejbentity.Client;
@@ -25,7 +21,7 @@ import javax.naming.NamingException;
 
 /**
  *
- * @author Antho
+ * @author Anthony
  */
 @ManagedBean(name = "clientManagedBean")
 @SessionScoped
@@ -51,6 +47,60 @@ public class gestClientManagedBean {
         }
     }
 
+    /* Business stuff */
+    /**
+     * Get current Client stored in Session
+     */
+    private void getCurrentClient() {
+        if (_client == null) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            Application app = context.getApplication();
+            _loginManagedBean = (LoginManagedBean) app.evaluateExpressionGet(context, "#{loginManagedBean}", LoginManagedBean.class);
+            _client = _loginManagedBean.getClient();
+        }
+    }
+
+    private void getCurrentContract() {
+        getCurrentClient();
+        if (_contrat == null) {
+            _contrat = _gestClientBean.getLastContrat(_client.getClientId());
+        }
+    }
+
+    /**
+     * Get list of all TypeContrat to populate views
+     *
+     * @return List<String>
+     */
+    public List<String> getListTypeContratStr() {
+        List<String> types = new ArrayList<String>();
+        types.add(TypeContrat.ANNUEL.getTypeContratInsert());
+        types.add(TypeContrat.MENSUEL.getTypeContratInsert());
+        types.add(TypeContrat.HEBDOMADAIRE.getTypeContratInsert());
+        return types;
+    }
+
+    /**
+     * Used by AJAX call to change automatically "date debut" and "date fin"
+     * attributes
+     *
+     * @param e
+     */
+    public void changeDates(ValueChangeEvent e) {
+        Calendar cal = Calendar.getInstance();
+        _contrat.setDateDebut(cal.getTime());
+        _contrat.setDateFin(ClientUtilities.changeDate(_contrat.getDateDebut(), _contrat.getType()));
+    }
+
+    /**
+     * Submit form and show success or failed message
+     */
+    public void submitForm() {;
+        _gestClientBean.updateContrat(_contrat);
+        updateOk = true;
+    }
+
+    /* GET/SET */
     public Client getClient() {
         getCurrentClient();
         return _client;
@@ -83,40 +133,5 @@ public class gestClientManagedBean {
 
     public void setInsertNok(boolean insertNok) {
         this.updateNok = insertNok;
-    }
-
-    private void getCurrentClient() {
-        if (_client == null) {
-            FacesContext context = FacesContext.getCurrentInstance();
-            Application app = context.getApplication();
-            _loginManagedBean = (LoginManagedBean) app.evaluateExpressionGet(context, "#{loginManagedBean}", LoginManagedBean.class);
-            _client = _loginManagedBean.getClient();
-        }
-    }
-
-    private void getCurrentContract() {
-        getCurrentClient();
-        if (_contrat == null) {
-            _contrat = _gestClientBean.getLastContrat(_client.getClientId());
-        }
-    }
-
-    public List<String> getListTypeContratStr() {
-        List<String> types = new ArrayList<String>();
-        types.add(TypeContrat.ANNUEL.getTypeContratInsert());
-        types.add(TypeContrat.MENSUEL.getTypeContratInsert());
-        types.add(TypeContrat.HEBDOMADAIRE.getTypeContratInsert());
-        return types;
-    }
-
-    public void changeDates(ValueChangeEvent e) {
-        Calendar cal = Calendar.getInstance();
-        _contrat.setDateDebut(cal.getTime());
-        _contrat.setDateFin(ClientUtilities.changeDate(_contrat.getDateDebut(), _contrat.getType()));
-    }
-
-    public void submitForm() {;
-        _gestClientBean.updateContrat(_contrat);
-        updateOk = true;
     }
 }
