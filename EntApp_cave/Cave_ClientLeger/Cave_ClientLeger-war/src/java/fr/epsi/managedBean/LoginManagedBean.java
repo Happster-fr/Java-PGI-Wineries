@@ -54,8 +54,7 @@ public class LoginManagedBean {
         } else {
             _showError = true;
         }
-        //return result;
-        return "";
+        return result;
     }
 
     public String isTechnicienCanConnect() {
