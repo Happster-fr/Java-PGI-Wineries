@@ -54,9 +54,24 @@
                                       value="#{gestIntervManagedBean.detailInterv.fkTechnicienId}" />
                     </h:panelGrid>
 
-                    <!-- rajouter liste des pièces utilisées pour l'intervention + un bouton d'ajout qui renvoie vers une page
-                    ou apparition d'un champ de saisie -->
-                    
+                    <h:panelGrid border="0" columns="2" cellpadding="5">
+                        <h:dataTable border="0" rules="all" value="#{gestIntervManagedBean.listPieceInterv}"
+                                     var="l">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Pièce" />
+                                </f:facet>
+                                <h:outputText value="#{l.pieceId}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Quantité" />
+                                </f:facet>
+                                <h:outputText value="#{l.nombre}" />
+                            </h:column>
+                        </h:dataTable>
+                    </h:panelGrid>
+
                     <h:commandButton value="Valider" action="#{gestIntervManagedBean.enregistrerAvancement}" />
                 </h:form>
             </f:view>

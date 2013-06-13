@@ -7,9 +7,9 @@ package fr.epsi.managedBean;
 import fr.epsi.cave.ejbentity.Intervention;
 import fr.epsi.cave.ejbentity.ListePiece;
 import fr.epsi.sessionBean.gestionInterventionSessionBeanRemote;
+import fr.epsi.sessionBean.gestionPieceSessionBeanRemote;
 import fr.epsi.utils.ConstantsPages;
 import fr.epsi.utils.EnumEtatIntervention;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -37,10 +37,12 @@ public class gestIntervManagedBean {
     private DataModel _listInterventionTech;
     private Map<String, Integer> _mapPiece;//les remplir a chaque ajout/modif qui en ont besoin pour les avoir à jour
     @EJB
-    private gestionInterventionSessionBeanRemote _gestIntervBean; //faire une classe regroupant les beans remotes qui nous fait un singleton pour chacun ?
+    private gestionInterventionSessionBeanRemote _gestIntervBean;
+    @EJB
+    private gestionPieceSessionBeanRemote _gestPieceBean;
     private Intervention _detailInterv;
     private List<ListePiece> _listPieceInterv;
-    private Intervention _newIntervention;
+    private Intervention _newIntervention;    
 
     /**
      * Creates a new instance of gestIntervManagedBean
@@ -50,6 +52,7 @@ public class gestIntervManagedBean {
         try {
             _ic = new InitialContext();
             _gestIntervBean = (gestionInterventionSessionBeanRemote) _ic.lookup("java:global/Cave_ClientLeger/Cave_ClientLeger-ejb/gestionInterventionSessionBean!fr.epsi.sessionBean.gestionInterventionSessionBeanRemote");
+            _gestPieceBean = (gestionPieceSessionBeanRemote) _ic.lookup("java:global/Cave_ClientLeger/Cave_ClientLeger-ejb/gestionPieceSessionBean!fr.epsi.sessionBean.gestionPieceSessionBeanRemote");
         } catch (NamingException ex) {
             Logger.getLogger(gestPieceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -87,29 +90,6 @@ public class gestIntervManagedBean {
     }
 
     /**
-     * instanciate new intervention and redirect to creation page
-     *
-     * @return String corresponding to the name of the page we go
-     */
-    public String addIntervention() {
-        _newIntervention = new Intervention();
-        return ConstantsPages.INTERVENTION_ADD_PAGE;
-    }
-
-    /**
-     * Creation and record in DB of intervention after click on the create
-     * button and redirect to intervention list
-     *
-     * @return String corresponding of the name of the page we redirect after
-     * action
-     */
-    public String createIntervention() {
-        _gestIntervBean.createIntervention(_newIntervention);
-        _listIntervention.setWrappedData(_gestIntervBean.getAllIntervention());
-        return ConstantsPages.INTERVENTION_LIST_PAGE;
-    }
-
-    /**
      * called after clic on voir button in the list intervention table to get
      * all intervention's details
      *
@@ -121,15 +101,33 @@ public class gestIntervManagedBean {
         return ConstantsPages.TECHNICIEN_AVANCEMENT_PAGE;
     }
     
+    /**
+     * record changes done on the intervention
+     * @return String corresponding to the list of all intervention of the technicien
+     */
     public String enregistrerAvancement() {
         _gestIntervBean.modifyIntervention(_detailInterv);
         return ConstantsPages.TECHNICIEN_A_REAL_PAGE;
+    }
+    
+    public String ajoutePieceIntervention() {
+        //verifier stock
+        
+        //decrementer stock
+        //approvisionner intervention
+        
+        return ConstantsPages.TECHNICIEN_AVANCEMENT_PAGE;
     }
     
     public List<EnumEtatIntervention> getAllEtatInterv() {
         return Arrays.asList(EnumEtatIntervention.values());
     }
     
+    
+    public String getNomPieceByID(int idPiece)
+    {        
+        return _gestPieceBean.getPieceById(idPiece).getNom();
+    }
 
     public InitialContext getIc() {
         return _ic;
