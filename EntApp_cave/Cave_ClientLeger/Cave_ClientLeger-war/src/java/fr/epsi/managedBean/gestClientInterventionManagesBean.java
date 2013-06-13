@@ -7,18 +7,21 @@ package fr.epsi.managedBean;
 import fr.epsi.cave.ejbentity.Client;
 import fr.epsi.cave.ejbentity.Intervention;
 import fr.epsi.cave.ejbentity.Technicien;
+import fr.epsi.enums.TypeContrat;
 import fr.epsi.sessionBean.gestionInterventionSessionBeanRemote;
 import fr.epsi.sessionBean.gestionTechnicienSessionBeanRemote;
 import fr.epsi.utils.EnumNatureIntervention;
 import fr.epsi.utils.DateUtils;
 import fr.epsi.utils.EnumEtatIntervention;
+import fr.epsi.utils.EnumSpecialiteTechnicien;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -28,7 +31,7 @@ import javax.naming.NamingException;
  * @author Mikhael
  */
 @ManagedBean(name = "clientInterventionManagesBean")
-@SessionScoped
+@RequestScoped
 public class gestClientInterventionManagesBean {
 
     private InitialContext _ic;
@@ -36,9 +39,10 @@ public class gestClientInterventionManagesBean {
     gestionTechnicienSessionBeanRemote _gestionTechnicienSessionBean;
     @EJB
     gestionInterventionSessionBeanRemote _gestionInterventionBean;
-    private String dateInterventionPlanifiee;
-    private boolean showErrorAddInterventionPlanifiee = false;
-    private boolean showMessageAddInterventionPlanifiee = false;
+    private String dateIntervention;
+    private String typeInterventionCurative;
+    private boolean showError = false;
+    private boolean showMessage = false;
     
     public gestClientInterventionManagesBean() {
         try {
@@ -55,7 +59,7 @@ public class gestClientInterventionManagesBean {
         LoginManagedBean bean = (LoginManagedBean) context.getApplication().evaluateExpressionGet(context, "#{loginManagedBean}", LoginManagedBean.class);        
         Client client = bean.getClient();*/
         
-        Date dateIntervPlanifiee = DateUtils.stringToDate(dateInterventionPlanifiee, DateUtils.FORMAT_DDMMYYYY);
+        Date dateIntervPlanifiee = DateUtils.stringToDate(dateIntervention, DateUtils.FORMAT_DDMMYYYY);
         List<Technicien> listTechnicien = _gestionTechnicienSessionBean.getTechncienDispo(dateIntervPlanifiee);
         
         if(listTechnicien.size()>0) {
@@ -66,30 +70,70 @@ public class gestClientInterventionManagesBean {
             intervention.setFkTechnicienId(technicien.getTechnicienId());
 
             _gestionInterventionBean.createIntervention(intervention);
-            showMessageAddInterventionPlanifiee = true;
-            showErrorAddInterventionPlanifiee = false;
+            showMessage = true;
+            showError = false;
         } else {
-            showMessageAddInterventionPlanifiee = false;
-            showErrorAddInterventionPlanifiee = true;
+            showMessage = false;
+            showError = true;
+        }
+    }
+    
+    public void addInterventionCurative() {
+        /*FacesContext context = FacesContext.getCurrentInstance();
+        LoginManagedBean bean = (LoginManagedBean) context.getApplication().evaluateExpressionGet(context, "#{loginManagedBean}", LoginManagedBean.class);        
+        Client client = bean.getClient();*/
+        
+        Date dateIntervCurative = DateUtils.stringToDate(dateIntervention, DateUtils.FORMAT_DDMMYYYY);
+        List<Technicien> listTechnicien = _gestionTechnicienSessionBean.getTechncienDispo(dateIntervCurative, typeInterventionCurative);
+        
+        if(listTechnicien.size()>0) {
+            Technicien technicien = listTechnicien.get(0);
+            
+            Intervention intervention = new Intervention(EnumEtatIntervention.PLANIFIE.getEnumEtatIntervention(), EnumNatureIntervention.CURATIVE.getNatureIntervention(), typeInterventionCurative, dateIntervCurative);
+            intervention.setFkClientId(1);
+            intervention.setFkTechnicienId(technicien.getTechnicienId());
+
+            _gestionInterventionBean.createIntervention(intervention);
+            showMessage = true;
+            showError = false;
+        } else {
+            showMessage = false;
+            showError = true;
         }
     }
     
     /* GET/SET */
     
-    public String getDateInterventionPlanifiee() {
-        return dateInterventionPlanifiee;
+    public String getDateIntervention() {
+        return dateIntervention;
     }
     
-    public void setdateInterventionPlanifiee(String dateInterventionPlanifiee) {
-        this.dateInterventionPlanifiee = dateInterventionPlanifiee;
+    public void setdateIntervention(String dateIntervention) {
+        this.dateIntervention = dateIntervention;
     }
     
-    public boolean getShowErrorAddInterventionPlanifiee() {
-        return showErrorAddInterventionPlanifiee;
+    public boolean getShowError() {
+        return showError;
     }
     
-    public boolean getShowMessageAddInterventionPlanifiee() {
-        return showMessageAddInterventionPlanifiee;
+    public boolean getShowMessage() {
+        return showMessage;
+    }
+    
+    public String getTypeInterventionCurative() {
+        return typeInterventionCurative;
+    }
+    
+    public void setTypeInterventionCurative(String typeInterventionCurative) {
+        this.typeInterventionCurative = typeInterventionCurative;
+    }
+    
+     public List<String> getListTypeIntervention() {
+        List<String> typesIntervention = new ArrayList<String>();
+        typesIntervention.add(EnumSpecialiteTechnicien.INFORMATIQUE.getTypeIntervention());
+        typesIntervention.add(EnumSpecialiteTechnicien.MECANIQUE.getTypeIntervention());
+        typesIntervention.add(EnumSpecialiteTechnicien.ELECTROMECANIQUE.getTypeIntervention());
+        return typesIntervention;
     }
     
 }

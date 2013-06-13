@@ -4,7 +4,6 @@
  */
 package fr.epsi.sessionBean;
 
-import fr.epsi.cave.ejbentity.Intervention;
 import fr.epsi.cave.ejbentity.Technicien;
 import java.util.Date;
 import java.util.List;
@@ -17,4 +16,5 @@ import javax.ejb.Remote;
 @Remote
 public interface gestionTechnicienSessionBeanRemote {
     public List<Technicien> getTechncienDispo(Date date);
+    public List<Technicien> getTechncienDispo(Date date, String specialite);
 }

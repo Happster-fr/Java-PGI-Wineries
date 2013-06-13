@@ -30,4 +30,13 @@ public class gestionTechnicienSessionBean implements gestionTechnicienSessionBea
         q.setParameter("dateIntervention", date);
         return (List<Technicien>) q.getResultList();
     }
+
+    @Override
+    public List<Technicien> getTechncienDispo(Date date, String specialite) {
+        String sQuerry = "SELECT t FROM Technicien t WHERE t.specialite = :specialite AND t.technicienId NOT IN (SELECT i.fkTechnicienId FROM Intervention i WHERE i.date = :dateIntervention)";
+        Query q = _em.createQuery(sQuerry);
+        q.setParameter("dateIntervention", date);
+        q.setParameter("specialite", specialite);
+        return (List<Technicien>) q.getResultList();
+    }
 }
