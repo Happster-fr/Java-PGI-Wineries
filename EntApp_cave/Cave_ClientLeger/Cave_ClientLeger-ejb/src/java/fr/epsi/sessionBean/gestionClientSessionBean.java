@@ -71,7 +71,9 @@ public class gestionClientSessionBean implements gestionClientSessionBeanRemote 
     }
 
     @Override
-    public void createContrat(Contrat contrat) {
-        _em.merge(new Contrat(contrat));
+    public void updateContrat(Contrat contrat) {
+        //Contrat newContrat = new Contrat(contrat);
+        _em.merge(contrat);
+        //return newContrat;
     }
 }

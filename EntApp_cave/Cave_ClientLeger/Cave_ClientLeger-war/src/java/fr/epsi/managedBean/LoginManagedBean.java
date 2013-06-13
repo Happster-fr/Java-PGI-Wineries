@@ -70,7 +70,7 @@ public class LoginManagedBean {
 
     public String logouter() {
         String path = "/General/login";
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        //FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return path;
     }
 

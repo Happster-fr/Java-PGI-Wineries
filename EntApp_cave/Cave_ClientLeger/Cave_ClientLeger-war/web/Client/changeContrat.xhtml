@@ -27,10 +27,10 @@
         </div>
         <div id="page" class="container">
             <div id="box">
-                <h2 class="title"><a href="#">Accueil Client</a></h2>
+                <h2 class="title"><a href="#">Modification du contrat</a></h2>
                 <div style="clear: both;">&nbsp;</div>
                 <div class="entry">
-                    <h:form>      
+                    <h:form>                     
                         <h:panelGrid border="0" columns="3" cellpadding="5">
                             <h:outputText value="N° de contrat : " />
                             <h:inputText id="contractNum" value="#{clientManagedBean.contrat.contratId}" required="true" readonly="true" disabled="true"
@@ -57,6 +57,12 @@
                             <h:message for="endDate" />
 
                             <h:commandButton value="Valider" action="#{clientManagedBean.submitForm()}" />
+                            <h:panelGroup rendered="#{clientManagedBean.insertOk}">
+                                <div style="color:green;">Contrat renouvelé !</div>
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{clientManagedBean.insertNok}">
+                                <div style="color:red;">Erreur de mise à jour du contrat...</div>
+                            </h:panelGroup>
                         </h:panelGrid>
                     </h:form>
                 </div>

@@ -34,8 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Contrat.findByDateDebut", query = "SELECT c FROM Contrat c WHERE c.dateDebut = :dateDebut"),
     @NamedQuery(name = "Contrat.findByDateFin", query = "SELECT c FROM Contrat c WHERE c.dateFin = :dateFin"),
     @NamedQuery(name = "Contrat.findByType", query = "SELECT c FROM Contrat c WHERE c.type = :type"),
-    //don't work when order by DESC......
-    @NamedQuery(name = "Contrat.findLastByFkClientId", query = "SELECT c FROM Contrat c WHERE c.fkClientId = :fkClientId AND c.dateFin > :datenow ORDER BY c.dateDebut"),
+    @NamedQuery(name = "Contrat.findLastByFkClientId", query = "SELECT c FROM Contrat c WHERE c.fkClientId = :fkClientId AND c.dateFin > :datenow ORDER BY c.dateDebut DESC"),
     @NamedQuery(name = "Contrat.findByFkClientId", query = "SELECT c FROM Contrat c WHERE c.fkClientId = :fkClientId")})
 public class Contrat implements Serializable {
     private static final long serialVersionUID = 1L;
