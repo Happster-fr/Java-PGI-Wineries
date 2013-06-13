@@ -63,6 +63,13 @@ public class ListePiece implements Serializable {
         this.pieceId = pieceId;
         this.nombre = nombre;
     }
+    
+    public ListePiece(int idPiece, int idIntervention, int qteToAdd)
+    {
+        this.interventionId = idIntervention;
+        this.pieceId = idPiece;
+        this.nombre = qteToAdd;
+    }
 
     public Integer getListePieceId() {
         return listePieceId;

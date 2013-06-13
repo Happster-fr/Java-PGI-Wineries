@@ -47,4 +47,11 @@ public class gestionPieceSessionBean implements gestionPieceSessionBeanRemote {
         return piece;
     }
 
+    @Override
+    public void decrementeStock(int pId, int qte) {
+        Piece piece = _em.find(Piece.class, pId);
+        piece.setQteStock(piece.getQteStock()-qte);
+        _em.merge(piece);
+    }
+
 }

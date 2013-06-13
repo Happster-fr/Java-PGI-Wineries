@@ -23,4 +23,6 @@ public interface gestionPieceSessionBeanRemote {
     List<Piece> getAllPiece();
 
     Piece getPieceById(int pId);  
+    
+    void decrementeStock(int pId, int qte);
 }
