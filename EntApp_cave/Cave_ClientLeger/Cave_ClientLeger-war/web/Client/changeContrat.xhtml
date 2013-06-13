@@ -33,8 +33,8 @@
                     <h:form>      
                         <h:panelGrid border="0" columns="3" cellpadding="5">
                             <h:outputText value="N° de contrat : " />
-                            <h:inputText id="contractNum" value="#{clientManagedBean.contrat.contratId}" required="true"
-                                         requiredMessage="Identifiant obligatoire" />
+                            <h:inputText id="contractNum" value="#{clientManagedBean.contrat.contratId}" required="true" readonly="true" disabled="true"
+                                         requiredMessage="N° de contrat obligatoire" />
                             <h:message for="contractNum" />
 
                             <h:outputText value="Type : " />
@@ -42,15 +42,16 @@
                                 <f:selectItems value="#{clientManagedBean.listTypeContratStr}"/>
                                 <f:ajax render="@form" execute="typeContrats" event="change" />
                             </h:selectOneMenu>
+                            <h:message for="typeContrats" />
 
                             <h:outputText value="Date début : " />
-                            <h:inputText id="beginDate" value="#{clientManagedBean.contrat.dateDebut}" required="true" requiredMessage="obligatoire">
+                            <h:inputText id="beginDate" value="#{clientManagedBean.contrat.dateDebut}" required="true" requiredMessage="obligatoire" readonly="true" disabled="true">
                                 <f:convertDateTime pattern="dd-MM-yyyy" />
                             </h:inputText>
                             <h:message for="beginDate" />
 
                             <h:outputText value="Date fin : " />
-                            <h:inputText id="endDate" value="#{clientManagedBean.contrat.dateFin}" required="true" requiredMessage="obligatoire" >
+                            <h:inputText id="endDate" value="#{clientManagedBean.contrat.dateFin}" required="true" requiredMessage="obligatoire" readonly="true" disabled="true">
                                 <f:convertDateTime pattern="dd-MM-yyyy" />
                             </h:inputText>
                             <h:message for="endDate" />

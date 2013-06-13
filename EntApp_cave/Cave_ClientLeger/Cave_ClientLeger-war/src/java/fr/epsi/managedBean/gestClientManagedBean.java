@@ -18,6 +18,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ValueChangeEvent;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -94,9 +95,8 @@ public class gestClientManagedBean {
         _contrat.setDateFin(ClientUtilities.changeDate(_contrat.getDateDebut(), _contrat.getType()));
     }
 
-    public void submitForm() {
-        //_gestClientBean.modifyContrat(_contrat);
+    public void submitForm() {;
         _gestClientBean.createContrat(_contrat);
-        
+
     }
 }
