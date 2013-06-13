@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Intervention curative</title>
         <h:outputStylesheet name="css/style.css"/>
@@ -27,7 +28,6 @@
                 <ul>
                     <li><h:link value="Accueil" outcome="/Client/accueilClient" /></li>
                     <li><h:link value="Gestion des contrats" outcome="/Client/changeContrat" /></li>
-                    <li><h:link value="Gestion des contrats" outcome="/Client/changeContrat" /></li>
                     <li><h:link value="Intervention planifiée" outcome="/Client/intervPreventive" /></li>
                     <li class="current_page_item"><h:link value="Intervention curative" outcome="/Client/intervCurative" /></li>
                     <li><h:link value="Deconnexion" outcome="/General/login" /></li>
@@ -42,17 +42,23 @@
                     <h:form>
                         <h:panelGrid border="0" columns="3" cellpadding="5">
                             <h:outputText value="Date:" />
-                            <h:inputText id="date" value="#{clientInterventionManagesBean.dateInterventionPlanifiee}" required="true" styleClass="datepicker"
+                            <h:inputText id="date" value="#{clientInterventionManagesBean.dateIntervention}" required="true" styleClass="datepicker"
                                          requiredMessage="Date obligatoire" />
                             <h:message for="date" />
+                            
+                            <h:outputText value="Type Intervention:" />
+                            <h:selectOneMenu id="typeIntervention" value="#{clientInterventionManagesBean.typeInterventionCurative}">
+                                <f:selectItems value="#{clientInterventionManagesBean.listTypeIntervention}"/>
+                            </h:selectOneMenu>
+                            <h:message for="typeIntervention" />
 
                             <h:outputText />
-                            <h:commandButton value="Ajouter" action="#{clientInterventionManagesBean.addInterventionPlanifiee}" />
-                            <h:panelGroup id="output" rendered="#{clientInterventionManagesBean.showErrorAddInterventionPlanifiee}">
+                            <h:commandButton value="Ajouter" action="#{clientInterventionManagesBean.addInterventionCurative}" />
+                            <h:panelGroup rendered="#{clientInterventionManagesBean.showError}">
                                 <div style="color:red;">Cette date n'est pas disponnible!!</div>
                             </h:panelGroup>
-                            <h:panelGroup id="output" rendered="#{clientInterventionManagesBean.showMessageAddInterventionPlanifiee}">
-                                <div style="color:green;">Intervention planifiée ajoutée!!</div>
+                            <h:panelGroup rendered="#{clientInterventionManagesBean.showMessage}">
+                                <div style="color:green;">Intervention curative ajoutée!!</div>
                             </h:panelGroup>
                         </h:panelGrid>
                     </h:form>
@@ -62,6 +68,7 @@
                 <h2>Navigation</h2>
                 <ul class="style1">
                     <li class="first"><h:link value="Accueil" outcome="/Client/accueilClient" /></li>
+                    <li><h:link value="Gestion des contrats" outcome="/Client/changeContrat" /></li>
                     <li><h:link value="Intervention planifiée" outcome="/Client/intervPreventive" /></li>
                     <li><h:link value="Intervention curative" outcome="/Client/intervCurative" /></li>
                     <li><h:link value="Deconnexion" outcome="/General/login" /></li>

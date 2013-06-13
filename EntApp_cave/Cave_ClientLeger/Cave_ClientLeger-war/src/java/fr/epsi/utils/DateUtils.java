@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * @author Mikhael
  */
 public class DateUtils {
-    public static final String FORMAT_DDMMYYYY = "dd/MM/yyyy";
+    public static final String FORMAT_DDMMYYYY = "MM/dd/yyyy";
     
     public static Date stringToDate(String sDate, String sFormat) {
         SimpleDateFormat sdf = new SimpleDateFormat(sFormat);
