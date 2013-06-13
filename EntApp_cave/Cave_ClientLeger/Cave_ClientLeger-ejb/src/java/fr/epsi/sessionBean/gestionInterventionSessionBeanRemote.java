@@ -35,4 +35,10 @@ public interface gestionInterventionSessionBeanRemote {
 
     void addPieceIntervention(ListePiece listPiece);
     
+    void addPieceToIntervention(int idPiece, int idIntervention, int qteToAdd);
+    
+    List<ListePiece> existListePiece(int idPiece, int idIntervention);
+    
+    void addPieceToInterventionAlreadyExist(int idPiece, int idIntervention, int qteToAdd);
+    
 }

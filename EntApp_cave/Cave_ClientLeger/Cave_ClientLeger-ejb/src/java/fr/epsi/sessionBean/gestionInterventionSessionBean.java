@@ -83,4 +83,30 @@ public class gestionInterventionSessionBean implements gestionInterventionSessio
 
         return q.getResultList();
     }
+ @Override
+    public void addPieceToIntervention(int idPiece, int idIntervention, int qteToAdd) {
+        ListePiece listePiece = new ListePiece(idIntervention, idPiece, qteToAdd);
+        _em.merge(listePiece);
+    }
+
+    @Override
+    public List<ListePiece> existListePiece(int idPiece, int idIntervention) {
+        Query q = _em.createNamedQuery("ListePiece.findByInterventionIdAndPieceId");
+        q.setParameter("interventionId", idIntervention);
+        q.setParameter("pieceId", idPiece);
+        
+        return q.getResultList();
+    }
+
+    @Override
+    public void addPieceToInterventionAlreadyExist(int idPiece, int idIntervention, int qteToAdd) {
+        Query q = _em.createNamedQuery("ListePiece.findByInterventionIdAndPieceId");
+        q.setParameter("interventionId", idIntervention);
+        q.setParameter("pieceId", idPiece);
+       
+        ListePiece listPiece = (ListePiece) q.getResultList().get(0);        
+        listPiece.setNombre(listPiece.getNombre()+qteToAdd);
+        
+        _em.merge(listPiece);
+    }
 }
