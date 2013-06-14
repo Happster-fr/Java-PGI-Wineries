@@ -73,7 +73,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="Action" />
                                 </f:facet>
-                                <h:commandButton value="Voir" action="#{gestIntervManagedBean.voirAvancementIntervention}" >
+                                <h:commandButton value="Voir" action="#{gestIntervManagedBean.voirAvancementIntervention()}" >
                                     <f:param name="intervToSee" value="#{i.interventionId}" />
                                 </h:commandButton>
                             </h:column>
