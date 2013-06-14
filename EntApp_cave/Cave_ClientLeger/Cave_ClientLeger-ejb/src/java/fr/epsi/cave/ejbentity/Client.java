@@ -41,6 +41,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Client.findByLogin", query = "SELECT c FROM Client c WHERE c.login = :login"),
     @NamedQuery(name = "Client.findByPassword", query = "SELECT c FROM Client c WHERE c.password = :password")})
 public class Client implements Serializable {
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "LONGITUDE")
+    private Float longitude;
+    @Column(name = "LATITUDE")
+    private Float latitude;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -194,5 +199,21 @@ public class Client implements Serializable {
     @Override
     public String toString() {
         return "fr.epsi.cave.ejbentity.Client[ clientId=" + clientId + " ]";
+    }
+
+    public Float getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Float longitude) {
+        this.longitude = longitude;
+    }
+
+    public Float getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Float latitude) {
+        this.latitude = latitude;
     }
 }
