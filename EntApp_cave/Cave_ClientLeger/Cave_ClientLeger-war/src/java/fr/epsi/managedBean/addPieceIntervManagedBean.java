@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -26,7 +26,7 @@ import javax.naming.NamingException;
  * @author Quentin ecale
  */
 @ManagedBean(name = "addPieceIntervManagedBean")
-@SessionScoped
+@RequestScoped
 public class addPieceIntervManagedBean {
 
     private InitialContext _ic;
@@ -50,6 +50,10 @@ public class addPieceIntervManagedBean {
         } catch (NamingException ex) {
             Logger.getLogger(gestPieceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();        
+        _intervId = Integer.parseInt(params.get("intervId")); 
+        fillMapAllPiece();
         
     }
     
@@ -59,18 +63,7 @@ public class addPieceIntervManagedBean {
      *
      * @return the page to add a piece to intervention
      */
-    public String voirAjoutPiece() {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();        
-        _intervId = Integer.parseInt(params.get("intervId"));
-        
-        List<Piece> listAllPiece = _gestPieceBean.getAllPiece();
-        _mapAllPiece = new TreeMap<String, Integer>();
-
-
-        for (Piece p : listAllPiece) {
-            _mapAllPiece.put(p.getNom(), p.getPieceId());
-        }
+    public String voirAjoutPiece() {             
 
         return ConstantsPages.TECHNICIEN_AJOUT_PIECE_INTERV_PAGE;
     }
@@ -106,6 +99,16 @@ public class addPieceIntervManagedBean {
         return result;
     }
 
+    public void fillMapAllPiece() {
+        List<Piece> listAllPiece = _gestPieceBean.getAllPiece();
+        _mapAllPiece = new TreeMap<String, Integer>();
+
+
+        for (Piece p : listAllPiece) {
+            _mapAllPiece.put(p.getNom(), p.getPieceId());
+        }        
+    }
+    
     public String getNomPieceByID(int idPiece) {
         return _gestPieceBean.getPieceById(idPiece).getNom();
     }
