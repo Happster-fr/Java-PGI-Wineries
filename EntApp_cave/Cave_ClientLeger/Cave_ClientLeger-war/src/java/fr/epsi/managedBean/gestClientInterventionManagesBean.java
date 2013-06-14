@@ -69,7 +69,7 @@ public class gestClientInterventionManagesBean {
 
     public void addInterventionPlanifiee() {
         getCurrentClient();
-        Date dateIntervPlanifiee = DateUtils.stringToDate(dateIntervention, DateUtils.FORMAT_DDMMYYYY);
+        Date dateIntervPlanifiee = DateUtils.stringToDate(dateIntervention, DateUtils.FORMAT_DDMMYY);
         List<Technicien> listTechnicien = _gestionTechnicienSessionBean.getTechncienDispo(dateIntervPlanifiee);
 
         if (listTechnicien.size() > 0 && _client != null) {
@@ -90,7 +90,7 @@ public class gestClientInterventionManagesBean {
 
     public void addInterventionCurative() {
         getCurrentClient();
-        Date dateIntervCurative = DateUtils.stringToDate(dateIntervention, DateUtils.FORMAT_DDMMYYYY);
+        Date dateIntervCurative = DateUtils.stringToDate(dateIntervention, DateUtils.FORMAT_DDMMYY);
         List<Technicien> listTechnicien = _gestionTechnicienSessionBean.getTechncienDispo(dateIntervCurative, typeInterventionCurative);
 
         if (listTechnicien.size() > 0 && _client != null) {

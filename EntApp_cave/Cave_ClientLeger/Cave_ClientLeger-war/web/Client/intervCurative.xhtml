@@ -12,7 +12,7 @@
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <script>
             $(function() {
-                $( ".datepicker" ).datepicker();
+                $( ".datepicker" ).datepicker({ dateFormat: 'dd-mm-yy' });
             });
         </script>
     </h:head>
@@ -43,7 +43,7 @@
                         <h:panelGrid border="0" columns="3" cellpadding="5">
                             <h:outputText value="Date:" />
                             <h:inputText id="date" value="#{clientInterventionManagesBean.dateIntervention}" required="true" styleClass="datepicker"
-                                         requiredMessage="Date obligatoire" />
+                                         requiredMessage="Date obligatoire"/>
                             <h:message for="date" />
 
                             <h:outputText value="Type Intervention:" />
