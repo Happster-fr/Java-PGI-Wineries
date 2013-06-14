@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Ven 14 Juin 2013 à 22:32
+-- Généré le: Ven 14 Juin 2013 à 23:28
 -- Version du serveur: 5.5.24-log
 -- Version de PHP: 5.4.3
 
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `contrat` (
 --
 
 INSERT INTO `contrat` (`CONTRAT_ID`, `DATE_DEBUT`, `DATE_FIN`, `TYPE`, `FK_CLIENT_ID`) VALUES
-(1, '2013-06-14', '2014-06-14', 'annuel', 1);
+(1, '2013-06-15', '2014-06-15', 'annuel', 1);
 
 -- --------------------------------------------------------
 
@@ -85,23 +85,27 @@ CREATE TABLE IF NOT EXISTS `intervention` (
   `FK_CLIENT_ID` int(11) DEFAULT NULL,
   `FK_TECHNICIEN_ID` int(11) DEFAULT NULL,
   PRIMARY KEY (`INTERVENTION_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=39 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=43 ;
 
 --
 -- Contenu de la table `intervention`
 --
 
 INSERT INTO `intervention` (`INTERVENTION_ID`, `ETAT`, `NATURE`, `DATE`, `TYPE`, `FK_CLIENT_ID`, `FK_TECHNICIEN_ID`) VALUES
-(29, 'Planifiée', 'curative', '2013-06-04', 'Electromecanique', 1, 1),
-(30, 'Planifiée', 'curative', '2013-06-22', 'Electromecanique', 1, 1),
+(29, 'Terminee', 'curative', '2013-06-04', 'Electromecanique', 1, 1),
+(30, 'Terminee', 'curative', '2013-06-14', 'Electromecanique', 1, 1),
 (31, 'Planifiée', 'curative', '2013-06-08', 'Magnetique', 1, 3),
 (32, 'Planifiée', 'curative', '2013-06-09', 'Magnetique', 1, 3),
 (33, 'Planifiée', 'curative', '2013-06-03', 'Informatique', 1, 2),
 (34, 'Planifiée', 'curative', '2013-06-01', 'Informatique', 1, 2),
-(35, 'Planifiée', 'préventive', '2013-06-20', 'préventive', 1, 1),
-(36, 'Planifiée', 'préventive', '2013-06-27', 'préventive', 1, 1),
+(35, 'Terminee', 'préventive', '2013-06-20', 'préventive', 1, 1),
+(36, 'Planifiee', 'préventive', '2013-06-27', 'préventive', 1, 1),
 (37, 'Planifiée', 'préventive', '2013-06-27', 'préventive', 1, 2),
-(38, 'Planifiée', 'préventive', '2013-06-27', 'préventive', 1, 3);
+(38, 'Planifiée', 'préventive', '2013-06-27', 'préventive', 1, 3),
+(39, 'Planifiee', 'préventive', '2013-06-15', 'préventive', 1, 1),
+(40, 'Planifiee', 'curative', '2013-06-25', 'Informatique', 1, 2),
+(41, 'Planifiee', 'curative', '2013-06-19', 'Electromecanique', 1, 1),
+(42, 'Planifiee', 'curative', '2013-06-30', 'Magnetique', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -116,7 +120,15 @@ CREATE TABLE IF NOT EXISTS `liste_piece` (
   `NOMBRE` int(11) NOT NULL,
   PRIMARY KEY (`LISTE_PIECE_ID`),
   UNIQUE KEY `INTERVENTION_ID` (`INTERVENTION_ID`,`PIECE_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `liste_piece`
+--
+
+INSERT INTO `liste_piece` (`LISTE_PIECE_ID`, `INTERVENTION_ID`, `PIECE_ID`, `NOMBRE`) VALUES
+(1, 29, 5, 2),
+(2, 29, 3, 6);
 
 -- --------------------------------------------------------
 
@@ -139,9 +151,9 @@ CREATE TABLE IF NOT EXISTS `piece` (
 INSERT INTO `piece` (`PIECE_ID`, `NOM`, `PRIX`, `QTE_STOCK`) VALUES
 (1, 'Moteur', 1500, 5),
 (2, 'Piston', 200, 10),
-(3, 'Switch Ethernet', 20, 50),
+(3, 'Switch Ethernet', 20, 44),
 (4, 'Cuve', 30, 15),
-(5, 'Carte mère', 100, 8),
+(5, 'Carte mère', 100, 6),
 (6, 'Etiqueteuse', 80, 70);
 
 -- --------------------------------------------------------
