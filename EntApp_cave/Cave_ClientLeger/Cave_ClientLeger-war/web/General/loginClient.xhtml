@@ -30,18 +30,18 @@
                     <h:form>
                         <h:panelGrid border="0" columns="3" cellpadding="5">
                             <h:outputText value="Identifiant:" />
-                            <h:inputText id="login" value="#{loginManagedBean.login}" required="true"
+                            <h:inputText id="login" value="#{loginManagedBean.loginClient}" required="true"
                                          requiredMessage="Identifiant obligatoire" />
                             <h:message for="login" />
 
                             <h:outputText value="Mot de passe:" />
-                            <h:inputText id="password" value="#{loginManagedBean.password}" required="true"
+                            <h:inputText id="password" value="#{loginManagedBean.passwordClient}" required="true"
                                          requiredMessage="Mot de passe obligatoire" />
                             <h:message for="password" />
 
                             <h:outputText />
                             <h:commandButton value="Valider" action="#{loginManagedBean.isClientCanConnect}" />
-                            <h:panelGroup id="output" rendered="#{loginManagedBean.showError}">
+                            <h:panelGroup id="output" rendered="#{loginManagedBean.showErrorClient}">
                                 <div style="color:red;">Erreur d'authentification!!</div>
                             </h:panelGroup>
                         </h:panelGrid>

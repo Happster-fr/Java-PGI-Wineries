@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -30,9 +29,12 @@ public class LoginManagedBean {
     private gestionConnexionSessionBeanRemote _gestionConnexionSessionBeanRemote;
     private Technicien _technicien;
     private Client _client;
-    private String _login = "";
-    private String _password = "";
-    private boolean _showError = false;
+    private String _loginClient = "";
+    private String _passwordClient = "";
+    private String _loginTechnicien = "";
+    private String _passwordTechnicien = "";
+    private boolean _showErrorClient = false;
+    private boolean _showErrorTecnicien = false;
 
     /**
      * Creates a new instance of gestionConnexionSessionBeanRemote
@@ -48,22 +50,24 @@ public class LoginManagedBean {
 
     public String isClientCanConnect() {
         String result = "";
-        _client = _gestionConnexionSessionBeanRemote.getClientIfCanConnect(_login, _password);
+        _client = _gestionConnexionSessionBeanRemote.getClientIfCanConnect(_loginClient, _passwordClient);
         if (_client != null) {
             result = ConstantsPages.CLIENT_ACCUEIL_PAGE;
+            _showErrorClient = false;
         } else {
-            _showError = true;
+            _showErrorClient = true;
         }
         return result;
     }
 
     public String isTechnicienCanConnect() {
         String result = "";
-        _technicien = _gestionConnexionSessionBeanRemote.getTechnicienIfCanConnect(_login, _password);
+        _technicien = _gestionConnexionSessionBeanRemote.getTechnicienIfCanConnect(_loginTechnicien, _passwordTechnicien);
         if (_technicien != null) {
             result = ConstantsPages.TECHNICIEN_ACCUEIL_PAGE;
+            _showErrorTecnicien = false;
         } else {
-            _showError = true;
+            _showErrorTecnicien = true;
         }
         return result;
     }
@@ -75,24 +79,44 @@ public class LoginManagedBean {
     }
 
     /* GET/SET */
-    public String getLogin() {
-        return _login;
+    public String getLoginClient() {
+        return _loginClient;
     }
 
-    public void setLogin(String login) {
-        _login = login;
+    public void setLoginClient(String loginClient) {
+        _loginClient = loginClient;
     }
 
-    public String getPassword() {
-        return _password;
+    public String getLoginTechnicien() {
+        return _loginTechnicien;
     }
 
-    public void setPassword(String password) {
-        _password = password;
+    public void setLoginTechnicien(String loginTechnicien) {
+        _loginTechnicien = loginTechnicien;
     }
 
-    public boolean getShowError() {
-        return _showError;
+    public String getPasswordClient() {
+        return _passwordClient;
+    }
+
+    public void setPasswordClient(String passwordClient) {
+        _passwordClient = passwordClient;
+    }
+
+    public String getPasswordTechnicien() {
+        return _passwordTechnicien;
+    }
+
+    public void setPasswordTechnicien(String passwordTechnicien) {
+        _passwordTechnicien = passwordTechnicien;
+    }
+
+    public boolean getShowErrorClient() {
+        return _showErrorClient;
+    }
+    
+    public boolean getShowErrorTechnicien() {
+        return _showErrorTecnicien;
     }
 
     public boolean isClientConnected() {
