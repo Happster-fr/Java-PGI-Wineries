@@ -5,6 +5,7 @@
 package fr.epsi.utils;
 
 import fr.epsi.cave.ejbentity.Client;
+import fr.epsi.cave.ejbentity.Contrat;
 import fr.epsi.cave.ejbentity.Intervention;
 import fr.epsi.cave.ejbentity.ListePiece;
 import fr.epsi.cave.ejbentity.Piece;
@@ -20,6 +21,7 @@ public class FactureCreator {
 
     private Client _client;
     private Intervention _intervention;
+    private Contrat _contrat;
     private HashMap<Integer, Float> piecePrix = new HashMap<Integer, Float>();
     private HashMap<Integer, String> pieceNom = new HashMap<Integer, String>();
     private gestionPieceSessionBeanRemote _gestionPieceSessionBeanRemote;
@@ -48,9 +50,10 @@ public class FactureCreator {
     };
 
     //private static final Float TVA = 19.6;
-    public FactureCreator(Client client, Intervention intervention, gestionPieceSessionBeanRemote gestionPieceSessionBeanRemote) {
+    public FactureCreator(Client client, Intervention intervention, Contrat contrat, gestionPieceSessionBeanRemote gestionPieceSessionBeanRemote) {
         _client = client;
         _intervention = intervention;
+        _contrat = contrat;
         _gestionPieceSessionBeanRemote = gestionPieceSessionBeanRemote;
         recupereListePiece();
     }
@@ -64,7 +67,6 @@ public class FactureCreator {
 
     private float calculeTotalFacture() {
         float total = 0;
-        String nature = _intervention.getNature();
         for (ListePiece listePiece : _gestionPieceSessionBeanRemote.getListPieceForIntervention(_intervention.getInterventionId())) {
             total += piecePrix.get(listePiece.getPieceId()) * listePiece.getNombre();
         }
@@ -91,13 +93,12 @@ public class FactureCreator {
         totalSansReduc = calculeTotalFacture();
         facture_html += elements + "<tr class=\"item-row\"><td class=\"item-name\"><div class=\"textarea\" >Frais de maintenance " + _intervention.getNature() + "</div></td><td></td><td></td> <td>" + _tarifIntervention.get(_intervention.getNature()) + "</td>";
 
-        System.out.println(_client.getDateFinContrat() + " > " + _intervention.getDate());
-        if (!_client.getContrat().toString().equals("") && _client.getDateFinContrat().compareTo(_intervention.getDate()) > 0) {
+        if (!_contrat.getType().equals("") && _client.getDateFinContrat().compareTo(_intervention.getDate()) > 0) {
             facture_html += "<tr><td></td><td> </td> <td class=\"total-line\">Total sans réduction</td> <td class=\"total-value\"><div id=\"total\">" + totalSansReduc + "</div></td></tr>";
             //calcul du total avec réduction
-            Double reductionContrat = Double.parseDouble("" + _reductions.get(_client.getContrat()));
+            Double reductionContrat = Double.parseDouble("" + _reductions.get(_contrat.getType()));
             float totalAvecReduc = (float) (reductionContrat * totalSansReduc);
-            facture_html += "<tr><td></td><td> </td> <td class=\"total-line\">Réduction (contrat " + _client.getContrat().toString() + ")</td> <td class=\"total-value\"><div id=\"total\">" + (totalSansReduc - totalAvecReduc) + "</div></td></tr>";
+            facture_html += "<tr><td></td><td> </td> <td class=\"total-line\">Réduction (contrat " + _contrat.getType() + ")</td> <td class=\"total-value\"><div id=\"total\">" + (totalSansReduc - totalAvecReduc) + "</div></td></tr>";
             facture_html += "<tr><td></td><td> </td> <td class=\"total-line\">Total </td> <td class=\"total-value\"><div id=\"total\">" + totalAvecReduc + "</div></td></tr></table> </div></body></html>";
         } else {
             facture_html += "<tr><td></td><td> </td> <td class=\"total-line\">Total </td> <td class=\"total-value\"><div id=\"total\">" + totalSansReduc + "</div></td></tr></table> </div></body></html>";
