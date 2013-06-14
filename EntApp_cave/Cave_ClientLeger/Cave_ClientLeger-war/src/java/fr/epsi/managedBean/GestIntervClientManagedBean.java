@@ -6,6 +6,7 @@ package fr.epsi.managedBean;
 
 import fr.epsi.cave.ejbentity.Client;
 import fr.epsi.cave.ejbentity.Intervention;
+import fr.epsi.sessionBean.gestionClientSessionBeanRemote;
 import fr.epsi.sessionBean.gestionInterventionSessionBeanRemote;
 import fr.epsi.sessionBean.gestionPieceSessionBeanRemote;
 import fr.epsi.utils.ConstantsPages;
@@ -33,6 +34,8 @@ public class GestIntervClientManagedBean {
     private gestionInterventionSessionBeanRemote _gestIntervBean;
     @EJB
     private gestionPieceSessionBeanRemote _gestionPieceSessionBeanRemote;
+    @EJB
+    private gestionClientSessionBeanRemote _gestionClientSessionBeanRemote;
     private DataModel _dmInterventionsNotEnded;
     private String _htmlFacture;
 
@@ -41,6 +44,7 @@ public class GestIntervClientManagedBean {
             InitialContext ic = new InitialContext();
             _gestIntervBean = (gestionInterventionSessionBeanRemote) ic.lookup("java:global/Cave_ClientLeger/Cave_ClientLeger-ejb/gestionInterventionSessionBean!fr.epsi.sessionBean.gestionInterventionSessionBeanRemote");
             _gestionPieceSessionBeanRemote = (gestionPieceSessionBeanRemote) ic.lookup("java:global/Cave_ClientLeger/Cave_ClientLeger-ejb/gestionPieceSessionBean!fr.epsi.sessionBean.gestionPieceSessionBeanRemote");
+            _gestionClientSessionBeanRemote = (gestionClientSessionBeanRemote) ic.lookup("java:global/Cave_ClientLeger/Cave_ClientLeger-ejb/gestionClientSessionBeanRemote!fr.epsi.sessionBean.gestionClientSessionBeanRemote");
         } catch (NamingException ex) {
             Logger.getLogger(gestPieceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -92,7 +96,7 @@ public class GestIntervClientManagedBean {
         Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
         if (!params.get("intervToPrint").isEmpty()) {
             Intervention intervention = _gestIntervBean.getInterventionById(Integer.parseInt(params.get("intervToPrint")));
-            FactureCreator facturerCreator = new FactureCreator(client, intervention, _gestionPieceSessionBeanRemote);
+            FactureCreator facturerCreator = new FactureCreator(client, intervention, _gestionClientSessionBeanRemote.getLastContrat(client.getClientId()), _gestionPieceSessionBeanRemote);
             _htmlFacture = facturerCreator.HtmlFacture();
         }
         return ConstantsPages.CLIENT_INTERVENTION_TO_PRINT;
