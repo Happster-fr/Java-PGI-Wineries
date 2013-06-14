@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -25,6 +26,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
+import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -71,8 +73,8 @@ public class gestIntervManagedBean {
         if (!params.get("intervToSee").isEmpty()) {
             _detailInterv = _gestIntervBean.getInterventionById(Integer.parseInt(params.get("intervToSee")));
         }
-        
-        return ConstantsPages.TECHNICIEN_AVANCEMENT_PAGE+"?faces-redirect=true";
+
+        return ConstantsPages.TECHNICIEN_AVANCEMENT_PAGE + "?faces-redirect=true";
     }
 
     /**
@@ -88,6 +90,7 @@ public class gestIntervManagedBean {
 
     /**
      * Fill DataModel to show Piece and number used for intervention
+     *
      * @return DataModel which contains Piece of intervention
      */
     public DataModel getDataPieceIntervention() {
@@ -103,13 +106,18 @@ public class gestIntervManagedBean {
 
         return _pieceUseInterv;
     }
-    
+
     public String voirIntervAReal() {
         return ConstantsPages.TECHNICIEN_A_REAL_PAGE;
     }
 
-    public List<EnumEtatIntervention> getAllEtatInterv() {
-        return Arrays.asList(EnumEtatIntervention.values());
+    public List<String> getAllEtatInterv() {
+        List<String> listeEtatInter = new ArrayList<String>();
+        listeEtatInter.add(EnumEtatIntervention.DEBUTEE.getEnumEtatIntervention());
+        listeEtatInter.add(EnumEtatIntervention.PLANIFIE.getEnumEtatIntervention());
+        listeEtatInter.add(EnumEtatIntervention.TERMINEE.getEnumEtatIntervention());
+        listeEtatInter.add(EnumEtatIntervention.VALIDEE.getEnumEtatIntervention());
+        return listeEtatInter;
     }
 
     public String getNomPieceByID(int idPiece) {

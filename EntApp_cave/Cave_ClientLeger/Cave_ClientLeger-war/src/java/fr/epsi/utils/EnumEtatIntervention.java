@@ -10,10 +10,10 @@ package fr.epsi.utils;
  */
 public enum EnumEtatIntervention {
 
-    VALIDEE("Validée"),
-    PLANIFIE("Planifiée"),
-    DEBUTEE("Débutée"),
-    TERMINEE("Terminée");
+    VALIDEE("Validee"),
+    PLANIFIE("Planifiee"),
+    DEBUTEE("Debutee"),
+    TERMINEE("Terminee");
 
     private final String valToInsert;
 
