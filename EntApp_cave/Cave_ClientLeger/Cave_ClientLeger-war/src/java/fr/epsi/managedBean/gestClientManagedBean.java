@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.application.Application;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.naming.InitialContext;
@@ -24,7 +24,7 @@ import javax.naming.NamingException;
  * @author Anthony
  */
 @ManagedBean(name = "clientManagedBean")
-@SessionScoped
+@RequestScoped
 public class gestClientManagedBean {
 
     private InitialContext _ic;
@@ -81,21 +81,13 @@ public class gestClientManagedBean {
     }
 
     /**
-     * Used by AJAX call to change automatically "date debut" and "date fin"
-     * attributes
-     *
-     * @param e
+     * Submit form and show success or failed message
      */
-    public void changeDates(ValueChangeEvent e) {
+    public void submitForm() {
         Calendar cal = Calendar.getInstance();
         _contrat.setDateDebut(cal.getTime());
         _contrat.setDateFin(ClientUtilities.changeDate(_contrat.getDateDebut(), _contrat.getType()));
-    }
-
-    /**
-     * Submit form and show success or failed message
-     */
-    public void submitForm() {;
+        
         _gestClientBean.updateContrat(_contrat);
         updateOk = true;
     }
