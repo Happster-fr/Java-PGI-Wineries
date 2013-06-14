@@ -39,7 +39,7 @@ public class gestClientManagedBean {
     public gestClientManagedBean() {
         try {
             _ic = new InitialContext();
-            _gestClientBean = (gestionClientSessionBeanRemote) _ic.lookup("java:global/Cave_ClientLeger/Cave_ClientLeger-ejb/gestionInterventionSessionBean!fr.epsi.sessionBean.gestionClientSessionBeanRemote");
+            _gestClientBean = (gestionClientSessionBeanRemote) _ic.lookup("java:global/Cave_ClientLeger/Cave_ClientLeger-ejb/gestionClientSessionBeanRemote!fr.epsi.sessionBean.gestionClientSessionBeanRemote");
             getCurrentClient();
             getCurrentContract();
         } catch (NamingException ex) {

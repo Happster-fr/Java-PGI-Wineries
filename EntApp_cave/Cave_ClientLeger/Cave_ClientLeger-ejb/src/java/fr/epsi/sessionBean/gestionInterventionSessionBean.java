@@ -3,11 +3,13 @@ package fr.epsi.sessionBean;
 import fr.epsi.cave.ejbentity.Intervention;
 import fr.epsi.cave.ejbentity.ListePiece;
 import fr.epsi.enums.EtatIntervention;
+import java.util.Calendar;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 
 /**
  * Manage interventions for Clients and Technicians
@@ -128,6 +130,16 @@ public class gestionInterventionSessionBean implements gestionInterventionSessio
         Query q = _em.createNamedQuery("Intervention.findIntervNotEndedByFkTechId");
         q.setParameter("fkTechnicienId", idTechnicien);
         q.setParameter("etat", EtatIntervention.TERMINEE.toString());
+        return q.getResultList();
+    }
+
+    @Override
+    public List<Intervention> getListInterventionToday(int idTechnicien) {
+         Calendar cal = Calendar.getInstance();
+        Query q = _em.createNamedQuery("Intervention.findByTechnicienToday");
+        q.setParameter("fkTechnicienId", idTechnicien);
+        q.setParameter("date", cal.getTime(), TemporalType.DATE);
+        q.setParameter("termine", EtatIntervention.TERMINEE.toString());
         return q.getResultList();
     }
 }

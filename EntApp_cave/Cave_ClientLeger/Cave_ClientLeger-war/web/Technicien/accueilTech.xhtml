@@ -1,11 +1,13 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Accueil technicien</title>
         <h:outputStylesheet name="css/style.css"/>
     </h:head>
+    <script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript" ></script>
     <body>
         <div id="logo" class="container">
             <h1>
@@ -27,7 +29,9 @@
                 <h2 class="title"><a href="#">Accueil Technicien</a></h2>
                 <div style="clear: both;">&nbsp;</div>
                 <div class="entry">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat. Duis semper. Duis arcu massa, scelerisque vitae, consequat in, pretium a, enim. Pellentesque congue. Ut in risus volutpat libero pharetra tempor. Cras vestibulum bibendum augue. Praesent egestas leo in pede. Praesent blandit odio eu enim. Pellentesque sed dui ut augue blandit sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aliquam nibh. Mauris ac mauris sed pede pellentesque fermentum. Maecenas adipiscing ante non diam sodales hendrerit. Ut velit mauris, egestas sed, gravida nec, ornare ut, mi.</p>
+                    <p:gmap center="43.600,3.883" zoom="13" type="HYBRID"   
+                            style="width:600px;height:400px"  
+                            model="#{mapBean.todayClientsMarker}" />
                 </div>
             </div>
             <div id="box3">

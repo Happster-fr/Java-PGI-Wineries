@@ -45,4 +45,6 @@ public interface gestionInterventionSessionBeanRemote {
     void addPieceToInterventionAlreadyExist(int idPiece, int idIntervention, int qteToAdd);
 
     List<Intervention> getListInterventionNonFinishedByTech(int idTechnicien);
+    
+    List<Intervention> getListInterventionToday(int idTechnicien);
 }

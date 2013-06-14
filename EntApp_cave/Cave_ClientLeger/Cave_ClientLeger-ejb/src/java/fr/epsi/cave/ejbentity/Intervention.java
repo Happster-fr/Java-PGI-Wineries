@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.epsi.cave.ejbentity;
 
 import java.io.Serializable;
@@ -38,6 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Intervention.findByFkClientId", query = "SELECT i FROM Intervention i WHERE i.fkClientId = :fkClientId"),
     @NamedQuery(name = "Intervention.findByFkTechnicienId", query = "SELECT i FROM Intervention i WHERE i.fkTechnicienId = :fkTechnicienId"),
     @NamedQuery(name = "Intervention.findIntervNotEndedByFkClientId", query = "SELECT i FROM Intervention i WHERE i.fkClientId = :fkClientId AND i.etat <> :etat"),
+    @NamedQuery(name = "Intervention.findByTechnicienToday", query = "SELECT i FROM Intervention i WHERE i.date = :date AND i.etat <> :termine AND i.fkTechnicienId = :fkTechnicienId"),
     @NamedQuery(name = "Intervention.findByNoDateForTechnicien", query = "SELECT i FROM Intervention i WHERE i.date = :date AND i.fkTechnicienId <> :fkTechnicienId"),
     @NamedQuery(name = "Intervention.findIntervNotEndedByFkTechId", query = "SELECT i FROM Intervention i WHERE i.fkTechnicienId = :fkTechnicienId AND i.etat <> :etat")})
 public class Intervention implements Serializable {
