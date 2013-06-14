@@ -71,8 +71,8 @@ public class gestIntervManagedBean {
         if (!params.get("intervToSee").isEmpty()) {
             _detailInterv = _gestIntervBean.getInterventionById(Integer.parseInt(params.get("intervToSee")));
         }
-        //_listPieceInterv = _gestIntervBean.getListPieceIntervention(_detailInterv);
-        return ConstantsPages.TECHNICIEN_AVANCEMENT_PAGE;
+        
+        return ConstantsPages.TECHNICIEN_AVANCEMENT_PAGE+"?faces-redirect=true";
     }
 
     /**
@@ -102,6 +102,10 @@ public class gestIntervManagedBean {
         _pieceUseInterv.setWrappedData(listPieceInterv);
 
         return _pieceUseInterv;
+    }
+    
+    public String voirIntervAReal() {
+        return ConstantsPages.TECHNICIEN_A_REAL_PAGE;
     }
 
     public List<EnumEtatIntervention> getAllEtatInterv() {

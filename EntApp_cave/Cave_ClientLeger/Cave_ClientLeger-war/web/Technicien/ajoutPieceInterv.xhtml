@@ -29,6 +29,9 @@
                     <h2 class="title"><a href="#">Approvisionnement intervention</a></h2>
                     <div style="clear: both;">&nbsp;</div>
                     <div class="entry">
+                        <h:panelGroup rendered="#{addPieceIntervManagedBean.stockInsuffisant}">
+                            <div style="color:red;">Pas assez de pièces en stock !</div>
+                        </h:panelGroup>
                         <h:form>
                             <h:panelGrid border="0" columns="2" cellpadding="5">
                                 <h:outputText value="Pièce" />
@@ -43,6 +46,10 @@
                             </h:panelGrid>
 
                             <h:commandButton value="Valider" action="#{addPieceIntervManagedBean.ajoutePieceIntervention()}" >
+                                <f:param name="intervId" value="#{addPieceIntervManagedBean.intervId}" />
+                                <f:param name="intervToSee" value="#{addPieceIntervManagedBean.intervId}" />
+                            </h:commandButton>          
+                            <h:commandButton value="Annuler" action="#{gestIntervManagedBean.voirAvancementIntervention()}" >
                                 <f:param name="intervId" value="#{addPieceIntervManagedBean.intervId}" />
                                 <f:param name="intervToSee" value="#{addPieceIntervManagedBean.intervId}" />
                             </h:commandButton>

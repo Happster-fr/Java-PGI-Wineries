@@ -34,11 +34,12 @@ public class addPieceIntervManagedBean {
     private String _idPieceToAdd;
     private int _qteToAdd;
     private int _intervId;
+    private boolean _stockInsuffisant=false;
     @EJB
     private gestionInterventionSessionBeanRemote _gestIntervBean;
     @EJB
     private gestionPieceSessionBeanRemote _gestPieceBean;
-    
+
     /**
      * Creates a new instance of addPieceIntervManagedBean
      */
@@ -51,19 +52,19 @@ public class addPieceIntervManagedBean {
             Logger.getLogger(gestPieceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         FacesContext fc = FacesContext.getCurrentInstance();
-        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();        
-        _intervId = Integer.parseInt(params.get("intervId")); 
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        _intervId = Integer.parseInt(params.get("intervId"));
         fillMapAllPiece();
-        
+
     }
-    
-     /**
+
+    /**
      * fill the list with all the Piece in DB and their name to be displayed in
      * selectItems
      *
      * @return the page to add a piece to intervention
      */
-    public String voirAjoutPiece() {             
+    public String voirAjoutPiece() {
 
         return ConstantsPages.TECHNICIEN_AJOUT_PIECE_INTERV_PAGE;
     }
@@ -92,7 +93,9 @@ public class addPieceIntervManagedBean {
                     _gestIntervBean.addPieceToInterventionAlreadyExist(Integer.parseInt(_idPieceToAdd), _intervId, _qteToAdd);
                 }
 
-                result = ConstantsPages.TECHNICIEN_AVANCEMENT_PAGE;
+                result = ConstantsPages.TECHNICIEN_AVANCEMENT_PAGE+"?faces-redirect=true";
+            } else {
+                _stockInsuffisant = true;
             }
         }
 
@@ -106,9 +109,9 @@ public class addPieceIntervManagedBean {
 
         for (Piece p : listAllPiece) {
             _mapAllPiece.put(p.getNom(), p.getPieceId());
-        }        
+        }
     }
-    
+
     public String getNomPieceByID(int idPiece) {
         return _gestPieceBean.getPieceById(idPiece).getNom();
     }
@@ -141,6 +144,10 @@ public class addPieceIntervManagedBean {
         return _intervId;
     }
 
+    public boolean getStockInsuffisant() {
+        return _stockInsuffisant;
+    }
+
     public void setIntervId(int _intervId) {
         this._intervId = _intervId;
     }
@@ -159,6 +166,5 @@ public class addPieceIntervManagedBean {
 
     public void setGestPieceBean(gestionPieceSessionBeanRemote _gestPieceBean) {
         this._gestPieceBean = _gestPieceBean;
-    }    
-    
+    }
 }
