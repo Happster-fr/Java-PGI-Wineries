@@ -80,7 +80,7 @@ public class addPieceIntervManagedBean {
         String result = ConstantsPages.TECHNICIEN_AJOUT_PIECE_INTERV_PAGE;
         //verifier stock
         Piece p = _gestPieceBean.getPieceById(Integer.parseInt(_idPieceToAdd));
-        if (_qteToAdd > 0) {
+        if (_qteToAdd >= 0) {
             if (p.getQteStock() >= _qteToAdd) {
                 //decrementer stock
                 _gestPieceBean.decrementeStock(Integer.parseInt(_idPieceToAdd), _qteToAdd);

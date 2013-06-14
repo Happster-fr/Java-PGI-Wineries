@@ -2,8 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Détails intervention</title>
         <h:outputStylesheet name="css/style.css"/>
@@ -17,14 +16,15 @@
         </div>
         <div id="menu-wrapper">
             <div id="menu" class="container">
-                <h:panelGrid columns="2" cellpadding="10">
-                    <h:link value="Accueil" outcome="/Technicien/accueilTech" />
-                    <h:link value="Interventions" outcome="/Technicien/interventionAReal" />
-                </h:panelGrid>
+                <ul>
+                    <li><h:link value="Accueil" outcome="/Technicien/accueilTech" /></li>
+                    <li><h:link value="Interventions non finies" outcome="/Technicien/interventionAReal" /></li>
+                    <li><h:link value="Toutes mes interventions" outcome="/Technicien/allInterventionTech" /></li>
+                    <li><h:link value="Deconnexion" outcome="/General/deconnexion" /></li>
+                </ul>
             </div>
         </div>
         <div id="page" class="container">
-            <f:view>
                 <div id="box">
                     <h2 class="title"><a href="#">Avancement intervention</a></h2>
                     <div style="clear: both;">&nbsp;</div>
@@ -90,7 +90,15 @@
                         </h:form>
                     </div>
                 </div>
-            </f:view>
+            <div id="box3">
+                <h2>Navigation</h2>
+                <ul class="style1">
+                    <li class="first"><h:link value="Accueil" outcome="/Technicien/accueilTech" /></li>
+                    <li><h:link value="Interventions non finies" outcome="/Technicien/interventionAReal" /></li>
+                    <li><h:link value="Toutes les interventions" outcome="/Technicien/allInterventionTech" /></li>
+                    <li><h:link value="Deconnexion" outcome="/General/deconnexion" /></li>
+                </ul>
+            </div>
         </div>
     </h:body>
 </html>

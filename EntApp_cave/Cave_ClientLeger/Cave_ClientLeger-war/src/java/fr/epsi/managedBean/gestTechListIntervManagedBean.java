@@ -35,8 +35,6 @@ public class gestTechListIntervManagedBean {
     private DataModel _listNonFinishedIntervTech;
     @EJB
     private gestionInterventionSessionBeanRemote _gestIntervBean;
-    @EJB
-    private gestionPieceSessionBeanRemote _gestPieceBean;
     private List<ListePiece> _listPieceInterv;
 
     /**
@@ -45,8 +43,7 @@ public class gestTechListIntervManagedBean {
     public gestTechListIntervManagedBean() {
          try {
             _ic = new InitialContext();
-            _gestIntervBean = (gestionInterventionSessionBeanRemote) _ic.lookup("java:global/Cave_ClientLeger/Cave_ClientLeger-ejb/gestionInterventionSessionBean!fr.epsi.sessionBean.gestionInterventionSessionBeanRemote");
-            _gestPieceBean = (gestionPieceSessionBeanRemote) _ic.lookup("java:global/Cave_ClientLeger/Cave_ClientLeger-ejb/gestionPieceSessionBean!fr.epsi.sessionBean.gestionPieceSessionBeanRemote");
+            _gestIntervBean = (gestionInterventionSessionBeanRemote) _ic.lookup("java:global/Cave_ClientLeger/Cave_ClientLeger-ejb/gestionInterventionSessionBean!fr.epsi.sessionBean.gestionInterventionSessionBeanRemote");            
         } catch (NamingException ex) {
             Logger.getLogger(gestPieceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -141,14 +138,6 @@ public class gestTechListIntervManagedBean {
 
     public void setGestIntervBean(gestionInterventionSessionBeanRemote _gestIntervBean) {
         this._gestIntervBean = _gestIntervBean;
-    }
-
-    public gestionPieceSessionBeanRemote getGestPieceBean() {
-        return _gestPieceBean;
-    }
-
-    public void setGestPieceBean(gestionPieceSessionBeanRemote _gestPieceBean) {
-        this._gestPieceBean = _gestPieceBean;
     }
 
     public List<ListePiece> getListPieceInterv() {
