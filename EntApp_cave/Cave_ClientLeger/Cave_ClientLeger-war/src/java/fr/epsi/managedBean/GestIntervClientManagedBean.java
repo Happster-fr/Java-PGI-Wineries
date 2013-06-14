@@ -4,7 +4,13 @@
  */
 package fr.epsi.managedBean;
 
+import fr.epsi.cave.ejbentity.Client;
+import fr.epsi.cave.ejbentity.Intervention;
 import fr.epsi.sessionBean.gestionInterventionSessionBeanRemote;
+import fr.epsi.sessionBean.gestionPieceSessionBeanRemote;
+import fr.epsi.utils.ConstantsPages;
+import fr.epsi.utils.FactureCreator;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -23,24 +29,24 @@ import javax.naming.NamingException;
 @ManagedBean(name = "gestIntervClientManagedBean")
 @RequestScoped
 public class GestIntervClientManagedBean {
-
-    private InitialContext _ic;
-    private LoginManagedBean _loginManagedBean;
     @EJB
     private gestionInterventionSessionBeanRemote _gestIntervBean;
+    @EJB
+    private gestionPieceSessionBeanRemote _gestionPieceSessionBeanRemote;
     private DataModel _dmInterventionsNotEnded;
+    private String _htmlFacture;
 
     public GestIntervClientManagedBean() {
         try {
-            _ic = new InitialContext();
-            _gestIntervBean = (gestionInterventionSessionBeanRemote) _ic.lookup("java:global/Cave_ClientLeger/Cave_ClientLeger-ejb/gestionInterventionSessionBean!fr.epsi.sessionBean.gestionInterventionSessionBeanRemote");
+            InitialContext ic = new InitialContext();
+            _gestIntervBean = (gestionInterventionSessionBeanRemote) ic.lookup("java:global/Cave_ClientLeger/Cave_ClientLeger-ejb/gestionInterventionSessionBean!fr.epsi.sessionBean.gestionInterventionSessionBeanRemote");
+            _gestionPieceSessionBeanRemote = (gestionPieceSessionBeanRemote) ic.lookup("java:global/Cave_ClientLeger/Cave_ClientLeger-ejb/gestionPieceSessionBean!fr.epsi.sessionBean.gestionPieceSessionBeanRemote");
         } catch (NamingException ex) {
             Logger.getLogger(gestPieceManagedBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     /* Business stuff */
-    
     /**
      * Get interventions for current client with state "En attente"
      *
@@ -48,8 +54,8 @@ public class GestIntervClientManagedBean {
      */
     public DataModel getInterventionCurrentClientAttente() {
         FacesContext context = FacesContext.getCurrentInstance();
-        _loginManagedBean = (LoginManagedBean) context.getApplication().evaluateExpressionGet(context, "#{loginManagedBean}", LoginManagedBean.class);
-        int clientId = _loginManagedBean.getClient().getClientId();
+        LoginManagedBean loginManagedBean = (LoginManagedBean) context.getApplication().evaluateExpressionGet(context, "#{loginManagedBean}", LoginManagedBean.class);
+        int clientId = loginManagedBean.getClient().getClientId();
 
         if (_dmInterventionsNotEnded == null) {
             _dmInterventionsNotEnded = new ListDataModel();
@@ -57,5 +63,44 @@ public class GestIntervClientManagedBean {
         }
 
         return _dmInterventionsNotEnded;
+    }
+
+    /**
+     * Get interventions for current client with state "Terminee"
+     *
+     * @return DataModel
+     */
+    public DataModel getInterventionCurrentClientPassees() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        LoginManagedBean loginManagedBean = (LoginManagedBean) context.getApplication().evaluateExpressionGet(context, "#{loginManagedBean}", LoginManagedBean.class);
+        int clientId = loginManagedBean.getClient().getClientId();
+
+        if (_dmInterventionsNotEnded == null) {
+            _dmInterventionsNotEnded = new ListDataModel();
+            _dmInterventionsNotEnded.setWrappedData(_gestIntervBean.getListInterventionClientEnded(clientId));
+        }
+
+        return _dmInterventionsNotEnded;
+    }
+
+    public String imprimerIntervention() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        LoginManagedBean loginManagedBean = (LoginManagedBean) context.getApplication().evaluateExpressionGet(context, "#{loginManagedBean}", LoginManagedBean.class);
+        Client client = loginManagedBean.getClient();
+        
+        FacesContext fc = FacesContext.getCurrentInstance();
+        Map<String, String> params = fc.getExternalContext().getRequestParameterMap();
+        if (!params.get("intervToPrint").isEmpty()) {
+            Intervention intervention = _gestIntervBean.getInterventionById(Integer.parseInt(params.get("intervToPrint")));
+            FactureCreator facturerCreator = new FactureCreator(client, intervention, _gestionPieceSessionBeanRemote);
+            _htmlFacture = facturerCreator.HtmlFacture();
+        }
+        return ConstantsPages.CLIENT_INTERVENTION_TO_PRINT;
+    }
+    
+    /* GET/SET */
+    
+    public String getHtmlFacture() {
+        return _htmlFacture;
     }
 }

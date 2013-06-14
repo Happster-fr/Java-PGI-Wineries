@@ -22,4 +22,5 @@ public class ConstantsPages {
     public static final String CLIENT_ACCUEIL_PAGE = "/Client/accueilClient";
     public static final String CLIENT_INTERVENTION_PREVENTIVE_PAGE = "/Client/intervPreventive";
     public static final String CLIENT_INTERVENTION_CURATIVE_PAGE = "/Client/intervCurative";
+    public static final String CLIENT_INTERVENTION_TO_PRINT = "/Client/intervToPrint";
 }
