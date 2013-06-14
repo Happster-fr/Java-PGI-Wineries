@@ -13,6 +13,8 @@ import javax.faces.application.Application;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import org.primefaces.model.map.DefaultMapModel;
@@ -28,6 +30,15 @@ public class MapBean implements Serializable {
     private Client client;
     private Technicien technicien;
     private InitialContext ic;
+    private List<Intervention> listToday;
+
+    public List<Intervention> getListToday() {
+        return listToday;
+    }
+
+    public void setListToday(List<Intervention> listToday) {
+        this.listToday = listToday;
+    }
     private gestionInterventionSessionBeanRemote gstInterventionSessionBeanRemote;
     private gestionClientSessionBeanRemote gstClientSessionBeanRemote;
 
@@ -90,7 +101,7 @@ public class MapBean implements Serializable {
         float lat, longi;
         Client cli;
         if (technicien != null) {
-            List<Intervention> listToday = gstInterventionSessionBeanRemote.getListInterventionToday(technicien.getTechnicienId());
+            listToday = gstInterventionSessionBeanRemote.getListInterventionToday(technicien.getTechnicienId());
             for (Intervention i : listToday) {
                 cli = gstClientSessionBeanRemote.getClientById(i.getFkClientId());
                 lat = cli.getLatitude();
@@ -102,9 +113,13 @@ public class MapBean implements Serializable {
         return simpleModel;
     }
 
+    public DataModel getTodayClientsDm() {
+        ListDataModel ldm = new ListDataModel();
+        ldm.setWrappedData(listToday);
+        return ldm;
+    }
+
     public MapModel getSimpleModel() {
         return simpleModel;
     }
-    
-    //intervention à real -> param !
 }
