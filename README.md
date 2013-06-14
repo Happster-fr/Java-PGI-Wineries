@@ -15,6 +15,6 @@ il faut ensuite choisir de s'identifier en tant que client ou technicien.
 
 ######Client : login = marcus / pwd = pass
 
-#### **Image Result :**
+#### **Résultat en image :**
 
 ![Capture Project](http://i41.tinypic.com/72wuhd.jpg)
