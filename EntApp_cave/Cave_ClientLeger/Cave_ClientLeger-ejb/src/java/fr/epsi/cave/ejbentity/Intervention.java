@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Intervention.findByType", query = "SELECT i FROM Intervention i WHERE i.type = :type"),
     @NamedQuery(name = "Intervention.findByFkClientId", query = "SELECT i FROM Intervention i WHERE i.fkClientId = :fkClientId"),
     @NamedQuery(name = "Intervention.findByFkTechnicienId", query = "SELECT i FROM Intervention i WHERE i.fkTechnicienId = :fkTechnicienId"),
-    @NamedQuery(name = "Intervention.findIntervNotEndedByFkClientId", query = "SELECT i FROM Intervention i WHERE i.fkClientId = :fkClientId AND i.etat <> :etat"),
+    @NamedQuery(name = "Intervention.findIntervNotEndedByFkClientId", query = "SELECT i FROM Intervention i WHERE i.fkClientId = :fkClientId AND i.etat <> :etat ORDER BY i.date ASC"),
     @NamedQuery(name = "Intervention.findByTechnicienToday", query = "SELECT i FROM Intervention i WHERE i.date = :date AND i.etat = :etat AND i.fkTechnicienId = :fkTechnicienId"),
     @NamedQuery(name = "Intervention.findByClientToday", query = "SELECT i FROM Intervention i WHERE i.date = :date AND i.etat = :etat AND i.fkClientId = :fkClientId"),
     @NamedQuery(name = "Intervention.findIntervEndedByFkClientId", query = "SELECT i FROM Intervention i WHERE i.fkClientId = :fkClientId AND i.etat = :etat"),
