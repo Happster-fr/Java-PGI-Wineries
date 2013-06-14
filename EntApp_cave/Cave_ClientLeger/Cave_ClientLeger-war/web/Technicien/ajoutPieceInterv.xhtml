@@ -17,46 +17,55 @@
         </div>
         <div id="menu-wrapper">
             <div id="menu" class="container">
-                <h:panelGrid columns="2" cellpadding="10">
-                    <h:link value="Accueil" outcome="/Technicien/accueilTech" />
-                    <h:link value="Interventions" outcome="/Technicien/interventionAReal" />
-                </h:panelGrid>
+                <ul>
+                    <li><h:link value="Accueil" outcome="/Technicien/accueilTech" /></li>
+                    <li><h:link value="Interventions non finies" outcome="/Technicien/interventionAReal" /></li>
+                    <li><h:link value="Toutes mes interventions" outcome="/Technicien/allInterventionTech" /></li>
+                    <li><h:link value="Deconnexion" outcome="/General/deconnexion" /></li>
+                </ul>
             </div>
         </div>
         <div id="page" class="container">
-            <f:view>
-                <div id="box">
-                    <h2 class="title"><a href="#">Approvisionnement intervention</a></h2>
-                    <div style="clear: both;">&nbsp;</div>
-                    <div class="entry">
-                        <h:panelGroup rendered="#{addPieceIntervManagedBean.stockInsuffisant}">
-                            <div style="color:red;">Pas assez de pièces en stock !</div>
-                        </h:panelGroup>
-                        <h:form>
-                            <h:panelGrid border="0" columns="2" cellpadding="5">
-                                <h:outputText value="Pièce" />
-                                <h:selectOneMenu id="Piece" value="#{addPieceIntervManagedBean.idPieceToAdd}">
-                                    <f:selectItems value="#{addPieceIntervManagedBean.mapAllPiece}" />
-                                </h:selectOneMenu>
+            <div id="box">
+                <h2 class="title"><a href="#">Approvisionnement intervention</a></h2>
+                <div style="clear: both;">&nbsp;</div>
+                <div class="entry">
+                    <h:panelGroup rendered="#{addPieceIntervManagedBean.stockInsuffisant}">
+                        <div style="color:red;">Pas assez de pièces en stock !</div>
+                    </h:panelGroup>
+                    <h:form>
+                        <h:panelGrid border="0" columns="2" cellpadding="5">
+                            <h:outputText value="Pièce" />
+                            <h:selectOneMenu id="Piece" value="#{addPieceIntervManagedBean.idPieceToAdd}">
+                                <f:selectItems value="#{addPieceIntervManagedBean.mapAllPiece}" />
+                            </h:selectOneMenu>
 
-                                <h:outputText value="Quantité" />
-                                <h:inputText id="qtePiece" value="#{addPieceIntervManagedBean.qteToAdd}">
+                            <h:outputText value="Quantité" />
+                            <h:inputText id="qtePiece" value="#{addPieceIntervManagedBean.qteToAdd}">
 
-                                </h:inputText>
-                            </h:panelGrid>
+                            </h:inputText>
+                        </h:panelGrid>
 
-                            <h:commandButton value="Valider" action="#{addPieceIntervManagedBean.ajoutePieceIntervention()}" >
-                                <f:param name="intervId" value="#{addPieceIntervManagedBean.intervId}" />
-                                <f:param name="intervToSee" value="#{addPieceIntervManagedBean.intervId}" />
-                            </h:commandButton>          
-                            <h:commandButton value="Annuler" action="#{gestIntervManagedBean.voirAvancementIntervention()}" >
-                                <f:param name="intervId" value="#{addPieceIntervManagedBean.intervId}" />
-                                <f:param name="intervToSee" value="#{addPieceIntervManagedBean.intervId}" />
-                            </h:commandButton>
-                        </h:form>
-                    </div>
+                        <h:commandButton value="Valider" action="#{addPieceIntervManagedBean.ajoutePieceIntervention()}" >
+                            <f:param name="intervId" value="#{addPieceIntervManagedBean.intervId}" />
+                            <f:param name="intervToSee" value="#{addPieceIntervManagedBean.intervId}" />
+                        </h:commandButton>          
+                        <h:commandButton value="Annuler" action="#{gestIntervManagedBean.voirAvancementIntervention()}" >
+                            <f:param name="intervId" value="#{addPieceIntervManagedBean.intervId}" />
+                            <f:param name="intervToSee" value="#{addPieceIntervManagedBean.intervId}" />
+                        </h:commandButton>
+                    </h:form>
                 </div>
-            </f:view>
+            </div>
+            <div id="box3">
+                <h2>Navigation</h2>
+                <ul class="style1">
+                    <li class="first"><h:link value="Accueil" outcome="/Technicien/accueilTech" /></li>
+                    <li><h:link value="Interventions non finies" outcome="/Technicien/interventionAReal" /></li>
+                    <li><h:link value="Toutes mes interventions" outcome="/Technicien/allInterventionTech" /></li>
+                    <li><h:link value="Deconnexion" outcome="/General/deconnexion" /></li>
+                </ul>
+            </div>
         </div>
     </h:body>
 </html>

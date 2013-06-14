@@ -2,9 +2,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Interventions à venir</title>
+        <title>Toutes les interventions</title>
         <h:outputStylesheet name="css/style.css"/>
     </h:head>
     <body>
@@ -18,19 +19,19 @@
             <div id="menu" class="container">    
                 <ul>
                     <li><h:link value="Accueil" outcome="/Technicien/accueilTech" /></li>
-                    <li class="current_page_item"><h:link value="Interventions non finies" outcome="/Technicien/interventionAReal" /></li>
-                    <li><h:link value="Toutes mes interventions" outcome="/Technicien/allInterventionTech" /></li>
+                    <li><h:link value="Interventions non finies" outcome="/Technicien/interventionAReal" /></li>
+                    <li class="current_page_item"><h:link value="Toutes mes interventions" outcome="/Technicien/allInterventionTech" /></li>
                     <li><h:link value="Deconnexion" outcome="/General/deconnexion" /></li>
                 </ul>
             </div>
         </div>
         <div id="page" class="container">
             <div id="box">
-                <h2 class="title"><a href="#">Interventions à réaliser</a></h2>
+                <h2 class="title"><a href="#">Toutes mes interventions</a></h2>
                 <div style="clear: both;">&nbsp;</div>
                 <div class="entry">
                     <h:form>
-                        <h:dataTable border="0" rules="all" value="#{gestTechListIntervManagedBean.getNonFinishedInterventionCurrentTech()}"
+                        <h:dataTable border="0" rules="all" value="#{gestTechListIntervManagedBean.getInterventionCurrentTech()}"
                                      var="i" class="tableau">
                             <h:column>
                                 <f:facet name="header">
