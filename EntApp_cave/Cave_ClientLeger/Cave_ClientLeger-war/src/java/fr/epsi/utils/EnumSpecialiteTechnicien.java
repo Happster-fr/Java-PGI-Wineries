@@ -4,14 +4,16 @@
  */
 package fr.epsi.utils;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Mikhael
  */
-public enum EnumSpecialiteTechnicien {
+public enum EnumSpecialiteTechnicien implements Serializable{
     INFORMATIQUE("Informatique"),
-    MECANIQUE("Magnétique"),
-    ELECTROMECANIQUE("Electromécanique");
+    MECANIQUE("Magnetique"),
+    ELECTROMECANIQUE("Electromecanique");
 
     private final String valToInsert;
 
