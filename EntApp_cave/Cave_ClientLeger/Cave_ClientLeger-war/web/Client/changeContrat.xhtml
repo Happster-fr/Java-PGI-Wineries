@@ -38,23 +38,33 @@
                             <h:message for="contractNum" />
 
                             <h:outputText value="Type : " />
-                            <h:selectOneMenu name="typeContrats" id="typeContrats" value="#{clientManagedBean.contrat.type}" valueChangeListener="#{clientManagedBean.changeDates}">
+                            <h:selectOneMenu id="typeContrats" value="#{clientManagedBean.contrat.type}">
                                 <f:selectItems value="#{clientManagedBean.listTypeContratStr}"/>
-                                <f:ajax render="@form" execute="typeContrats" event="change" />
                             </h:selectOneMenu>
                             <h:message for="typeContrats" />
 
-                            <h:outputText value="Date début : " />
-                            <h:inputText id="beginDate" value="#{clientManagedBean.contrat.dateDebut}" required="true" requiredMessage="obligatoire" readonly="true" disabled="true">
-                                <f:convertDateTime pattern="dd-MM-yyyy" />
-                            </h:inputText>
-                            <h:message for="beginDate" />
-
-                            <h:outputText value="Date fin : " />
-                            <h:inputText id="endDate" value="#{clientManagedBean.contrat.dateFin}" required="true" requiredMessage="obligatoire" readonly="true" disabled="true">
-                                <f:convertDateTime pattern="dd-MM-yyyy" />
-                            </h:inputText>
-                            <h:message for="endDate" />
+                            <h:panelGroup rendered="#{clientManagedBean.insertOk}">
+                                <h:outputText value="Date début : " />
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{clientManagedBean.insertOk}">
+                                <h:inputText id="beginDate" value="#{clientManagedBean.contrat.dateDebut}" required="true" requiredMessage="obligatoire" readonly="true" disabled="true">
+                                    <f:convertDateTime pattern="dd-MM-yyyy" />
+                                </h:inputText>
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{clientManagedBean.insertOk}">
+                                <h:message for="beginDate" />
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{clientManagedBean.insertOk}">
+                                <h:outputText value="Date fin : " />
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{clientManagedBean.insertOk}">
+                                <h:inputText id="endDate" value="#{clientManagedBean.contrat.dateFin}" required="true" requiredMessage="obligatoire" readonly="true" disabled="true">
+                                    <f:convertDateTime pattern="dd-MM-yyyy" />
+                                </h:inputText>
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{clientManagedBean.insertOk}">
+                                <h:message for="endDate" />
+                            </h:panelGroup>
 
                             <h:commandButton value="Valider" action="#{clientManagedBean.submitForm()}" />
                             <h:panelGroup rendered="#{clientManagedBean.insertOk}">

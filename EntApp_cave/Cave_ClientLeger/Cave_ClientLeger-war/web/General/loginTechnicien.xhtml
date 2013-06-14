@@ -30,14 +30,14 @@
                     <h:form>
                         <h:panelGrid border="0" columns="3" cellpadding="5">
                             <h:outputText value="Identifiant:" />
-                            <h:inputText id="login" value="#{loginManagedBean.loginTechnicien}" required="true"
+                            <h:inputText id="loginTechnicien" value="#{loginManagedBean.loginTechnicien}" required="true"
                                          requiredMessage="Identifiant obligatoire" />
-                            <h:message for="login" />
+                            <h:message for="loginTechnicien" />
 
                             <h:outputText value="Mot de passe:" />
-                            <h:inputText id="password" value="#{loginManagedBean.passwordTechnicien}" required="true"
+                            <h:inputSecret id="passwordTechnicien" value="#{loginManagedBean.passwordTechnicien}" required="true"
                                          requiredMessage="Mot de passe obligatoire" />
-                            <h:message for="password" />
+                            <h:message for="passwordTechnicien" />
 
                             <h:outputText />
                             <h:commandButton value="Valider" action="#{loginManagedBean.isTechnicienCanConnect}" />
