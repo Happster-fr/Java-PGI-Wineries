@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.epsi.sessionBean;
 
 import fr.epsi.cave.ejbentity.Client;
@@ -14,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
+ * Manage Client and its contracts
  *
  * @author Anthony
  */
@@ -23,32 +20,64 @@ public class gestionClientSessionBean implements gestionClientSessionBeanRemote 
     @PersistenceContext
     private EntityManager _em;
 
+    /**
+     * Create a Client
+     *
+     * @param client
+     */
     @Override
     public void createClient(Client client) {
         _em.merge(client);
     }
 
+    /**
+     * Modify a Client
+     *
+     * @param client
+     */
     @Override
     public void modifyClient(Client client) {
         _em.merge(client);
     }
 
+    /**
+     * Delete a Client
+     *
+     * @param client
+     */
     @Override
     public void deleteClient(Client client) {
         Client mClient = _em.find(Client.class, client.getClientId());
         _em.remove(mClient);
     }
 
+    /**
+     * Return a list of all Clients in database
+     *
+     * @return List<Client>
+     */
     @Override
     public List<Client> getAllClients() {
         return _em.createNamedQuery("Client.findAll").getResultList();
     }
 
+    /**
+     * Return the instance of client stored in database
+     *
+     * @param client
+     * @return Client
+     */
     @Override
     public Client getClient(Client client) {
         return _em.find(Client.class, client.getClientId());
     }
 
+    /**
+     * Return the instance of client stored in database with given idClient
+     *
+     * @param idClient
+     * @return Client
+     */
     @Override
     public Client getClientById(Integer idClient) {
         Query q = _em.createNamedQuery("Client.findByClientId");
@@ -56,6 +85,11 @@ public class gestionClientSessionBean implements gestionClientSessionBeanRemote 
         return (Client) q.getSingleResult();
     }
 
+    /**
+     * Return the last Contract of a client
+     * @param idClient
+     * @return Contrat
+     */
     @Override
     public Contrat getLastContrat(Integer idClient) {
         Calendar cal = Calendar.getInstance();
