@@ -25,71 +25,73 @@
             </div>
         </div>
         <div id="page" class="container">
-                <div id="box">
-                    <h2 class="title"><a href="#">Avancement intervention</a></h2>
-                    <div style="clear: both;">&nbsp;</div>
-                    <div class="entry">
-                        <h:form>
-                            <h:panelGrid border="0" columns="2" cellpadding="5">
-                                <h:outputText value="N° intervention" />
-                                <h:outputText id="interventionId"
-                                              value="#{gestIntervManagedBean.detailInterv.interventionId}" />
+            <div id="box">
+                <h2 class="title"><a href="#">Avancement intervention</a></h2>
+                <div style="clear: both;">&nbsp;</div>
+                <div class="entry">
+                    <h:form>
+                        <h:panelGrid border="0" columns="2" cellpadding="5">
+                            <h:outputText value="N° intervention" />
+                            <h:outputText id="interventionId"
+                                          value="#{gestIntervManagedBean.detailInterv.interventionId}" />
 
-                                <h:outputText value="Etat" />
-                                <h:selectOneMenu id="interventionEtat" value="#{gestIntervManagedBean.detailInterv.etat}">
-                                    <f:selectItems value="#{gestIntervManagedBean.allEtatInterv}" />
-                                </h:selectOneMenu>
+                            <h:outputText value="Etat" />
+                            <h:selectOneMenu id="interventionEtat" value="#{gestIntervManagedBean.detailInterv.etat}">
+                                <f:selectItems value="#{gestIntervManagedBean.allEtatInterv}" />
+                            </h:selectOneMenu>
 
-                                <h:outputText value="Nature" />
-                                <h:outputText id="interventionNature"
-                                              value="#{gestIntervManagedBean.detailInterv.nature}" />
+                            <h:outputText value="Nature" />
+                            <h:outputText id="interventionNature"
+                                          value="#{gestIntervManagedBean.detailInterv.nature}" />
 
-                                <h:outputText value="Date" />
-                                <h:outputText id="interventionDate"
-                                              value="#{gestIntervManagedBean.detailInterv.date}" />
+                            <h:outputText value="Date" />
+                            <h:outputText id="interventionDate"
+                                          value="#{gestIntervManagedBean.detailInterv.date}" >
+                                <f:convertDateTime pattern="dd-MM-yyyy" />
+                            </h:outputText>
 
-                                <h:outputText value="Type" />
-                                <h:outputText id="interventionType"
-                                              value="#{gestIntervManagedBean.detailInterv.type}" />
+                            <h:outputText value="Type" />
+                            <h:outputText id="interventionType"
+                                          value="#{gestIntervManagedBean.detailInterv.type}" />
 
-                                <h:outputText value="Client" />
-                                <h:outputText id="interventionfkClientId"
-                                              value="#{gestIntervManagedBean.detailInterv.fkClientId}" />
+                            <h:outputText value="Client" />
+                            <h:outputText id="interventionfkClientId"
+                                          value="#{gestIntervManagedBean.detailInterv.fkClientId}" />
 
-                                <h:outputText value="Technicien" />
-                                <h:outputText id="interventionfkTechnicienId"
-                                              value="#{gestIntervManagedBean.detailInterv.fkTechnicienId}" />
-                            </h:panelGrid>
+                            <h:outputText value="Technicien" />
+                            <h:outputText id="interventionfkTechnicienId"
+                                          value="#{gestIntervManagedBean.detailInterv.fkTechnicienId}" />
+                        </h:panelGrid>
 
-                            <h:commandButton value="Ajouter pièce" action="#{addPieceIntervManagedBean.voirAjoutPiece()}" >
-                                <f:param name="intervId" value="#{gestIntervManagedBean.detailInterv.interventionId}" />
-                            </h:commandButton>
+                        <h:commandButton value="Ajouter pièce" action="#{addPieceIntervManagedBean.voirAjoutPiece()}" >
+                            <f:param name="intervId" value="#{gestIntervManagedBean.detailInterv.interventionId}" />
+                        </h:commandButton>
 
-                            <h:panelGrid border="0" columns="2" cellpadding="5">
-                                <h:dataTable border="0" rules="all" value="#{gestIntervManagedBean.getDataPieceIntervention()}"
-                                             var="l">
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Pièce" />
-                                        </f:facet>
-                                        <h:outputText value="#{l.nomPiece}" />
-                                    </h:column>
-                                    <h:column>
-                                        <f:facet name="header">
-                                            <h:outputText value="Quantité" />
-                                        </f:facet>
-                                        <h:outputText value="#{l.qteUtilise}" />
-                                    </h:column>
-                                </h:dataTable>
-                            </h:panelGrid>
+                        <h:panelGrid border="0" columns="2" cellpadding="5">
+                            <h:dataTable border="0" rules="all" value="#{gestIntervManagedBean.getDataPieceIntervention()}"
+                                         var="l">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Pièce" />
+                                    </f:facet>
+                                    <h:outputText value="#{l.nomPiece}" />
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Quantité" />
+                                    </f:facet>
+                                    <h:outputText value="#{l.qteUtilise}" />
+                                </h:column>
+                            </h:dataTable>
+                        </h:panelGrid>
 
-                            <h:commandButton value="Valider" action="#{gestIntervManagedBean.enregistrerAvancement}" >
-                                <f:param name="intervToSee" value="#{gestIntervManagedBean.detailInterv.interventionId}" />
-                            </h:commandButton>
-                            <h:commandButton value="Annuler" action="#{gestIntervManagedBean.voirIntervAReal()}" />
-                        </h:form>
-                    </div>
+                        <h:commandButton value="Valider" action="#{gestIntervManagedBean.enregistrerAvancement}" >
+                            <f:param name="intervToSee" value="#{gestIntervManagedBean.detailInterv.interventionId}" />
+                        </h:commandButton>
+                        <h:commandButton value="Annuler" action="#{gestIntervManagedBean.voirIntervAReal()}" />
+                    </h:form>
                 </div>
+            </div>
             <div id="box3">
                 <h2>Navigation</h2>
                 <ul class="style1">
