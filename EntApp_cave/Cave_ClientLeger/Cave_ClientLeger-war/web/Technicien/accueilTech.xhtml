@@ -34,7 +34,7 @@
                     <p:gmap center="43.600,3.883" zoom="13" type="HYBRID"   
                             style="width:600px;height:400px"  
                             model="#{mapBean.todayClientsMarker}" />
-                    <h3>Récapitulatif : </h3>
+                    <h3 style="margin-top: 20px;">Récapitulatif : </h3>
                     <h:form>
                         <h:dataTable border="0" rules="all" value="#{mapBean.todayClientsDm}" var="i" class="tableau">
                             <h:column>
@@ -68,14 +68,6 @@
                                     <h:outputText value="Etat" />
                                 </f:facet>
                                 <h:outputText value="#{i.etat}" />
-                            </h:column>                    
-                            <h:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Action" />
-                                </f:facet>
-                                <h:commandButton value="Voir" action="#{gestIntervManagedBean.voirAvancementIntervention()}" >
-                                    <f:param name="intervToSee" value="#{i.interventionId}" />
-                                </h:commandButton>
                             </h:column>
                         </h:dataTable>
                     </h:form>
