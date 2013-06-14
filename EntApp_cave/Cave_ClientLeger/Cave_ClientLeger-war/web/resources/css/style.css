@@ -291,8 +291,6 @@ form {
     font-size:1.3em;
 }
 
-
-
 label {
     display:block;
     margin-top:20px;
@@ -349,4 +347,47 @@ input[type=submit]:active {
 
 #submit:hover {
     opacity:0.9;
+}
+
+/* Tableau */
+
+.tableau {
+    font-size: 14px;
+    text-align: center;
+    border-collapse: collapse;
+}
+.tableau th {
+    font-size: 16px;
+    font-weight: normal;
+    padding: 8px;
+    background: #666666;
+    border-top: 2px solid #666666;
+    border-bottom: 1px solid #fff;
+    color: #333333;
+}
+.tableau td {
+    padding: 8px;
+    border-bottom: 1px solid #fff;
+    color: #333333;
+    border-top: 1px solid #fff;
+    background: #EEEEEE;
+}
+.tableau thead tr th {
+    background: #DDDDDD;
+}
+.tableau tfoot tr td {
+    background: #666666;
+    font-size: 16px;
+    color: #333333;
+    text-align:center;
+}
+.tableau tbody tr:hover td {
+    background: #DDDDDD;
+    color: #333333;
+}
+.tableau a:hover {
+    text-decoration:underline;
+}
+.tableau input[type="submit"]{
+    background: #FFFFFF;
 }

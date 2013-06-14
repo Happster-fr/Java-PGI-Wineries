@@ -2,13 +2,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Interventions à venir</title>
         <h:outputStylesheet name="css/style.css"/>
     </h:head>
-    <h:body>
+    <body>
         <div id="logo" class="container">
             <h1>
                 <img width="50px" src="/Cave_ClientLeger-war/faces/javax.faces.resource/images/icone.png" alt="Logo Dewine" title="Logo Dewine"/>
@@ -16,66 +15,75 @@
             </h1>
         </div>
         <div id="menu-wrapper">
-            <div id="menu" class="container">
-                <h:panelGrid columns="2" cellpadding="10">
-                    <h:link value="Accueil" outcome="/Technicien/accueilTech" />
-                    <h:link value="Interventions" outcome="/Technicien/interventionAReal" />
-                </h:panelGrid>
+            <div id="menu" class="container">    
+                <ul>
+                    <li><h:link value="Accueil" outcome="/Technicien/accueilTech" /></li>
+                    <li class="current_page_item"><h:link value="Interventions" outcome="/Technicien/interventionAReal" /></li>
+                    <li><h:link value="Deconnexion" outcome="#{loginManagedBean.logouter()}" /></li>
+                </ul>
             </div>
         </div>
         <div id="page" class="container">
-            <f:view>
-                <div id="box">
-                    <h2 class="title"><a href="#">Interventions à réaliser</a></h2>
-                    <div style="clear: both;">&nbsp;</div>
-                    <div class="entry">
-                        <h:form>
-                            <h:dataTable border="0" rules="all" value="#{gestTechListIntervManagedBean.nonFinishedInterventionCurrentTech}"
-                                         var="i">
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="N° intervention" />
-                                    </f:facet>
-                                    <h:outputText value="#{i.interventionId}" />
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Client" />
-                                    </f:facet>
-                                    <h:outputText value="#{i.fkClientId}" />
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Type intervention" />
-                                    </f:facet>
-                                    <h:outputText value="#{i.type}" />
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Date" />
-                                    </f:facet>
-                                    <h:outputText value="#{i.date}" />
-                                </h:column>
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Etat" />
-                                    </f:facet>
-                                    <h:outputText value="#{i.etat}" />
-                                </h:column>                    
-                                <h:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="Action" />
-                                    </f:facet>
-                                    <h:commandButton value="Voir" action="#{gestIntervManagedBean.voirAvancementIntervention}" >
-                                        <f:param name="intervToSee" value="#{i.interventionId}" />
-                                    </h:commandButton>
-                                </h:column>
-                            </h:dataTable>
-                        </h:form>
-                    </div>
+            <div id="box">
+                <h2 class="title"><a href="#">Interventions à réaliser</a></h2>
+                <div style="clear: both;">&nbsp;</div>
+                <div class="entry">
+                    <h:form>
+                        <h:dataTable border="0" rules="all" value="#{gestTechListIntervManagedBean.nonFinishedInterventionCurrentTech}"
+                                     var="i" class="tableau">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="N° intervention" />
+                                </f:facet>
+                                <h:outputText value="#{i.interventionId}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Client" />
+                                </f:facet>
+                                <h:outputText value="#{i.fkClientId}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Type intervention" />
+                                </f:facet>
+                                <h:outputText value="#{i.type}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Date Interv." />
+                                </f:facet>
+                                <h:outputText value="#{i.date}">
+                                    <f:convertDateTime pattern="dd-MM-yyyy" />
+                                </h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Etat" />
+                                </f:facet>
+                                <h:outputText value="#{i.etat}" />
+                            </h:column>                    
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Action" />
+                                </f:facet>
+                                <h:commandButton value="Voir" action="#{gestIntervManagedBean.voirAvancementIntervention}" >
+                                    <f:param name="intervToSee" value="#{i.interventionId}" />
+                                </h:commandButton>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
                 </div>
-            </f:view>
+            </div>
+            <div id="box3">
+                <h2>Navigation</h2>
+                <ul class="style1">
+                    <li class="first"><h:link value="Accueil" outcome="/Technicien/accueilTech" /></li>
+                    <li><h:link value="Interventions" outcome="/Technicien/interventionAReal" /></li>
+                    <li><h:link value="Deconnexion" outcome="#{loginManagedBean.logouter()}" /></li>
+                </ul>
+            </div>
         </div>
-    </h:body>
+    </body>
 </html>
 
