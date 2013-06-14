@@ -137,7 +137,7 @@ public class gestionInterventionSessionBean implements gestionInterventionSessio
     public List<Intervention> getListInterventionNonFinishedByTech(int idTechnicien) {
         Query q = _em.createNamedQuery("Intervention.findIntervNotEndedByFkTechId");
         q.setParameter("fkTechnicienId", idTechnicien);
-        q.setParameter("etat", EtatIntervention.TERMINEE.toString());
+        q.setParameter("etat", EtatIntervention.TERMINEE.getEnumEtatIntervention());
         return q.getResultList();
     }
 
@@ -147,7 +147,7 @@ public class gestionInterventionSessionBean implements gestionInterventionSessio
         Query q = _em.createNamedQuery("Intervention.findByTechnicienToday");
         q.setParameter("fkTechnicienId", idTechnicien);
         q.setParameter("date", cal.getTime(), TemporalType.DATE);
-        q.setParameter("termine", EtatIntervention.TERMINEE.toString());
+        q.setParameter("etat", EtatIntervention.PLANIFIE.getEnumEtatIntervention());
         return q.getResultList();
     }
 }

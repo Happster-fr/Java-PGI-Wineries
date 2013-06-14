@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Intervention.findByFkClientId", query = "SELECT i FROM Intervention i WHERE i.fkClientId = :fkClientId"),
     @NamedQuery(name = "Intervention.findByFkTechnicienId", query = "SELECT i FROM Intervention i WHERE i.fkTechnicienId = :fkTechnicienId"),
     @NamedQuery(name = "Intervention.findIntervNotEndedByFkClientId", query = "SELECT i FROM Intervention i WHERE i.fkClientId = :fkClientId AND i.etat <> :etat"),
-    @NamedQuery(name = "Intervention.findByTechnicienToday", query = "SELECT i FROM Intervention i WHERE i.date = :date AND i.etat <> :termine AND i.fkTechnicienId = :fkTechnicienId"),
+    @NamedQuery(name = "Intervention.findByTechnicienToday", query = "SELECT i FROM Intervention i WHERE i.date = :date AND i.etat = :etat AND i.fkTechnicienId = :fkTechnicienId"),
     @NamedQuery(name = "Intervention.findIntervEndedByFkClientId", query = "SELECT i FROM Intervention i WHERE i.fkClientId = :fkClientId AND i.etat = :etat"),
     @NamedQuery(name = "Intervention.findByNoDateForTechnicien", query = "SELECT i FROM Intervention i WHERE i.date = :date AND i.fkTechnicienId <> :fkTechnicienId"),
     @NamedQuery(name = "Intervention.findIntervNotEndedByFkTechId", query = "SELECT i FROM Intervention i WHERE i.fkTechnicienId = :fkTechnicienId AND i.etat <> :etat")})

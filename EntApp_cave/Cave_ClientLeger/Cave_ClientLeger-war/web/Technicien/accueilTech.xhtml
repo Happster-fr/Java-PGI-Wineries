@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>Accueil technicien</title>
         <h:outputStylesheet name="css/style.css"/>
@@ -26,12 +27,57 @@
         </div>
         <div id="page" class="container">
             <div id="box">
-                <h2 class="title"><a href="#">Accueil Technicien</a></h2>
+                <h2 class="title"><a href="#">Interventions aujourd'hui</a></h2>
                 <div style="clear: both;">&nbsp;</div>
                 <div class="entry">
                     <p:gmap center="43.600,3.883" zoom="13" type="HYBRID"   
                             style="width:600px;height:400px"  
                             model="#{mapBean.todayClientsMarker}" />
+                    <h3>Récapitulatif : </h3>
+                    <h:form>
+                        <h:dataTable border="0" rules="all" value="#{mapBean.todayClientsDm}" var="i" class="tableau">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="N° intervention" />
+                                </f:facet>
+                                <h:outputText value="#{i.interventionId}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Client" />
+                                </f:facet>
+                                <h:outputText value="#{i.fkClientId}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Type intervention" />
+                                </f:facet>
+                                <h:outputText value="#{i.type}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Date Interv." />
+                                </f:facet>
+                                <h:outputText value="#{i.date}">
+                                    <f:convertDateTime pattern="dd-MM-yyyy" />
+                                </h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Etat" />
+                                </f:facet>
+                                <h:outputText value="#{i.etat}" />
+                            </h:column>                    
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Action" />
+                                </f:facet>
+                                <h:commandButton value="Voir" action="#{gestIntervManagedBean.voirAvancementIntervention}" >
+                                    <f:param name="intervToSee" value="#{i.interventionId}" />
+                                </h:commandButton>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
                 </div>
             </div>
             <div id="box3">
