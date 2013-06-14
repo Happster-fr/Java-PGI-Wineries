@@ -8,7 +8,7 @@
         <h:outputStylesheet name="css/style.css"/>
         <!-- JQUERY DATEPICKER -->
         <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-       
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
         <script>
             $(function() {
@@ -45,7 +45,7 @@
                             <h:inputText id="date" value="#{clientInterventionManagesBean.dateIntervention}" required="true" styleClass="datepicker"
                                          requiredMessage="Date obligatoire" />
                             <h:message for="date" />
-                            
+
                             <h:outputText value="Type Intervention:" />
                             <h:selectOneMenu id="typeIntervention" value="#{clientInterventionManagesBean.typeInterventionCurative}">
                                 <f:selectItems value="#{clientInterventionManagesBean.listTypeIntervention}"/>

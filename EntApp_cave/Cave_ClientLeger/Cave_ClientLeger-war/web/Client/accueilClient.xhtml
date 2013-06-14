@@ -29,12 +29,12 @@
         <div id="page" class="container">
             <div id="box">
                 <h2 class="title"> <h:outputText value="Bienvenue #{mapBean.currentClientName}" /></h2>
+                <p><h:link value="#{mapBean.numuberOfInterventionsToday}" outcome="/Client/visuIntervAttente" /></p>
                 <div style="clear: both;">&nbsp;</div>
                 <div class="entry">
                     <p:gmap center="43.600,3.883" zoom="13" type="HYBRID"   
                             style="width:600px;height:400px"  
                             model="#{mapBean.currentClientMarker}" />
-                    <h:link value="Voir interventions en attente" outcome="/Client/visuIntervAttente" />
                 </div>
             </div>
             <div id="box3">

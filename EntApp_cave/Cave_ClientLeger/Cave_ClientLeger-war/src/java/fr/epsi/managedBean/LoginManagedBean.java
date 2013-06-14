@@ -8,7 +8,10 @@ import fr.epsi.cave.ejbentity.Client;
 import fr.epsi.cave.ejbentity.Technicien;
 import fr.epsi.sessionBean.gestionConnexionSessionBeanRemote;
 import fr.epsi.utils.ConstantsPages;
+import fr.epsi.utils.PasswordEncadageUtils;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -50,9 +53,9 @@ public class LoginManagedBean {
         }
     }
 
-    public String isClientCanConnect() {
+    public String isClientCanConnect() throws NoSuchAlgorithmException {
         String result = "";
-        _client = _gestionConnexionSessionBeanRemote.getClientIfCanConnect(_loginClient, _passwordClient);
+        _client = _gestionConnexionSessionBeanRemote.getClientIfCanConnect(_loginClient, PasswordEncadageUtils.encode(_passwordClient));
         if (_client != null) {
             result = ConstantsPages.CLIENT_ACCUEIL_PAGE+"?faces-redirect=true";
             _showErrorClient = false;
@@ -64,7 +67,7 @@ public class LoginManagedBean {
 
     public String isTechnicienCanConnect() {
         String result = "";
-        _technicien = _gestionConnexionSessionBeanRemote.getTechnicienIfCanConnect(_loginTechnicien, _passwordTechnicien);
+        _technicien = _gestionConnexionSessionBeanRemote.getTechnicienIfCanConnect(_loginTechnicien, PasswordEncadageUtils.encode(_passwordTechnicien));
         if (_technicien != null) {
             result = ConstantsPages.TECHNICIEN_ACCUEIL_PAGE+"?faces-redirect=true";
             _showErrorTecnicien = false;

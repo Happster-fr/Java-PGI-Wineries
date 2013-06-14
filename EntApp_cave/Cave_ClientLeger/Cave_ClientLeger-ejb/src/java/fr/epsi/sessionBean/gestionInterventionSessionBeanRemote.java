@@ -35,7 +35,7 @@ public interface gestionInterventionSessionBeanRemote {
     List<Intervention> getListInterventionTechnicien(int idTechnicien);
 
     List<Intervention> getListInterventionClientNotEnded(int idClient);
-    
+
     List<Intervention> getListInterventionClientEnded(int idClient);
 
     void addPieceIntervention(ListePiece listPiece);
@@ -47,6 +47,8 @@ public interface gestionInterventionSessionBeanRemote {
     void addPieceToInterventionAlreadyExist(int idPiece, int idIntervention, int qteToAdd);
 
     List<Intervention> getListInterventionNonFinishedByTech(int idTechnicien);
-    
-    List<Intervention> getListInterventionToday(int idTechnicien);
+
+    List<Intervention> getListInterventionTechnicienToday(int idTechnicien);
+
+    List<Intervention> getListInterventionClientToday(int idClient);
 }
