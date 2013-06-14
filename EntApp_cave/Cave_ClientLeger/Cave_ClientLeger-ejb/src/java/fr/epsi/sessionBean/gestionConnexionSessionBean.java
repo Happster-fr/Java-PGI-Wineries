@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.epsi.sessionBean;
 
 import fr.epsi.cave.ejbentity.Client;
@@ -13,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
+ * Manage connection of clients and technicians
  *
  * @author Mikhael
  */
@@ -22,6 +19,13 @@ public class gestionConnexionSessionBean implements gestionConnexionSessionBeanR
     @PersistenceContext
     private EntityManager _em;
 
+    /**
+     * Test client connection (check its login and password) and returns the Client instance
+     *
+     * @param login
+     * @param password
+     * @return Client
+     */
     @Override
     public Client getClientIfCanConnect(String login, String password) {
         Query q = _em.createNamedQuery("Client.findByLoginPassword");
@@ -34,6 +38,13 @@ public class gestionConnexionSessionBean implements gestionConnexionSessionBeanR
         }
     }
 
+    /**
+     * Test technician connection (check its login and password) and returns the Technician instance
+     *
+     * @param login
+     * @param password
+     * @return Technicien
+     */
     @Override
     public Technicien getTechnicienIfCanConnect(String login, String password) {
         Query q = _em.createNamedQuery("Technicien.findByLoginPassword");

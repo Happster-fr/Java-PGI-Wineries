@@ -1,10 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.epsi.enums;
 
 /**
+ * Enum provides states of Interventions
  *
  * @author Quentin ecale
  */
@@ -14,7 +11,6 @@ public enum EtatIntervention {
     PLANIFIE("Planifiée"),
     DEBUTEE("Débutée"),
     TERMINEE("Terminée");
-
     private final String valToInsert;
 
     EtatIntervention(String val) {
@@ -25,4 +21,3 @@ public enum EtatIntervention {
         return this.valToInsert;
     }
 }
-

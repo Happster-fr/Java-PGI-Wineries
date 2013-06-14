@@ -1,12 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.epsi.enums;
 
 /**
+ * Enum provides types of contracts
  *
- * @author Antho
+ * @author Anthony
  */
 public enum TypeContrat {
 
@@ -21,5 +18,5 @@ public enum TypeContrat {
 
     public String getTypeContratInsert() {
         return this.valToInsert;
-    }  
+    }
 }

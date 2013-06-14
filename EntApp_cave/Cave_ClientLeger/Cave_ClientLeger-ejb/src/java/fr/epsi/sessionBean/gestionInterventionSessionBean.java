@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
+ * Manage interventions for Clients and Technicians
  *
  * @author Quentin ecale and Anthony
  */
