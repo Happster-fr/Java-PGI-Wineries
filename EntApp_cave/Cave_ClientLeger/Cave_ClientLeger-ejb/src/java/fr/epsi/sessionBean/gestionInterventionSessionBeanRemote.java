@@ -35,6 +35,8 @@ public interface gestionInterventionSessionBeanRemote {
     List<Intervention> getListInterventionTechnicien(int idTechnicien);
 
     List<Intervention> getListInterventionClientNotEnded(int idClient);
+    
+    List<Intervention> getListInterventionClientEnded(int idClient);
 
     void addPieceIntervention(ListePiece listPiece);
 

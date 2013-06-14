@@ -2,13 +2,94 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Visualisation Intervention Passées</title>
+        <h:outputStylesheet name="css/style.css"/>
     </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
+    <body>
+        <div id="logo" class="container">
+            <h1>
+                <img width="50px" src="/Cave_ClientLeger-war/faces/javax.faces.resource/images/icone.png" alt="Logo Dewine" title="Logo Dewine"/>
+                <a href="#">DeWine</a>
+            </h1>
+        </div>
+        <div id="menu-wrapper">
+            <div id="menu" class="container">
+                <ul>
+                    <li><h:link value="Accueil" outcome="/Client/accueilClient" /></li>
+                    <li class="current_page_item"><h:link value="Visualisation Interventions" outcome="/Client/visuInterv" /></li>
+                    <li><h:link value="Gestion des contrats" outcome="/Client/changeContrat" /></li>
+                    <li><h:link value="Ajouter Intervention" outcome="/Client/ajouterIntervention" /></li>
+                    <li><h:link value="Deconnexion" outcome="/General/deconnexion" /></li>
+                </ul>
+            </div>
+        </div>
+        <div id="page" class="container">
+            <div id="box">
+                <h2 class="title"><a href="#">Mes interventions en passées</a></h2>
+                <div style="clear: both;">&nbsp;</div>
+                <div class="entry">
+                    <h:form>
+                        <h:dataTable border="0" rules="all" value="#{gestIntervClientManagedBean.interventionCurrentClientPassees}" var="i" class="tableau">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="N° intervention" />
+                                </f:facet>
+                                <h:outputText value="#{i.interventionId}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Client" />
+                                </f:facet>
+                                <h:outputText value="#{i.fkClientId}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Type" />
+                                </f:facet>
+                                <h:outputText value="#{i.type}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Date" />
+                                </f:facet>
+                                <h:outputText value="#{i.date}">
+                                    <f:convertDateTime pattern="dd-MM-yyyy" />
+                                </h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Etat" />
+                                </f:facet>
+                                <h:outputText value="#{i.etat}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Facture" />
+                                </f:facet>
+                                <h:commandButton value="Imprimer" action="#{gestIntervClientManagedBean.imprimerIntervention}" >
+                                    <f:param name="intervToPrint" value="#{i.interventionId}" />
+                                </h:commandButton>
+                            </h:column>  
+                        </h:dataTable>
+                    </h:form>
+                </div>
+            </div>
+            <div id="box3">
+                <h2>Navigation</h2>
+                <ul class="style1">
+                    <li class="first"><h:link value="Accueil" outcome="/Client/accueilClient" /></li>
+                    <li><h:link value="Visualisation Interventions" outcome="/Client/visuInterv" /></li>
+                    <li><h:link value="Gestion des contrats" outcome="/Client/changeContrat" /></li>
+                    <li><h:link value="Ajouter Intervention" outcome="/Client/ajouterIntervention" /></li>
+                    <li><h:link value="Deconnexion" outcome="/General/deconnexion" /></li>
+                </ul>
+            </div>
+        </div>
+        <div id="footer" class="container">
+            <p>Copyright (c) 2013 Cave.com. All rights reserved.</p>
+        </div>
+    </body>
 </html>
 

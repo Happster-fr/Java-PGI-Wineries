@@ -124,6 +124,14 @@ public class gestionInterventionSessionBean implements gestionInterventionSessio
         q.setParameter("etat", EtatIntervention.TERMINEE.getEnumEtatIntervention());
         return q.getResultList();
     }
+    
+    @Override
+    public List<Intervention> getListInterventionClientEnded(int idClient) {
+        Query q = _em.createNamedQuery("Intervention.findIntervEndedByFkClientId");
+        q.setParameter("fkClientId", idClient);
+        q.setParameter("etat", EtatIntervention.TERMINEE.getEnumEtatIntervention());
+        return q.getResultList();
+    }
 
     @Override
     public List<Intervention> getListInterventionNonFinishedByTech(int idTechnicien) {

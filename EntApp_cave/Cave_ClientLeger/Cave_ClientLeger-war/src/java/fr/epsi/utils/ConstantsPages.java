@@ -2,11 +2,10 @@ package fr.epsi.utils;
 
 public class ConstantsPages {
     /* GENERAL */
-
     public static final String LOGIN_PAGE = "/General/login";
     public static final String LOGIN_CLIENT_PAGE = "/General/loginClient";
     public static final String LOGIN_TECHNICIEN_PAGE = "/General/loginTechnicien";
-    public static final String ACCUEIL_PAGE = "/General/accueil";
+    public static final String DECONNEXION_PAGE = "/General/deconnexion";
     /* INTERVENTION */
     public static final String INTERVENTION_ADD_PAGE = "/Intervention/addIntervention";
     public static final String INTERVENTION_DETAIL_PAGE = "/Intervention/detail";
@@ -23,4 +22,5 @@ public class ConstantsPages {
     public static final String CLIENT_ACCUEIL_PAGE = "/Client/accueilClient";
     public static final String CLIENT_INTERVENTION_PREVENTIVE_PAGE = "/Client/intervPreventive";
     public static final String CLIENT_INTERVENTION_CURATIVE_PAGE = "/Client/intervCurative";
+    public static final String CLIENT_INTERVENTION_TO_PRINT = "/Client/intervToPrint";
 }

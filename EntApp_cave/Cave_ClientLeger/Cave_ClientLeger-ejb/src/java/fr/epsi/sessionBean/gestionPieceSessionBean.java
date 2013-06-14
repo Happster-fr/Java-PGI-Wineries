@@ -4,11 +4,13 @@
  */
 package fr.epsi.sessionBean;
 
+import fr.epsi.cave.ejbentity.ListePiece;
 import fr.epsi.cave.ejbentity.Piece;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -52,6 +54,13 @@ public class gestionPieceSessionBean implements gestionPieceSessionBeanRemote {
         Piece piece = _em.find(Piece.class, pId);
         piece.setQteStock(piece.getQteStock()-qte);
         _em.merge(piece);
+    }
+
+    @Override
+    public List<ListePiece> getListPieceForIntervention(int interventionId) {
+        Query q = _em.createNamedQuery("ListePiece.findByInterventionId");
+        q.setParameter("interventionId", interventionId);
+        return q.getResultList();
     }
 
 }

@@ -66,24 +66,27 @@
                             </h:commandButton>
 
                             <h:panelGrid border="0" columns="2" cellpadding="5">
-                                <h:dataTable border="0" rules="all" value="#{gestIntervManagedBean.listPieceInterv}"
+                                <h:dataTable border="0" rules="all" value="#{gestIntervManagedBean.getDataPieceIntervention()}"
                                              var="l">
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Pièce" />
                                         </f:facet>
-                                        <h:outputText value="#{l.pieceId}" />
+                                        <h:outputText value="#{l.nomPiece}" />
                                     </h:column>
                                     <h:column>
                                         <f:facet name="header">
                                             <h:outputText value="Quantité" />
                                         </f:facet>
-                                        <h:outputText value="#{l.nombre}" />
+                                        <h:outputText value="#{l.qteUtilise}" />
                                     </h:column>
                                 </h:dataTable>
                             </h:panelGrid>
 
-                            <h:commandButton value="Valider" action="#{gestIntervManagedBean.enregistrerAvancement}" />
+                            <h:commandButton value="Valider" action="#{gestIntervManagedBean.enregistrerAvancement}" >
+                                <f:param name="intervToSee" value="#{gestIntervManagedBean.detailInterv.interventionId}" />
+                            </h:commandButton>
+                            <h:commandButton value="Annuler" action="#{gestIntervManagedBean.voirIntervAReal()}" />
                         </h:form>
                     </div>
                 </div>

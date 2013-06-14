@@ -4,6 +4,7 @@
  */
 package fr.epsi.sessionBean;
 
+import fr.epsi.cave.ejbentity.ListePiece;
 import fr.epsi.cave.ejbentity.Piece;
 import java.util.List;
 import javax.ejb.Remote;
@@ -14,15 +15,18 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface gestionPieceSessionBeanRemote {
+
     void createPiece(Piece p);
 
     void modifyPiece(Piece p);
-    
+
     void reserveQtePiece(Piece p, int qte);
 
     List<Piece> getAllPiece();
 
-    Piece getPieceById(int pId);  
-    
+    Piece getPieceById(int pId);
+
     void decrementeStock(int pId, int qte);
+
+    List<ListePiece> getListPieceForIntervention(int interventionId);
 }

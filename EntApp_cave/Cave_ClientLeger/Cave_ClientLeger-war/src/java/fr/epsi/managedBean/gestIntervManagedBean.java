@@ -11,10 +11,11 @@ import fr.epsi.sessionBean.gestionInterventionSessionBeanRemote;
 import fr.epsi.sessionBean.gestionPieceSessionBeanRemote;
 import fr.epsi.utils.ConstantsPages;
 import fr.epsi.utils.EnumEtatIntervention;
+import fr.epsi.utils.RowTablePieceInterv;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -22,6 +23,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -39,7 +42,7 @@ public class gestIntervManagedBean {
     @EJB
     private gestionPieceSessionBeanRemote _gestPieceBean;
     private Intervention _detailInterv;
-    private List<ListePiece> _listPieceInterv;
+    private DataModel _pieceUseInterv;
     private Intervention _newIntervention;
 
     /**
@@ -68,8 +71,8 @@ public class gestIntervManagedBean {
         if (!params.get("intervToSee").isEmpty()) {
             _detailInterv = _gestIntervBean.getInterventionById(Integer.parseInt(params.get("intervToSee")));
         }
-        _listPieceInterv = _gestIntervBean.getListPieceIntervention(_detailInterv);
-        return ConstantsPages.TECHNICIEN_AVANCEMENT_PAGE;
+        
+        return ConstantsPages.TECHNICIEN_AVANCEMENT_PAGE+"?faces-redirect=true";
     }
 
     /**
@@ -80,6 +83,28 @@ public class gestIntervManagedBean {
      */
     public String enregistrerAvancement() {
         _gestIntervBean.modifyIntervention(_detailInterv);
+        return ConstantsPages.TECHNICIEN_A_REAL_PAGE;
+    }
+
+    /**
+     * Fill DataModel to show Piece and number used for intervention
+     * @return DataModel which contains Piece of intervention
+     */
+    public DataModel getDataPieceIntervention() {
+        List<RowTablePieceInterv> listPieceInterv = new ArrayList();
+        List<ListePiece> listeP = _gestIntervBean.getListPieceIntervention(_detailInterv);
+        _pieceUseInterv = new ListDataModel();
+        for (ListePiece lp : listeP) {
+            RowTablePieceInterv pInterv = new RowTablePieceInterv(getNomPieceByID(lp.getPieceId()), "" + lp.getNombre());
+            listPieceInterv.add(pInterv);
+        }
+
+        _pieceUseInterv.setWrappedData(listPieceInterv);
+
+        return _pieceUseInterv;
+    }
+    
+    public String voirIntervAReal() {
         return ConstantsPages.TECHNICIEN_A_REAL_PAGE;
     }
 
@@ -103,12 +128,12 @@ public class gestIntervManagedBean {
         return _detailInterv;
     }
 
-    public List<ListePiece> getListPieceInterv() {
-        return _listPieceInterv;
-    }
-
     public Intervention getNewIntervention() {
         return _newIntervention;
+    }
+
+    public DataModel getPieceUseInterv() {
+        return _pieceUseInterv;
     }
 
     public void setIc(InitialContext _ic) {
@@ -123,12 +148,11 @@ public class gestIntervManagedBean {
         this._detailInterv = _detailInterv;
     }
 
-    public void setListPieceInterv(List<ListePiece> _listPieceInterv) {
-        this._listPieceInterv = _listPieceInterv;
-    }
-
     public void setNewIntervention(Intervention _newIntervention) {
         this._newIntervention = _newIntervention;
     }
 
+    public void setPieceUseInterv(DataModel _pieceUseInterv) {
+        this._pieceUseInterv = _pieceUseInterv;
+    }
 }

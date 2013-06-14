@@ -8,11 +8,13 @@ import fr.epsi.cave.ejbentity.Client;
 import fr.epsi.cave.ejbentity.Technicien;
 import fr.epsi.sessionBean.gestionConnexionSessionBeanRemote;
 import fr.epsi.utils.ConstantsPages;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -52,7 +54,7 @@ public class LoginManagedBean {
         String result = "";
         _client = _gestionConnexionSessionBeanRemote.getClientIfCanConnect(_loginClient, _passwordClient);
         if (_client != null) {
-            result = ConstantsPages.CLIENT_ACCUEIL_PAGE;
+            result = ConstantsPages.CLIENT_ACCUEIL_PAGE+"?faces-redirect=true";
             _showErrorClient = false;
         } else {
             _showErrorClient = true;
@@ -64,7 +66,7 @@ public class LoginManagedBean {
         String result = "";
         _technicien = _gestionConnexionSessionBeanRemote.getTechnicienIfCanConnect(_loginTechnicien, _passwordTechnicien);
         if (_technicien != null) {
-            result = ConstantsPages.TECHNICIEN_ACCUEIL_PAGE;
+            result = ConstantsPages.TECHNICIEN_ACCUEIL_PAGE+"?faces-redirect=true";
             _showErrorTecnicien = false;
         } else {
             _showErrorTecnicien = true;
@@ -72,10 +74,9 @@ public class LoginManagedBean {
         return result;
     }
 
-    public String logouter() {
-        String path = "/General/login";
-        //FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return path;
+    public void logouter() throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
     }
 
     /* GET/SET */
