@@ -4,7 +4,6 @@
  */
 package fr.epsi.sessionBean;
 
-import fr.epsi.cave.ejbentity.Intervention;
 import fr.epsi.cave.ejbentity.Technicien;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +22,12 @@ public class gestionTechnicienSessionBean implements gestionTechnicienSessionBea
     @PersistenceContext
     private EntityManager _em;
 
+    /**
+     * Get a list of techniciens available for date
+     *
+     * @param date
+     * @return List<Technicien>
+     */
     @Override
     public List<Technicien> getTechncienDispo(Date date) {
         String sQuerry = "SELECT t FROM Technicien t WHERE t.technicienId NOT IN (SELECT i.fkTechnicienId FROM Intervention i WHERE i.date = :dateIntervention)";
@@ -31,6 +36,13 @@ public class gestionTechnicienSessionBean implements gestionTechnicienSessionBea
         return (List<Technicien>) q.getResultList();
     }
 
+    /**
+     * Get a list of techniciens available for date specialists of specialite
+     *
+     * @param date
+     * @param specialite
+     * @return List<Technicien>
+     */
     @Override
     public List<Technicien> getTechncienDispo(Date date, String specialite) {
         String sQuerry = "SELECT t FROM Technicien t WHERE t.specialite = :specialite AND t.technicienId NOT IN (SELECT i.fkTechnicienId FROM Intervention i WHERE i.date = :dateIntervention)";
